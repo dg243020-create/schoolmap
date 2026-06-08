@@ -1,1 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大商学園 高機能ナビマップ</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; margin: 0; padding: 0; display: flex; height: 100vh; }
+        
+        /* 左側のコントロールパネル */
+        #panel { width: 300px; background: #ffffff; box-shadow: 2px 0 5px rgba(0,0,0,0.1); padding: 20px; z-index: 10; display: flex; flex-direction: column; gap: 15px; }
+        h3 { margin-top: 0; color: #005bac; }
+        .input-group { display: flex; flex-direction: column; gap: 5px; }
+        label { font-size: 12px; color: #666; font-weight: bold; }
+        select, button { padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; }
+        button { background: #005bac; color: white; border: none; cursor: pointer; font-weight: bold; }
+        button:hover { background: #004080; }
+        
+        /* 右側のマップエリア */
+        #map { flex-grow: 1; height: 100%; }
+        
+        /* 階層インジケーターのカスタムスタイル */
+        .floor-indicator { background: white; padding: 5px 10px; font-weight: bold; border-radius: 4px; border: 2px solid rgba(0,0,0,0.2); }
+    </style>
+</head>
+<body>
 
+    <div id="panel">
+        <h3>大商学園 ナビ</h3>
+        
+        <div class="input-group">
+            <label for="start">現在地（出発点）</label>
+            <select id="start">
+                <option value="gate">正門</option>
+                <option value="honkan_1f">本館 1階ロビー</option>
+                <option value="gym">体育館</option>
+            </select>
+        </div>
+        
+        <div class="input-group">
+            <label for="end">目的地</label>
+            <select id="end">
+                <option value="honkan_1f">本館 1階ロビー</option>
+                <option value="honkan_2f" selected>本館 2階 教室A</option>
+                <option value="gym">体育館</option>
+            </select>
+        </div>
+        
+        <button onclick="searchRoute()">ルートを検索</button>
+        <hr style="width:100%; border:0; border-top:1px solid #eee;">
+        
+        <div class="input-group">
+            <label>現在の表示階層</label>
+            <select id="floorSelect" onchange="changeFloor(this.value)">
+                <option value="1">1階 (1F)</option>
+                <option value="2">2階 (2F)</option>
+                <option value="3">3階 (3F)</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // 大商学園の基本座標
+        const schoolCenter = [34.7615, 135.4625];
+        const map = L.map('map').setView(schoolCenter, 18);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // 各地点の座標データ（ダミーデータ、実際の校舎に合わせて調整してください）
+        const locations = {
+            gate: { coords: [34.7611, 135.4622], name: "正門", floor: 1 },
+            honkan_1f: { coords: [34.7615, 135.4625], name: "本館 1階ロビー", floor: 1 },
+            honkan_2f: { coords: [34.7616, 135.4626], name: "本館 2階 教室A", floor: 2 },
+            honkan_3f: { coords: [34.7617, 135.4627], name: "本館 3階 パソコン室", floor: 3 },
+            gym: { coords: [34.7610, 135.4632], name: "体育館", floor: 1 }
+        };
+
+        // 階層ごとのレイヤーグループを作成
+        const floorLayers = {
+            1: L.layerGroup(),
+            2: L.layerGroup(),
+            3: L.layerGroup()
+        };
+
+        // 最初は1階のレイヤーをマップに追加
+        floorLayers[1].addTo(map);
+
+        // 各階にピン（マーカー）を配置
+        L.marker(locations.gate.coords).bindPopup("正門 (1F)").addTo(floorLayers[1]);
+        L.marker(locations.honkan_1f.coords).bindPopup("本館 1階ロビー").addTo(floorLayers[1]);
+        L.marker(locations.gym.coords).bindPopup("体育館 (1F)").addTo(floorLayers[1]);
+        
+        L.marker(locations.honkan_2f.coords).bindPopup("本館 2階 教室A").addTo(floorLayers[2]);
+        L.marker(locations.honkan_3f.coords).bindPopup("本館 3階 パソコン室").addTo(floorLayers[3]);
+
+        // 現在表示中のルート（線）を保持する変数
+        let currentRoute = null;
+        let currentFloor = 1;
+
+        // 階層を切り替える関数
+        function changeFloor(floorNum) {
+            // すべての階層レイヤーを一度削除
+            for (let f in floorLayers) {
+                map.removeLayer(floorLayers[f]);
+            }
+            // 選択された階層のレイヤーを表示
+            floorLayers[floorNum].addTo(map);
+            currentFloor = parseInt(floorNum);
+            document.getElementById('floorSelect').value = floorNum;
+        }
+
+        // マップをクリックしたときに階層を進める（ループする）機能
+        map.on('click', function(e) {
+            // クリックされたら階層を 1 -> 2 -> 3 -> 1 と切り替える
+            let nextFloor = currentFloor + 1;
+            if (nextFloor > 3) nextFloor = 1;
+            
+            changeFloor(nextFloor);
+            
+            // 画面に現在の階層をポップアップで通知（確認用）
+            L.popup()
+                .setLatLng(e.latlng)
+                .setContent(`マップがクリックされました。現在【 ${nextFloor}階 】を表示中`)
+                .openOn(map);
+        });
+
+        // ルートを検索して描画する関数
+        function searchRoute() {
+            const startKey = document.getElementById('start').value;
+            const endKey = document.getElementById('end').value;
+            
+            const startPt = locations[startKey];
+            const endPt = locations[endKey];
+
+            // すでに描画されているルートがあれば消す
+            if (currentRoute) {
+                map.removeLayer(currentRoute);
+            }
+
+            // 出発地と目的地の座標を繋ぐ線を生成（簡易的な直線ルート、必要に応じて中継点を増やせます）
+            const latlngs = [startPt.coords, endPt.coords];
+            
+            // ルートを赤い線（破線）で描画
+            currentRoute = L.polyline(latlngs, {
+                color: 'red',
+                weight: 5,
+                opacity: 0.7,
+                dashArray: '10, 10'
+            }).addTo(map);
+
+            // ルート全体が見えるようにカメラを調整
+            map.fitBounds(currentRoute.getBounds(), { padding: [50, 50] });
+
+            // 目的地がある階層に自動で切り替え
+            changeFloor(endPt.floor);
+            
+            alert(`${startPt.name} から ${endPt.name} へのルートを表示しました。\n（目的地は ${endPt.floor}階 です）`);
+        }
+    </script>
+</body>
+</html>
