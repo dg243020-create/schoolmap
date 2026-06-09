@@ -1,69 +1,58 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>大商学園 高機能校内ナビマップ</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <style>
-        body, html { margin: 0; padding: 0; height: 100%; width: 100%; display: flex; font-family: 'Helvetica Neue', Arial, sans-serif; }
-        
-        /* 左側のコントロールパネル */
-        #panel { width: 300px; background: #ffffff; box-shadow: 2px 0 5px rgba(0,0,0,0.1); padding: 20px; z-index: 10; display: flex; flex-direction: column; gap: 15px; box-sizing: border-box; }
-        h3 { margin-top: 0; color: #005bac; }
-        .input-group { display: flex; flex-direction: column; gap: 5px; }
-        label { font-size: 12px; color: #666; font-weight: bold; }
-        select, button { padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; }
-        button { background: #005bac; color: white; border: none; cursor: pointer; font-weight: bold; }
-        button:hover { background: #004080; }
-        
-        /* 右側のマップエリア */
-        #map { flex-grow: 1; height: 100%; background: #e0e0e0; }
-        
-        /* 現在の階層を表示するバッジ */
-        #floor-badge { position: absolute; top: 10px; right: 10px; background: rgba(0, 85, 172, 0.9); color: white; padding: 10px 20px; font-weight: bold; font-size: 18px; border-radius: 8px; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.3); pointer-events: none; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大商学園 校内マップ</title>
+
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div id="panel">
-        <h3>大商学園 ナビ</h3>
-        
-        <div class="input-group">
-            <label for="start">現在地（出発点）</label>
-            <select id="start">
-                <option value="gate">正門 (1F)</option>
-                <option value="lobby">本館 1階ロビー (1F)</option>
-                <option value="classA">本館 2階 教室A (2F)</option>
-                <option value="pc_room">本館 3階 パソコン室 (3F)</option>
-            </select>
-        </div>
-        
-        <div class="input-group">
-            <label for="end">目的地</label>
-            <select id="end">
-                <option value="gate">正門 (1F)</option>
-                <option value="lobby">本館 1階ロビー (1F)</option>
-                <option value="classA" selected>本館 2階 教室A (2F)</option>
-                <option value="pc_room">本館 3階 パソコン室 (3F)</option>
-            </select>
-        </div>
-        
-        <button onclick="searchRoute()">ルートを検索</button>
-        <hr style="width:100%; border:0; border-top:1px solid #eee; margin: 10px 0;">
-        
-        <div class="input-group">
-            <label for="floorSelect">階層（手動切り替え）</label>
-            <select id="floorSelect" onchange="changeFloor(parseInt(this.value))">
-                <option value="1">1階 (1F)</option>
-                <option value="2">2階 (2F)</option>
-                <option value="3">3階 (3F)</option>
-            </select>
-        </div>
-        
-        <p style="font-size: 11px; color: #888; margin-top: auto;">
-            💡 <b>ヒント</b><br>
-            ・マップのどこかをクリックすると階層が 1F ➔ 2F ➔ 3F ➔ 1F と切り替わります。<br>
+<h1>大商学園 校内マップ</h1>
+
+<div class="controls">
+
+<select id="start">
+<option value="">現在地</option>
+<option value="entrance">正門</option>
+<option value="stairs">中央階段</option>
+<option value="library">図書室</option>
+</select>
+
+<select id="goal">
+<option value="">目的地</option>
+<option value="entrance">正門</option>
+<option value="stairs">中央階段</option>
+<option value="library">図書室</option>
+</select>
+
+<button onclick="drawRoute()">経路表示</button>
+
+</div>
+
+<div class="floor-buttons">
+<button onclick="changeFloor('A1F.png')">1階</button>
+<button onclick="changeFloor('A2F.png')">2階</button>
+<button onclick="changeFloor('A3F.png')">3階</button>
+</div>
+
+<div id="map-container">
+
+<img
+id="map"
+src="A1F.png"
+alt="校内マップ"
+>
+
+<canvas id="routeCanvas"></canvas>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>            ・マップのどこかをクリックすると階層が 1F ➔ 2F ➔ 3F ➔ 1F と切り替わります。<br>
             ・クリックした場所の座標（Y, X）がアラートで出るのでピンの位置調整に使えます。
         </p>
     </div>
