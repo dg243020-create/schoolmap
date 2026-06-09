@@ -17,6 +17,10 @@ const locations = {
 
 };
 
+document.getElementById("map").onclick = e => {
+    console.log(e.offsetX, e.offsetY);
+};
+
 const map = document.getElementById("map");
 const canvas = document.getElementById("routeCanvas");
 const ctx = canvas.getContext("2d");
