@@ -92,11 +92,15 @@
         let currentRoute = null;
 
         // Leafletを画像専用モード(L.CRS.Simple)で初期化
-        const map = L.map('map', {
-            crs: L.CRS.Simple,
-            minZoom: -2, // 画像が大きいため、しっかりズームアウトできるように -2 に広げました
-            maxZoom: 2
-        });
+const map = L.map('map', {
+    crs: L.CRS.Simple,      // 完全に画像専用の座標系にする
+    worldCopyJump: false,   // 世界地図のループを禁止
+    inertia: false,         // 無駄な慣性移動をオフ
+    center: [0, 0],         // 初期位置を画像の原点に固定
+    zoom: 0,
+    minZoom: -2,
+    maxZoom: 2
+});
 
         // カメラの初期位置を画像全体にフィットさせる
         map.fitBounds(bounds);
