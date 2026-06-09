@@ -1,1 +1,29 @@
+body{
+    text-align:center;
+    font-family:sans-serif;
+}
 
+#map-container{
+    position:relative;
+    display:inline-block;
+}
+
+#map{
+    width:1000px;
+}
+
+#routeCanvas{
+    position:absolute;
+    top:0;
+    left:0;
+    pointer-events:none;
+}
+
+.controls,
+.floor-buttons{
+    margin:15px;
+}
+
+button{
+    padding:10px 20px;
+}
