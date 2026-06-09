@@ -17,10 +17,10 @@
         button { background: #005bac; color: white; border: none; cursor: pointer; font-weight: bold; }
         button:hover { background: #004080; }
         
-        /* 右側のマップエリア（画面いっぱい） */
+        /* 右側のマップエリア */
         #map { flex-grow: 1; height: 100%; background: #e0e0e0; }
         
-        /* 現在の階層を表示するバッジ（画面右上に固定） */
+        /* 現在の階層を表示するバッジ */
         #floor-badge { position: absolute; top: 10px; right: 10px; background: rgba(0, 85, 172, 0.9); color: white; padding: 10px 20px; font-weight: bold; font-size: 18px; border-radius: 8px; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.3); pointer-events: none; }
     </style>
 </head>
@@ -65,6 +65,117 @@
             💡 <b>ヒント</b><br>
             ・マップのどこかをクリックすると階層が 1F ➔ 2F ➔ 3F ➔ 1F と切り替わります。<br>
             ・クリックした場所の座標（Y, X）がアラートで出るのでピンの位置調整に使えます。
+        </p>
+    </div>
+
+    <div id="floor-badge"><span id="badge-text">1F</span></div>
+
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // 画像の設定
+        const floorImages = {
+            1: 'A1F.png',
+            2: 'A1F.png', 
+            3: 'A1F.png'  
+        };
+
+        // 画像の実際のサイズ（ピクセル）
+        const imageWidth = 3816;
+        const imageHeight = 2088;
+        const bounds = [[0, 0], [imageHeight, imageWidth]];
+
+        // 【修正】初期の階層を1階（1）に変更
+        let currentFloor = 1;
+        let mapImageOverlay = null;
+        let currentRoute = null;
+
+        // Leafletを画像専用モード(L.CRS.Simple)で初期化
+        const map = L.map('map', {
+            crs: L.CRS.Simple,
+            minZoom: -2, // 画像が大きいため、しっかりズームアウトできるように -2 に広げました
+            maxZoom: 2
+        });
+
+        // カメラの初期位置を画像全体にフィットさせる
+        map.fitBounds(bounds);
+
+        // スポットの座標（画像サイズ 3816 x 2088 に合わせてあとで微調整してください）
+        const spots = {
+            gate: { coords: [300, 400], name: "正門", floor: 1 },
+            lobby: { coords: [1000, 1500], name: "本館 1階ロビー", floor: 1 },
+            classA: { coords: [1200, 1600], name: "本館 2階 教室A", floor: 2 },
+            pc_room: { coords: [1400, 1700], name: "本館 3階 パソコン室", floor: 3 }
+        };
+
+        const floorMarkerGroups = {
+            1: L.layerGroup(),
+            2: L.layerGroup(),
+            3: L.layerGroup()
+        };
+
+        L.marker(spots.gate.coords).bindPopup("<b>正門 (1F)</b>").addTo(floorMarkerGroups[1]);
+        L.marker(spots.lobby.coords).bindPopup("<b>本館 1階ロビー</b>").addTo(floorMarkerGroups[1]);
+        L.marker(spots.classA.coords).bindPopup("<b>本館 2階 教室A</b>").addTo(floorMarkerGroups[2]);
+        L.marker(spots.pc_room.coords).bindPopup("<b>本館 3階 パソコン室</b>").addTo(floorMarkerGroups[3]);
+
+        function changeFloor(floorNum) {
+            if (mapImageOverlay) {
+                map.removeLayer(mapImageOverlay);
+            }
+            mapImageOverlay = L.imageOverlay(floorImages[floorNum], bounds).addTo(map);
+
+            for (let f in floorMarkerGroups) {
+                map.removeLayer(floorMarkerGroups[f]);
+            }
+            floorMarkerGroups[floorNum].addTo(map);
+
+            currentFloor = floorNum;
+            document.getElementById('floorSelect').value = floorNum;
+            document.getElementById('badge-text').innerText = floorNum + "F";
+        }
+
+        map.on('click', function(e) {
+            const y = Math.round(e.latlng.lat);
+            const x = Math.round(e.latlng.lng);
+            
+            let nextFloor = currentFloor + 1;
+            if (nextFloor > 3) nextFloor = 1;
+            
+            changeFloor(nextFloor);
+            
+            alert(`マップクリック：【 ${nextFloor}階 】に切り替えました！\n\n（今クリックした場所の座標は [Y: ${y}, X: ${x}] です）`);
+        });
+
+        function searchRoute() {
+            const startKey = document.getElementById('start').value;
+            const endKey = document.getElementById('end').value;
+
+            const startPt = spots[startKey];
+            const endPt = spots[endKey];
+
+            if (currentRoute) {
+                map.removeLayer(currentRoute);
+            }
+
+            const routePoints = [startPt.coords, endPt.coords];
+            currentRoute = L.polyline(routePoints, {
+                color: '#ff3b30',
+                weight: 6,
+                opacity: 0.8,
+                dashArray: '8, 8'
+            }).addTo(map);
+
+            map.fitBounds(currentRoute.getBounds(), { padding: [50, 50] });
+            changeFloor(endPt.floor);
+        }
+
+        // 【修正】最初は確実に1階を読み込む
+        changeFloor(1);
+    </script>
+</body>
+</html>            ・クリックした場所の座標（Y, X）がアラートで出るのでピンの位置調整に使えます。
         </p>
     </div>
 
