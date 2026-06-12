@@ -29,8 +29,8 @@ const locations = {
 
 const floors = {
 
-    S:5,     // 新館
-    AB:5,    // AB館
+    S:6,     // 新館
+    AB:6,    // AB館
     G:5      // グラウンド側
 
 };
