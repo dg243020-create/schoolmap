@@ -1,3 +1,7 @@
+// ===============================
+// 場所データ
+// ===============================
+
 const locations = {
 
     entrance:{
@@ -19,37 +23,33 @@ const locations = {
 
 
 
-// 建物ごとの階データ
+
+// ===============================
+// 建物データ
+// ===============================
 
 const buildings = {
 
-    S:{
-        name:"新館",
-        floors:5
-    },
-
-    AB:{
-        name:"AB館",
-        floors:5
-    },
-
-    G:{
-        name:"グラウンド側",
-        floors:5
-    }
+    S:5,     // 新館
+    AB:5,    // AB館
+    G:5      // グラウンド側
 
 };
 
 
 
 
+// ===============================
 // HTML取得
+// ===============================
 
 const map =
 document.getElementById("map");
 
+
 const canvas =
 document.getElementById("routeCanvas");
+
 
 const ctx =
 canvas.getContext("2d");
@@ -58,7 +58,10 @@ canvas.getContext("2d");
 
 
 
-// 建物選択
+
+// ===============================
+// 建物を選択した時
+// ===============================
 
 function showFloors(){
 
@@ -67,9 +70,13 @@ function showFloors(){
     document.getElementById("building").value;
 
 
+
     const floor =
     document.getElementById("floor");
 
+
+
+    // 階選択をリセット
 
     floor.innerHTML =
     `
@@ -80,30 +87,37 @@ function showFloors(){
 
 
 
-    if(!building){
+    if(building === ""){
         return;
     }
 
 
 
-    for(let i = 1; i <= buildings[building].floors; i++){
+
+    // 1〜5階を作成
+
+    for(let i = 1; i <= buildings[building]; i++){
 
 
         const option =
         document.createElement("option");
 
 
+
         option.value =
         building + i + "F.png";
+
 
 
         option.textContent =
         i + "階";
 
 
+
         floor.appendChild(option);
 
     }
+
 
 }
 
@@ -111,7 +125,11 @@ function showFloors(){
 
 
 
-// 階変更
+
+
+// ===============================
+// 階を選択した時
+// ===============================
 
 function selectFloor(){
 
@@ -127,6 +145,7 @@ function selectFloor(){
 
     }
 
+
 }
 
 
@@ -135,7 +154,28 @@ function selectFloor(){
 
 
 
-// 画像読み込み後Canvas調整
+// ===============================
+// 画像変更
+// ===============================
+
+function changeFloor(file){
+
+
+    map.src = file;
+
+
+
+}
+
+
+
+
+
+
+
+// ===============================
+// 画像ロード後 Canvas調整
+// ===============================
 
 map.onload = ()=>{
 
@@ -155,7 +195,11 @@ map.onload = ()=>{
 
 
 
-// クリック座標表示
+
+
+// ===============================
+// 地図クリック座標表示
+// ===============================
 
 map.onclick = e => {
 
@@ -193,13 +237,18 @@ map.onclick = e => {
 
 
 
+
+// ===============================
 // 経路表示
+// ===============================
 
 function drawRoute(){
 
 
+
     const start =
     document.getElementById("start").value;
+
 
 
     const goal =
@@ -208,15 +257,19 @@ function drawRoute(){
 
 
 
+
     if(!start || !goal){
+
 
         alert(
         "現在地と目的地を選択してください"
         );
 
+
         return;
 
     }
+
 
 
 
@@ -238,15 +291,19 @@ function drawRoute(){
     canvas.width;
 
 
+
     const sy =
     locations[start].y / 2088 *
     canvas.height;
 
 
 
+
+
     const gx =
     locations[goal].x / 3186 *
     canvas.width;
+
 
 
     const gy =
@@ -257,12 +314,11 @@ function drawRoute(){
 
 
 
-    ctx.strokeStyle =
-    "red";
+
+    ctx.strokeStyle = "red";
 
 
-    ctx.lineWidth =
-    8;
+    ctx.lineWidth = 8;
 
 
 
@@ -282,44 +338,6 @@ function drawRoute(){
 
 
     ctx.stroke();
-
-}
-
-
-
-
-
-
-
-// 階画像変更
-
-function changeFloor(file){
-
-
-    map.src = file;
-
-
-    map.onload = ()=>{
-
-
-        canvas.width =
-        map.clientWidth;
-
-
-        canvas.height =
-        map.clientHeight;
-
-
-
-        ctx.clearRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-
-
-    };
 
 
 }
