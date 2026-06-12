@@ -1,6 +1,6 @@
-// ===============================
+// =====================
 // 場所データ
-// ===============================
+// =====================
 
 const locations = {
 
@@ -24,24 +24,24 @@ const locations = {
 
 
 
-// ===============================
-// 建物データ
-// ===============================
+// =====================
+// 建物設定
+// =====================
 
-const buildings = {
+const buildingFloors = {
 
-    S:5,     // 新館
-    AB:5,    // AB館
-    G:5      // グラウンド側
+    S:5,      // 新館
+    AB:5,     // AB館
+    G:5       // グラウンド側
 
 };
 
 
 
 
-// ===============================
-// HTML取得
-// ===============================
+// =====================
+// 要素取得
+// =====================
 
 const map =
 document.getElementById("map");
@@ -59,9 +59,9 @@ canvas.getContext("2d");
 
 
 
-// ===============================
-// 建物を選択した時
-// ===============================
+// =====================
+// 建物選択
+// =====================
 
 function showFloors(){
 
@@ -76,14 +76,26 @@ function showFloors(){
 
 
 
-    // 階選択をリセット
+    // 一旦消す
 
-    floor.innerHTML =
-    `
-    <option value="">
-    階を選択
-    </option>
-    `;
+    floor.innerHTML = "";
+
+
+
+    // 初期表示
+
+    let first =
+    document.createElement("option");
+
+
+    first.value = "";
+
+    first.textContent =
+    "階を選択";
+
+
+    floor.appendChild(first);
+
 
 
 
@@ -94,18 +106,19 @@ function showFloors(){
 
 
 
-    // 1〜5階を作成
-
-    for(let i = 1; i <= buildings[building]; i++){
 
 
-        const option =
+    // 階を追加
+
+    for(let i = 1; i <= buildingFloors[building]; i++){
+
+
+        let option =
         document.createElement("option");
 
 
 
-        option.value =
-        building + i + "F.png";
+        option.value = i;
 
 
 
@@ -119,6 +132,7 @@ function showFloors(){
     }
 
 
+
 }
 
 
@@ -127,23 +141,49 @@ function showFloors(){
 
 
 
-// ===============================
-// 階を選択した時
-// ===============================
+
+
+// =====================
+// 階選択
+// =====================
 
 function selectFloor(){
 
 
-    const file =
+
+    const building =
+    document.getElementById("building").value;
+
+
+
+    const floor =
     document.getElementById("floor").value;
 
 
 
-    if(file){
 
-        changeFloor(file);
+    if(
+        building === "" ||
+        floor === ""
+    ){
+
+        return;
 
     }
+
+
+
+
+    let file =
+    building + floor + "F.png";
+
+
+
+    console.log(file);
+
+
+
+    changeFloor(file);
 
 
 }
@@ -154,9 +194,11 @@ function selectFloor(){
 
 
 
-// ===============================
+
+
+// =====================
 // 画像変更
-// ===============================
+// =====================
 
 function changeFloor(file){
 
@@ -164,7 +206,6 @@ function changeFloor(file){
     map.src = file;
 
 
-
 }
 
 
@@ -173,11 +214,13 @@ function changeFloor(file){
 
 
 
-// ===============================
-// 画像ロード後 Canvas調整
-// ===============================
 
-map.onload = ()=>{
+
+// =====================
+// Canvasサイズ調整
+// =====================
+
+map.onload = function(){
 
 
     canvas.width =
@@ -197,26 +240,26 @@ map.onload = ()=>{
 
 
 
-// ===============================
-// 地図クリック座標表示
-// ===============================
 
-map.onclick = e => {
+// =====================
+// クリック座標
+// =====================
+
+map.onclick = function(e){
 
 
-    const x =
+    let x =
     e.offsetX;
 
 
-    const y =
+    let y =
     e.offsetY;
 
 
 
+
     console.log(
-        "X:",
         x,
-        "Y:",
         y
     );
 
@@ -238,12 +281,11 @@ map.onclick = e => {
 
 
 
-// ===============================
-// 経路表示
-// ===============================
+// =====================
+// ルート表示
+// =====================
 
 function drawRoute(){
-
 
 
     const start =
@@ -257,19 +299,18 @@ function drawRoute(){
 
 
 
-
-    if(!start || !goal){
-
+    if(
+        !start ||
+        !goal
+    ){
 
         alert(
         "現在地と目的地を選択してください"
         );
 
-
         return;
 
     }
-
 
 
 
@@ -291,19 +332,15 @@ function drawRoute(){
     canvas.width;
 
 
-
     const sy =
     locations[start].y / 2088 *
     canvas.height;
 
 
 
-
-
     const gx =
     locations[goal].x / 3186 *
     canvas.width;
-
 
 
     const gy =
@@ -313,13 +350,9 @@ function drawRoute(){
 
 
 
-
-
     ctx.strokeStyle = "red";
 
-
     ctx.lineWidth = 8;
-
 
 
     ctx.beginPath();
