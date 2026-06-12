@@ -37,6 +37,25 @@
 <button onclick="changeFloor('A3F.png')">3階</button>
 </div>
 
+<div>
+    <select id="building" onchange="showFloors()">
+        <option value="">建物を選択</option>
+        <option value="new">新館</option>
+        <option value="ab">AB館</option>
+        <option value="ground">グラウンド側</option>
+    </select>
+
+    <select id="floor" onchange="selectFloor()">
+        <option value="">階を選択</option>
+    </select>
+</div>
+
+
+<p>
+クリック座標：
+<span id="coordinate">---</span>
+</p>
+  
 <div id="map-container">
 
 <img
