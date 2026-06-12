@@ -1,51 +1,21 @@
-// =====================
-// 場所データ
-// =====================
+// 建物ごとの階数
 
-const locations = {
+const floors = {
 
-    entrance:{
-        x:300,
-        y:1800
-    },
-
-    stairs:{
-        x:1600,
-        y:1000
-    },
-
-    library:{
-        x:2500,
-        y:600
-    }
+    S: 5,
+    AB: 5,
+    G: 5
 
 };
 
 
+// HTML取得
 
-// =====================
-// 建物
-// =====================
-
-const buildingFloors = {
-
-    S:5,
-    AB:5,
-    G:5
-
-};
-
-
-
-// =====================
-// 要素
-// =====================
-
-const buildingSelect =
+const building =
 document.getElementById("building");
 
 
-const floorSelect =
+const floor =
 document.getElementById("floor");
 
 
@@ -53,156 +23,106 @@ const map =
 document.getElementById("map");
 
 
-const canvas =
-document.getElementById("routeCanvas");
+
+// ====================
+// 建物選択
+// ====================
+
+building.onchange = function(){
 
 
-const ctx =
-canvas.getContext("2d");
+    // 階をリセット
 
-
-
-
-// =====================
-// 建物変更イベント
-// =====================
-
-buildingSelect.addEventListener(
-"change",
-function(){
-
-
-    console.log("建物変更");
-
-
-    floorSelect.innerHTML =
-    "";
-
-
-    let defaultOption =
-    document.createElement("option");
-
-
-    defaultOption.value="";
-
-    defaultOption.textContent=
-    "階を選択";
-
-
-    floorSelect.appendChild(
-    defaultOption
-    );
+    floor.innerHTML =
+    '<option value="">階を選択</option>';
 
 
 
-    let building =
-    this.value;
+    let value =
+    building.value;
 
 
 
-    if(building===""){
+    if(value === ""){
         return;
     }
 
 
 
-    for(
-        let i=1;
-        i<=buildingFloors[building];
-        i++
-    ){
+    for(let i = 1; i <= floors[value]; i++){
+
 
         let option =
         document.createElement("option");
 
 
-        option.value=i;
+
+        option.value =
+        i;
 
 
-        option.textContent =
-        i+"階";
+
+        option.innerText =
+        i + "階";
 
 
-        floorSelect.appendChild(
-        option
-        );
+
+        floor.appendChild(option);
 
 
     }
 
 
-});
+
+};
 
 
 
 
 
+// ====================
+// 階選択
+// ====================
 
-
-// =====================
-// 階変更イベント
-// =====================
-
-floorSelect.addEventListener(
-"change",
-function(){
+floor.onchange = function(){
 
 
 
-    let building =
-    buildingSelect.value;
+    let buildingName =
+    building.value;
 
 
 
-    let floor =
-    this.value;
+    let floorNumber =
+    floor.value;
 
 
 
     if(
-        building==="" ||
-        floor===""
+        buildingName === "" ||
+        floorNumber === ""
     ){
         return;
     }
 
 
 
-    let file =
-    building + floor + "F.png";
-
-
-    console.log(
-    file
-    );
-
-
-    map.src=file;
-
-
-});
+    let image =
+    buildingName
+    +
+    floorNumber
+    +
+    "F.png";
 
 
 
+    console.log(image);
 
 
 
+    map.src=image;
 
 
-
-// =====================
-// 画像サイズ
-// =====================
-
-map.onload=function(){
-
-
-    canvas.width =
-    map.clientWidth;
-
-
-    canvas.height =
-    map.clientHeight;
 
 };
 
@@ -211,109 +131,20 @@ map.onload=function(){
 
 
 
-
-
-// =====================
+// ====================
 // 座標表示
-// =====================
+// ====================
 
 map.onclick=function(e){
 
 
-    let x=e.offsetX;
-
-    let y=e.offsetY;
-
-
-
     document
     .getElementById("coordinate")
-    .textContent =
-    `X:${x} Y:${y}`;
+    .innerText =
+    "X:"+
+    e.offsetX+
+    " Y:"+
+    e.offsetY;
 
 
 };
-
-
-
-
-
-
-
-
-
-// =====================
-// ルート
-// =====================
-
-function drawRoute(){
-
-
-    let start =
-    document.getElementById("start").value;
-
-
-    let goal =
-    document.getElementById("goal").value;
-
-
-
-    if(!start || !goal){
-
-        alert(
-        "現在地と目的地を選択してください"
-        );
-
-        return;
-
-    }
-
-
-
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
-
-
-
-    let sx =
-    locations[start].x / 3186 *
-    canvas.width;
-
-
-    let sy =
-    locations[start].y / 2088 *
-    canvas.height;
-
-
-    let gx =
-    locations[goal].x / 3186 *
-    canvas.width;
-
-
-    let gy =
-    locations[goal].y / 2088 *
-    canvas.height;
-
-
-
-    ctx.strokeStyle="red";
-
-    ctx.lineWidth=8;
-
-
-    ctx.beginPath();
-
-
-    ctx.moveTo(sx,sy);
-
-    ctx.lineTo(gx,gy);
-
-
-    ctx.stroke();
-
-
-}
