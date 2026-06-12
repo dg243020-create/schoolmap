@@ -3,72 +3,142 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>大商学園 校内マップ</title>
 
 <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
+
 
 <h1>大商学園 校内マップ</h1>
 
+
+
 <div class="controls">
 
+
 <select id="start">
+
 <option value="">現在地</option>
+
 <option value="entrance">正門</option>
 <option value="stairs">中央階段</option>
 <option value="library">図書室</option>
+
 </select>
+
+
 
 <select id="goal">
+
 <option value="">目的地</option>
+
 <option value="entrance">正門</option>
 <option value="stairs">中央階段</option>
 <option value="library">図書室</option>
+
 </select>
 
-<button onclick="drawRoute()">経路表示</button>
+
+
+<button onclick="drawRoute()">
+経路表示
+</button>
+
 
 </div>
 
-<div class="floor-buttons">
-<button onclick="changeFloor('A1F.png')">1階</button>
-<button onclick="changeFloor('A2F.png')">2階</button>
-<button onclick="changeFloor('A3F.png')">3階</button>
+
+
+
+<!-- 建物・階選択 -->
+
+<div class="floor-select">
+
+
+<select id="building" onchange="showFloors()">
+
+<option value="">
+建物を選択
+</option>
+
+<option value="S">
+新館
+</option>
+
+<option value="AB">
+AB館
+</option>
+
+<option value="G">
+グラウンド側
+</option>
+
+
+</select>
+
+
+
+
+<select id="floor" onchange="selectFloor()">
+
+<option value="">
+階を選択
+</option>
+
+
+</select>
+
+
+
 </div>
 
-<div>
-    <select id="building" onchange="showFloors()">
-        <option value="">建物を選択</option>
-        <option value="new">新館</option>
-        <option value="ab">AB館</option>
-        <option value="ground">グラウンド側</option>
-    </select>
 
-    <select id="floor" onchange="selectFloor()">
-        <option value="">階を選択</option>
-    </select>
-</div>
+
 
 
 <p>
+
 クリック座標：
-<span id="coordinate">---</span>
+
+<span id="coordinate">
+---
+</span>
+
+
 </p>
-  
+
+
+
+
+
 <div id="map-container">
 
+
 <img
+
 id="map"
-src="A1F.png"
+
+src="S1F.png"
+
 alt="校内マップ"
+
 >
+
 
 <canvas id="routeCanvas"></canvas>
 
+
 </div>
 
+
+
+
 <script src="script.js"></script>
+
 
 </body>
 </html>
