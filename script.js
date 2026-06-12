@@ -23,25 +23,31 @@ const locations = {
 
 
 
-
 // =====================
-// 建物設定
+// 建物
 // =====================
 
 const buildingFloors = {
 
-    S:5,      // 新館
-    AB:5,     // AB館
-    G:5       // グラウンド側
+    S:5,
+    AB:5,
+    G:5
 
 };
 
 
 
+// =====================
+// 要素
+// =====================
 
-// =====================
-// 要素取得
-// =====================
+const buildingSelect =
+document.getElementById("building");
+
+
+const floorSelect =
+document.getElementById("floor");
+
 
 const map =
 document.getElementById("map");
@@ -57,85 +63,75 @@ canvas.getContext("2d");
 
 
 
-
-
 // =====================
-// 建物選択
+// 建物変更イベント
 // =====================
 
-function showFloors(){
+buildingSelect.addEventListener(
+"change",
+function(){
 
 
-    const building =
-    document.getElementById("building").value;
+    console.log("建物変更");
 
 
-
-    const floor =
-    document.getElementById("floor");
-
+    floorSelect.innerHTML =
+    "";
 
 
-    // 一旦消す
-
-    floor.innerHTML = "";
-
-
-
-    // 初期表示
-
-    let first =
+    let defaultOption =
     document.createElement("option");
 
 
-    first.value = "";
+    defaultOption.value="";
 
-    first.textContent =
+    defaultOption.textContent=
     "階を選択";
 
 
-    floor.appendChild(first);
+    floorSelect.appendChild(
+    defaultOption
+    );
 
 
 
+    let building =
+    this.value;
 
-    if(building === ""){
+
+
+    if(building===""){
         return;
     }
 
 
 
-
-
-
-    // 階を追加
-
-    for(let i = 1; i <= buildingFloors[building]; i++){
-
+    for(
+        let i=1;
+        i<=buildingFloors[building];
+        i++
+    ){
 
         let option =
         document.createElement("option");
 
 
-
-        option.value = i;
-
+        option.value=i;
 
 
         option.textContent =
-        i + "階";
+        i+"階";
 
 
+        floorSelect.appendChild(
+        option
+        );
 
-        floor.appendChild(option);
 
     }
 
 
-
-}
-
-
+});
 
 
 
@@ -144,33 +140,31 @@ function showFloors(){
 
 
 // =====================
-// 階選択
+// 階変更イベント
 // =====================
 
-function selectFloor(){
+floorSelect.addEventListener(
+"change",
+function(){
 
 
 
-    const building =
-    document.getElementById("building").value;
+    let building =
+    buildingSelect.value;
 
 
 
-    const floor =
-    document.getElementById("floor").value;
-
+    let floor =
+    this.value;
 
 
 
     if(
-        building === "" ||
-        floor === ""
+        building==="" ||
+        floor===""
     ){
-
         return;
-
     }
-
 
 
 
@@ -178,35 +172,15 @@ function selectFloor(){
     building + floor + "F.png";
 
 
-
-    console.log(file);
-
-
-
-    changeFloor(file);
+    console.log(
+    file
+    );
 
 
-}
+    map.src=file;
 
 
-
-
-
-
-
-
-
-// =====================
-// 画像変更
-// =====================
-
-function changeFloor(file){
-
-
-    map.src = file;
-
-
-}
+});
 
 
 
@@ -217,10 +191,10 @@ function changeFloor(file){
 
 
 // =====================
-// Canvasサイズ調整
+// 画像サイズ
 // =====================
 
-map.onload = function(){
+map.onload=function(){
 
 
     canvas.width =
@@ -229,7 +203,6 @@ map.onload = function(){
 
     canvas.height =
     map.clientHeight;
-
 
 };
 
@@ -240,28 +213,16 @@ map.onload = function(){
 
 
 
-
 // =====================
-// クリック座標
+// 座標表示
 // =====================
 
-map.onclick = function(e){
+map.onclick=function(e){
 
 
-    let x =
-    e.offsetX;
+    let x=e.offsetX;
 
-
-    let y =
-    e.offsetY;
-
-
-
-
-    console.log(
-        x,
-        y
-    );
+    let y=e.offsetY;
 
 
 
@@ -282,27 +243,22 @@ map.onclick = function(e){
 
 
 // =====================
-// ルート表示
+// ルート
 // =====================
 
 function drawRoute(){
 
 
-    const start =
+    let start =
     document.getElementById("start").value;
 
 
-
-    const goal =
+    let goal =
     document.getElementById("goal").value;
 
 
 
-
-    if(
-        !start ||
-        !goal
-    ){
+    if(!start || !goal){
 
         alert(
         "現在地と目的地を選択してください"
@@ -311,8 +267,6 @@ function drawRoute(){
         return;
 
     }
-
-
 
 
 
@@ -325,49 +279,38 @@ function drawRoute(){
 
 
 
-
-
-    const sx =
+    let sx =
     locations[start].x / 3186 *
     canvas.width;
 
 
-    const sy =
+    let sy =
     locations[start].y / 2088 *
     canvas.height;
 
 
-
-    const gx =
+    let gx =
     locations[goal].x / 3186 *
     canvas.width;
 
 
-    const gy =
+    let gy =
     locations[goal].y / 2088 *
     canvas.height;
 
 
 
+    ctx.strokeStyle="red";
 
-    ctx.strokeStyle = "red";
-
-    ctx.lineWidth = 8;
+    ctx.lineWidth=8;
 
 
     ctx.beginPath();
 
 
-    ctx.moveTo(
-        sx,
-        sy
-    );
+    ctx.moveTo(sx,sy);
 
-
-    ctx.lineTo(
-        gx,
-        gy
-    );
+    ctx.lineTo(gx,gy);
 
 
     ctx.stroke();
