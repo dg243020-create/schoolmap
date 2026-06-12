@@ -54,48 +54,104 @@
 
 
 
-<!-- 建物・階選択 -->
+const buildings = {
 
-<div class="floor-select">
+    S:5,
+    AB:5,
+    G:5
 
-
-<select id="building" onchange="showFloors()">
-
-<option value="">
-建物を選択
-</option>
-
-<option value="S">
-新館
-</option>
-
-<option value="AB">
-AB館
-</option>
-
-<option value="G">
-グラウンド側
-</option>
-
-
-</select>
+};
 
 
 
+// 建物を選んだ時
 
-<select id="floor" onchange="selectFloor()">
-
-<option value="">
-階を選択
-</option>
+function showFloors(){
 
 
-</select>
+    const building =
+    document.getElementById("building").value;
+
+
+    const floor =
+    document.getElementById("floor");
 
 
 
-</div>
+    // 一旦リセット
 
+    floor.innerHTML =
+    '<option value="">階を選択</option>';
+
+
+
+    if(building === ""){
+        return;
+    }
+
+
+
+    for(let i = 1; i <= buildings[building]; i++){
+
+
+        let option =
+        document.createElement("option");
+
+
+
+        option.value =
+        building + i + "F.png";
+
+
+
+        option.textContent =
+        i + "階";
+
+
+
+        floor.appendChild(option);
+
+
+    }
+
+
+
+    console.log(
+        "表示した階:",
+        building
+    );
+
+}
+
+
+
+
+
+
+// 階を選んだ時
+
+function selectFloor(){
+
+
+    const file =
+    document.getElementById("floor").value;
+
+
+
+    console.log(
+        "選択:",
+        file
+    );
+
+
+
+    if(file){
+
+        changeFloor(file);
+
+    }
+
+}
 
 
 
