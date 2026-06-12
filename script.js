@@ -1,150 +1,78 @@
-// 建物ごとの階数
+console.log("JS読み込みOK");
 
-const floors = {
 
-    S: 5,
-    AB: 5,
-    G: 5
+window.onload = function(){
 
-};
 
+    const building =
+    document.getElementById("building");
 
-// HTML取得
 
-const building =
-document.getElementById("building");
+    const floor =
+    document.getElementById("floor");
 
 
-const floor =
-document.getElementById("floor");
 
+    console.log(
+        building,
+        floor
+    );
 
-const map =
-document.getElementById("map");
 
 
+    building.addEventListener(
+    "change",
+    function(){
 
-// ====================
-// 建物選択
-// ====================
 
-building.onchange = function(){
+        console.log(
+            "建物:",
+            building.value
+        );
 
 
-    // 階をリセット
+        floor.innerHTML =
+        `
+        <option value="">
+        階を選択
+        </option>
+        `;
 
-    floor.innerHTML =
-    '<option value="">階を選択</option>';
 
 
+        if(building.value === ""){
+            return;
+        }
 
-    let value =
-    building.value;
 
 
+        for(let i=1;i<=5;i++){
 
-    if(value === ""){
-        return;
-    }
 
+            let option =
+            document.createElement("option");
 
 
-    for(let i = 1; i <= floors[value]; i++){
+            option.value=i;
 
 
-        let option =
-        document.createElement("option");
+            option.textContent =
+            i+"階";
 
 
+            floor.appendChild(option);
 
-        option.value =
-        i;
+        }
 
 
 
-        option.innerText =
-        i + "階";
+        console.log(
+            "階追加完了"
+        );
 
 
+    });
 
-        floor.appendChild(option);
-
-
-    }
-
-
-
-};
-
-
-
-
-
-// ====================
-// 階選択
-// ====================
-
-floor.onchange = function(){
-
-
-
-    let buildingName =
-    building.value;
-
-
-
-    let floorNumber =
-    floor.value;
-
-
-
-    if(
-        buildingName === "" ||
-        floorNumber === ""
-    ){
-        return;
-    }
-
-
-
-    let image =
-    buildingName
-    +
-    floorNumber
-    +
-    "F.png";
-
-
-
-    console.log(image);
-
-
-
-    map.src=image;
-
-
-
-};
-
-
-
-
-
-
-// ====================
-// 座標表示
-// ====================
-
-map.onclick=function(e){
-
-
-    document
-    .getElementById("coordinate")
-    .innerText =
-    "X:"+
-    e.offsetX+
-    " Y:"+
-    e.offsetY;
 
 
 };
