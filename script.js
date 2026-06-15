@@ -1,30 +1,19 @@
 // =====================
-// 建物設定
+// 設定
 // =====================
 
 const floors = {
-
-    S:5,
+    S:6,
     AB:6,
     G:5
-
 };
 
 
-
-
-// =====================
-// 特殊画像
-// =====================
-
 const specialFloors = {
-
     S:{
         "1.5":"S11F.png"
     }
-
 };
-
 
 
 
@@ -32,67 +21,37 @@ const specialFloors = {
 // 要素
 // =====================
 
-const building =
-document.getElementById("building");
-
-
-const floor =
-document.getElementById("floor");
-
-
-const map =
-document.getElementById("map");
-
-
-const marker =
-document.getElementById("marker");
-
-
+const building = document.getElementById("building");
+const floor = document.getElementById("floor");
+const map = document.getElementById("map");
 
 
 
 
 // =====================
-// 建物変更
+// 建物選択
 // =====================
 
-building.addEventListener(
-"change",
-()=>{
+building.onchange = function(){
 
 
     floor.innerHTML =
-    "";
-
-
-    let first =
-    document.createElement("option");
-
-
-    first.value="";
-    first.textContent="階を選択";
-
-
-    floor.appendChild(first);
+    `<option value="">階を選択</option>`;
 
 
 
-    let value =
-    building.value;
+    let b = building.value;
 
 
 
-    if(value===""){
+    if(b===""){
         return;
     }
 
 
 
-    for(
-        let i=1;
-        i<=floors[value];
-        i++
-    ){
+    for(let i=1;i<=floors[b];i++){
+
 
         let option =
         document.createElement("option");
@@ -108,8 +67,7 @@ building.addEventListener(
 
 
 
-
-    if(value==="S"){
+    if(b==="S"){
 
 
         let option =
@@ -124,11 +82,7 @@ building.addEventListener(
 
     }
 
-
-
-});
-
-
+};
 
 
 
@@ -137,12 +91,10 @@ building.addEventListener(
 
 
 // =====================
-// 階変更
+// 階選択
 // =====================
 
-floor.addEventListener(
-"change",
-()=>{
+floor.onchange = function(){
 
 
     let b =
@@ -186,14 +138,13 @@ floor.addEventListener(
 
 
 
+    console.log(file);
+
+
     map.src=file;
 
 
-    marker.style.display="none";
-
-
-
-});
+};
 
 
 
@@ -204,7 +155,7 @@ floor.addEventListener(
 
 
 // =====================
-// 座標表示
+// 座標
 // =====================
 
 map.onclick=function(e){
@@ -212,7 +163,6 @@ map.onclick=function(e){
 
     let rect =
     map.getBoundingClientRect();
-
 
 
     let x =
@@ -241,42 +191,33 @@ map.onclick=function(e){
 
 
 // =====================
-// 目的地データ
+// 目的地
 // =====================
 
 const destinations = {
 
 
 library:{
-
-building:"S",
-floor:"2",
-
-x:2500,
-y:600
-
+    building:"S",
+    floor:"2",
+    x:2500,
+    y:600
 },
 
 
 entrance:{
-
-building:"G",
-floor:"1",
-
-x:300,
-y:500
-
+    building:"G",
+    floor:"1",
+    x:300,
+    y:500
 },
 
 
 stairs:{
-
-building:"S",
-floor:"1.5",
-
-x:1600,
-y:1000
-
+    building:"S",
+    floor:"1.5",
+    x:1600,
+    y:1000
 }
 
 
@@ -288,118 +229,94 @@ y:1000
 
 
 
-
-
 function showDestination(){
 
 
-    let value =
-    document
-    .getElementById("destination")
-    .value;
+    let key =
+    document.getElementById("destination").value;
 
 
 
-    if(value===""){
+    if(key===""){
         return;
     }
 
 
 
-    let place =
-    destinations[value];
-
+    let p =
+    destinations[key];
 
 
 
     building.value =
-    place.building;
+    p.building;
 
 
-    building.dispatchEvent(
-    new Event("change")
-    );
+    building.onchange();
 
 
 
     floor.value =
-    place.floor;
+    p.floor;
 
 
-    floor.dispatchEvent(
-    new Event("change")
-    );
-
+    floor.onchange();
 
 
 
-
-    setTimeout(()=>{
-
-
-        let container =
-        document.getElementById("map-container");
+    let marker =
+    document.getElementById("marker");
 
 
 
-        let imgRect =
-        map.getBoundingClientRect();
+    let rect =
+    map.getBoundingClientRect();
 
 
-        let containerRect =
-        container.getBoundingClientRect();
+
+    let container =
+    document
+    .getElementById("map-container")
+    .getBoundingClientRect();
 
 
 
 
-        // object-fit contain 対応
-
-        let scaleX =
-        imgRect.width / 3186;
+    let scaleX =
+    rect.width / 3186;
 
 
-        let scaleY =
-        imgRect.height / 2088;
+    let scaleY =
+    rect.height / 2088;
 
 
 
-
-        let offsetX =
-        imgRect.left -
-        containerRect.left;
-
-
-        let offsetY =
-        imgRect.top -
-        containerRect.top;
-
-
-
-
-        let x =
-        place.x * scaleX + offsetX;
-
-
-        let y =
-        place.y * scaleY + offsetY;
+    marker.style.left =
+    (
+    p.x * scaleX
+    +
+    rect.left
+    -
+    container.left
+    )
+    +"px";
 
 
 
-
-        marker.style.left =
-        x+"px";
-
-
-        marker.style.top =
-        y+"px";
-
-
-        marker.style.display =
-        "block";
+    marker.style.top =
+    (
+    p.y * scaleY
+    +
+    rect.top
+    -
+    container.top
+    )
+    +"px";
 
 
 
-    },500);
+    marker.style.display =
+    "block";
 
 
 }
