@@ -3,17 +3,20 @@
 // =====================
 
 const floors = {
-    S:6,
+    S:5,
     AB:6,
     G:5
 };
 
 
 const specialFloors = {
+
     S:{
         "1.5":"S11F.png"
     }
+
 };
+
 
 
 
@@ -21,15 +24,22 @@ const specialFloors = {
 // 要素
 // =====================
 
-const building = document.getElementById("building");
-const floor = document.getElementById("floor");
-const map = document.getElementById("map");
+const building =
+document.getElementById("building");
+
+
+const floor =
+document.getElementById("floor");
+
+
+const map =
+document.getElementById("map");
 
 
 
 
 // =====================
-// 建物選択
+// 建物変更
 // =====================
 
 building.onchange = function(){
@@ -39,9 +49,8 @@ building.onchange = function(){
     `<option value="">階を選択</option>`;
 
 
-
-    let b = building.value;
-
+    let b =
+    building.value;
 
 
     if(b===""){
@@ -58,12 +67,15 @@ building.onchange = function(){
 
 
         option.value=i;
-        option.textContent=i+"階";
+
+        option.textContent =
+        i+"階";
 
 
         floor.appendChild(option);
 
     }
+
 
 
 
@@ -75,7 +87,9 @@ building.onchange = function(){
 
 
         option.value="1.5";
-        option.textContent="1階上";
+
+        option.textContent =
+        "1階上";
 
 
         floor.appendChild(option);
@@ -90,8 +104,10 @@ building.onchange = function(){
 
 
 
+
+
 // =====================
-// 階選択
+// 階変更
 // =====================
 
 floor.onchange = function(){
@@ -138,9 +154,6 @@ floor.onchange = function(){
 
 
 
-    console.log(file);
-
-
     map.src=file;
 
 
@@ -155,7 +168,7 @@ floor.onchange = function(){
 
 
 // =====================
-// 座標
+// クリック座標
 // =====================
 
 map.onclick=function(e){
@@ -163,6 +176,7 @@ map.onclick=function(e){
 
     let rect =
     map.getBoundingClientRect();
+
 
 
     let x =
@@ -174,10 +188,22 @@ map.onclick=function(e){
 
 
 
+    // 表示サイズから元画像座標へ変換
+
+    x =
+    x / (rect.width / map.naturalWidth);
+
+
+    y =
+    y / (rect.height / map.naturalHeight);
+
+
+
     document
     .getElementById("coordinate")
     .textContent =
     `X:${Math.round(x)} Y:${Math.round(y)}`;
+
 
 
 };
@@ -191,7 +217,7 @@ map.onclick=function(e){
 
 
 // =====================
-// 目的地
+// 目的地データ
 // =====================
 
 const destinations = {
@@ -207,6 +233,7 @@ Library:{
 
 },
 
+
 Ignitionbase:{
 
     building:"AB",
@@ -217,6 +244,7 @@ Ignitionbase:{
 
 },
 
+
 Studyroom:{
 
     building:"AB",
@@ -225,8 +253,8 @@ Studyroom:{
     x:300,
     y:291
 
+},
 
-},    
 
 Millenniumhall:{
 
@@ -236,7 +264,8 @@ Millenniumhall:{
     x:753,
     y:470
 
-},    
+},
+
 
 Artroom:{
 
@@ -246,7 +275,8 @@ Artroom:{
     x:538,
     y:435
 
-},    
+},
+
 
 Exerciseroom:{
 
@@ -256,7 +286,7 @@ Exerciseroom:{
     x:985,
     y:435
 
-},    
+}
 
 
 };
@@ -267,11 +297,19 @@ Exerciseroom:{
 
 
 
+
+
+// =====================
+// 目的地表示
+// =====================
+
 function showDestination(){
 
 
     let key =
-    document.getElementById("destination").value;
+    document
+    .getElementById("destination")
+    .value;
 
 
 
@@ -286,11 +324,14 @@ function showDestination(){
 
 
 
+
+
     building.value =
     p.building;
 
 
     building.onchange();
+
 
 
 
@@ -302,59 +343,77 @@ function showDestination(){
 
 
 
-    let marker =
-    document.getElementById("marker");
+
+
+    setTimeout(()=>{
+
+
+        let marker =
+        document.getElementById("marker");
 
 
 
-    let rect =
-    map.getBoundingClientRect();
+        let mapRect =
+        map.getBoundingClientRect();
 
 
 
-    let container =
-    document
-    .getElementById("map-container")
-    .getBoundingClientRect();
+        let containerRect =
+        document
+        .getElementById("map-container")
+        .getBoundingClientRect();
 
 
 
 
-    let scaleX =
-    rect.width / 3186;
+
+        // 現在表示されている画像サイズ基準
+
+        let scaleX =
+        mapRect.width / map.naturalWidth;
 
 
-    let scaleY =
-    rect.height / 2088;
-
-
-
-    marker.style.left =
-    (
-    p.x * scaleX
-    +
-    rect.left
-    -
-    container.left
-    )
-    +"px";
+        let scaleY =
+        mapRect.height / map.naturalHeight;
 
 
 
-    marker.style.top =
-    (
-    p.y * scaleY
-    +
-    rect.top
-    -
-    container.top
-    )
-    +"px";
+
+        marker.style.left =
+
+        (
+        p.x * scaleX
+        +
+        mapRect.left
+        -
+        containerRect.left
+
+        )
+        +"px";
 
 
 
-    marker.style.display =
-    "block";
+        marker.style.top =
+
+        (
+        p.y * scaleY
+        +
+        mapRect.top
+        -
+        containerRect.top
+
+        )
+        +"px";
+
+
+
+
+        marker.style.display =
+        "block";
+
+
+
+    },500);
 
 
 }
