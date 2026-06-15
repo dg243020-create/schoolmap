@@ -294,8 +294,8 @@ Studyroom:{
     building:"AB",
     floor:"6",
 
-    x:300,
-    y:291
+    x:500,
+    y:500
 
 },    
 
