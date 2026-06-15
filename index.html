@@ -1,96 +1,102 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>大商学園 校内マップ</title>
 
+
 <link rel="stylesheet" href="style.css">
 
+
 </head>
+
 
 <body>
 
 
 <h1>大商学園 校内マップ</h1>
 
-<div id="map-container">
 
 
-<img
 
-id="map"
 
-src="AB1F.png"
+<!-- 目的地選択 -->
 
-alt="校内マップ"
+<div class="destination">
 
->
-  
-<div>
 
 <select id="destination">
+
 
 <option value="">
 目的地を選択
 </option>
 
+
 <option value="library">
 図書室
 </option>
+
 
 <option value="entrance">
 正門
 </option>
 
+
 <option value="stairs">
 中央階段
 </option>
 
+
 </select>
 
 
+
 <button onclick="showDestination()">
+
 表示
+
 </button>
 
-</div>
-
-
-<div id="marker"></div>
-
-<div class="controls">
-
-
-
-
-
-
 
 </div>
 
 
 
 
-<!-- 建物・階選択 -->
+
+
+
+
+
+<!-- 建物・階 -->
 
 <div class="floor-select">
 
 
+
 <select id="building">
+
 
 <option value="">
 建物を選択
 </option>
 
+
 <option value="S">
 新館
 </option>
 
+
 <option value="AB">
 AB館
 </option>
+
 
 <option value="G">
 グラウンド側
@@ -102,7 +108,9 @@ AB館
 
 
 
+
 <select id="floor">
+
 
 <option value="">
 階を選択
@@ -119,12 +127,52 @@ AB館
 
 
 
+
+
+
+
+<!-- 地図 -->
+
+<div id="map-container">
+
+
+
+<img
+
+id="map"
+
+src="AB1F.png"
+
+alt="校内マップ"
+
+
+>
+
+
+
+<div id="marker"></div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- 座標 -->
+
 <p>
+
 
 クリック座標：
 
 <span id="coordinate">
+
 ---
+
 </span>
 
 
@@ -138,10 +186,10 @@ AB館
 
 
 
-
-
 <script src="script.js"></script>
 
 
 </body>
+
+
 </html>
