@@ -4,9 +4,9 @@
 
 const floors = {
 
-    S:6,     // 新館
-    AB:6,    // AB館
-    G:5      // グラウンド側
+    S:6,
+    AB:6,
+    G:5
 
 };
 
@@ -44,6 +44,10 @@ const map =
 document.getElementById("map");
 
 
+const marker =
+document.getElementById("marker");
+
+
 
 
 
@@ -62,21 +66,17 @@ building.addEventListener(
     "";
 
 
-
-    let first =
+    let option =
     document.createElement("option");
 
 
-    first.value = "";
+    option.value="";
 
-
-    first.textContent =
+    option.textContent =
     "階を選択";
 
 
-
-    floor.appendChild(first);
-
+    floor.appendChild(option);
 
 
 
@@ -85,37 +85,32 @@ building.addEventListener(
 
 
 
-    if(value === ""){
+    if(value===""){
         return;
     }
 
 
 
 
-
-
-    // 通常階追加
-
     for(
-        let i = 1;
-        i <= floors[value];
+        let i=1;
+        i<=floors[value];
         i++
     ){
 
-        let option =
+
+        let item =
         document.createElement("option");
 
 
-        option.value =
-        i;
+        item.value=i;
 
 
-        option.textContent =
-        i + "階";
+        item.textContent =
+        i+"階";
 
 
-
-        floor.appendChild(option);
+        floor.appendChild(item);
 
     }
 
@@ -123,35 +118,27 @@ building.addEventListener(
 
 
 
+    if(value==="S"){
 
 
-    // 新館だけ追加
-
-    if(value === "S"){
-
-
-        let option =
+        let item =
         document.createElement("option");
 
 
-        option.value =
-        "1.5";
+        item.value="1.5";
 
 
-        option.textContent =
+        item.textContent =
         "1階上";
 
 
-
-        floor.appendChild(option);
-
+        floor.appendChild(item);
 
     }
 
 
 
 });
-
 
 
 
@@ -170,25 +157,22 @@ floor.addEventListener(
 ()=>{
 
 
-    let buildingName =
+    let b =
     building.value;
 
 
-    let floorNumber =
+    let f =
     floor.value;
 
 
 
     if(
-        buildingName === "" ||
-        floorNumber === ""
+        b==="" ||
+        f===""
+
     ){
-
         return;
-
     }
-
-
 
 
 
@@ -197,32 +181,21 @@ floor.addEventListener(
 
 
 
-    // 特殊画像チェック
-
     if(
-        specialFloors[buildingName] &&
-        specialFloors[buildingName][floorNumber]
+        specialFloors[b] &&
+        specialFloors[b][f]
     ){
 
-
         file =
-        specialFloors[buildingName][floorNumber];
-
+        specialFloors[b][f];
 
     }
     else{
 
-
         file =
-        buildingName +
-        floorNumber +
-        "F.png";
-
+        b + f + "F.png";
 
     }
-
-
-
 
 
 
@@ -232,10 +205,14 @@ floor.addEventListener(
     );
 
 
-
     map.src =
     file;
 
+
+    // 階変更したら一旦光を消す
+
+    marker.style.display =
+    "none";
 
 
 });
@@ -248,37 +225,45 @@ floor.addEventListener(
 
 
 
-
 // =====================
-// 画像クリック座標
+// 座標表示
 // =====================
 
 map.onclick =
 function(e){
 
 
+    let rect =
+    map.getBoundingClientRect();
+
 
     let x =
-    e.offsetX;
+    e.clientX - rect.left;
 
 
     let y =
-    e.offsetY;
+    e.clientY - rect.top;
 
 
 
     document
     .getElementById("coordinate")
     .textContent =
-    `X:${x} Y:${y}`;
-
+    `X:${Math.round(x)} Y:${Math.round(y)}`;
 
 
 };
 
 
+
+
+
+
+
+
+
 // =====================
-// 目的地データ
+// 目的地
 // =====================
 
 const destinations = {
@@ -295,7 +280,6 @@ library:{
 },
 
 
-
 entrance:{
 
     building:"G",
@@ -305,7 +289,6 @@ entrance:{
     y:500
 
 },
-
 
 
 stairs:{
@@ -327,12 +310,13 @@ stairs:{
 
 
 
-
 function showDestination(){
 
 
-    const value =
-    document.getElementById("destination").value;
+    let value =
+    document
+    .getElementById("destination")
+    .value;
 
 
 
@@ -342,72 +326,67 @@ function showDestination(){
 
 
 
-    const place =
+    let place =
     destinations[value];
 
 
 
 
 
-    // 建物変更
-
     building.value =
     place.building;
 
 
+
     building.dispatchEvent(
-        new Event("change")
+    new Event("change")
     );
 
 
 
-
-
-    // 階変更
 
     floor.value =
     place.floor;
 
 
+
     floor.dispatchEvent(
-        new Event("change")
+    new Event("change")
     );
 
 
 
 
 
-
-
-    // 少し待ってマーカー表示
-
     setTimeout(()=>{
 
 
-        const marker =
-        document.getElementById("marker");
+        let rect =
+        map.getBoundingClientRect();
 
 
 
-        const x =
+        let x =
         place.x / 3186 *
-        map.clientWidth;
+        rect.width;
 
 
 
-        const y =
+        let y =
         place.y / 2088 *
-        map.clientHeight;
+        rect.height;
+
 
 
 
 
         marker.style.left =
-        x+"px";
+        x + "px";
 
 
         marker.style.top =
-        y+"px";
+        y + "px";
+
 
 
         marker.style.display =
