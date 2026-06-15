@@ -58,8 +58,8 @@ Library:{
 building:"AB",
 floor:"6",
 
-x:57,
-y:469
+x:150,
+y:1000
 
 },
 
