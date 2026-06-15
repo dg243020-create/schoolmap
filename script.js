@@ -269,17 +269,66 @@ function(e){
 const destinations = {
 
 
-library:{
+Library:{
 
-    building:"S",
-    floor:"2",
+    building:"AB",
+    floor:"6",
 
-    x:2500,
-    y:600
+    x:57,
+    y:469
 
 },
 
+Ignitionbase:{
 
+    building:"AB",
+    floor:"6",
+
+    x:302,
+    y:402
+
+},
+
+Studyroom:{
+
+    building:"AB",
+    floor:"6",
+
+    x:300,
+    y:291
+
+},    
+
+Millenniumhall:{
+
+    building:"AB",
+    floor:"6",
+
+    x:753,
+    y:470
+
+},    
+
+Artroom:{
+
+    building:"AB",
+    floor:"6",
+
+    x:538,
+    y:435
+
+},    
+
+Exerciseroom:{
+
+    building:"AB",
+    floor:"6",
+
+    x:985,
+    y:435
+
+},    
+    
 entrance:{
 
     building:"G",
