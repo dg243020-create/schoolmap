@@ -61,8 +61,8 @@ Library:{
 Ignitionbase:{
     building:"AB",
     floor:"6",
-    x:302,
-    y:402
+    x:975,
+    y:600
 },
 
 
@@ -77,8 +77,8 @@ Studyroom:{
 Millenniumhall:{
     building:"AB",
     floor:"6",
-    x:753,
-    y:470
+    x:2400,
+    y:960
 },
 
 
