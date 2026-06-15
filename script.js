@@ -275,3 +275,148 @@ function(e){
 
 
 };
+
+
+// =====================
+// 目的地データ
+// =====================
+
+const destinations = {
+
+
+library:{
+
+    building:"S",
+    floor:"2",
+
+    x:2500,
+    y:600
+
+},
+
+
+
+entrance:{
+
+    building:"G",
+    floor:"1",
+
+    x:300,
+    y:500
+
+},
+
+
+
+stairs:{
+
+    building:"S",
+    floor:"1.5",
+
+    x:1600,
+    y:1000
+
+}
+
+
+};
+
+
+
+
+
+
+
+
+function showDestination(){
+
+
+    const value =
+    document.getElementById("destination").value;
+
+
+
+    if(value===""){
+        return;
+    }
+
+
+
+    const place =
+    destinations[value];
+
+
+
+
+
+    // 建物変更
+
+    building.value =
+    place.building;
+
+
+    building.dispatchEvent(
+        new Event("change")
+    );
+
+
+
+
+
+    // 階変更
+
+    floor.value =
+    place.floor;
+
+
+    floor.dispatchEvent(
+        new Event("change")
+    );
+
+
+
+
+
+
+
+    // 少し待ってマーカー表示
+
+    setTimeout(()=>{
+
+
+        const marker =
+        document.getElementById("marker");
+
+
+
+        const x =
+        place.x / 3186 *
+        map.clientWidth;
+
+
+
+        const y =
+        place.y / 2088 *
+        map.clientHeight;
+
+
+
+
+        marker.style.left =
+        x+"px";
+
+
+        marker.style.top =
+        y+"px";
+
+
+        marker.style.display =
+        "block";
+
+
+
+    },300);
+
+
+
+}
