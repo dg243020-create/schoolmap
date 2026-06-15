@@ -197,28 +197,66 @@ map.onclick=function(e){
 const destinations = {
 
 
-library:{
-    building:"S",
-    floor:"2",
-    x:2500,
-    y:600
+Library:{
+
+    building:"AB",
+    floor:"6",
+
+    x:57,
+    y:469
+
 },
 
+Ignitionbase:{
 
-entrance:{
-    building:"G",
-    floor:"1",
+    building:"AB",
+    floor:"6",
+
+    x:302,
+    y:402
+
+},
+
+Studyroom:{
+
+    building:"AB",
+    floor:"6",
+
     x:300,
-    y:500
-},
+    y:291
 
 
-stairs:{
-    building:"S",
-    floor:"1.5",
-    x:1600,
-    y:1000
-}
+},    
+
+Millenniumhall:{
+
+    building:"AB",
+    floor:"6",
+
+    x:753,
+    y:470
+
+},    
+
+Artroom:{
+
+    building:"AB",
+    floor:"6",
+
+    x:538,
+    y:435
+
+},    
+
+Exerciseroom:{
+
+    building:"AB",
+    floor:"6",
+
+    x:985,
+    y:435
+
+},    
 
 
 };
