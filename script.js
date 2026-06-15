@@ -410,41 +410,65 @@ function showDestination(){
     setTimeout(()=>{
 
 
-        let rect =
-        map.getBoundingClientRect();
+    const container =
+    document.getElementById("map-container");
+
+
+    const imgRect =
+    map.getBoundingClientRect();
+
+
+    const containerRect =
+    container.getBoundingClientRect();
 
 
 
-        let x =
-        place.x / 3186 *
-        rect.width;
+    // 表示されている画像サイズ
+
+    const scaleX =
+    imgRect.width / 3186;
+
+
+    const scaleY =
+    imgRect.height / 2088;
 
 
 
-        let y =
-        place.y / 2088 *
-        rect.height;
+    // 余白分を引く
+
+    const offsetX =
+    imgRect.left - containerRect.left;
+
+
+    const offsetY =
+    imgRect.top - containerRect.top;
+
+
+
+
+    const x =
+    place.x * scaleX + offsetX;
+
+
+    const y =
+    place.y * scaleY + offsetY;
 
 
 
 
 
-        marker.style.left =
-        x + "px";
+    marker.style.left =
+    x + "px";
 
 
-        marker.style.top =
-        y + "px";
-
-
-
-        marker.style.display =
-        "block";
+    marker.style.top =
+    y + "px";
 
 
 
-    },300);
+    marker.style.display =
+    "block";
 
 
 
-}
+},300);
