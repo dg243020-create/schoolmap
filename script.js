@@ -4,7 +4,7 @@
 
 const floors = {
 
-    S:6,
+    S:5,
     AB:6,
     G:5
 
