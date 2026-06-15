@@ -1,30 +1,4 @@
 // =====================
-// 場所データ
-// =====================
-
-const locations = {
-
-    entrance:{
-        x:300,
-        y:1800
-    },
-
-    stairs:{
-        x:1600,
-        y:1000
-    },
-
-    library:{
-        x:2500,
-        y:600
-    }
-
-};
-
-
-
-
-// =====================
 // 建物設定
 // =====================
 
@@ -40,7 +14,7 @@ const floors = {
 
 
 // =====================
-// 特殊画像設定
+// 特殊画像
 // =====================
 
 const specialFloors = {
@@ -70,16 +44,6 @@ const map =
 document.getElementById("map");
 
 
-const canvas =
-document.getElementById("routeCanvas");
-
-
-const ctx =
-canvas.getContext("2d");
-
-
-
-
 
 
 
@@ -103,13 +67,16 @@ building.addEventListener(
     document.createElement("option");
 
 
-    first.value="";
+    first.value = "";
+
 
     first.textContent =
     "階を選択";
 
 
+
     floor.appendChild(first);
+
 
 
 
@@ -118,7 +85,7 @@ building.addEventListener(
 
 
 
-    if(value===""){
+    if(value === ""){
         return;
     }
 
@@ -127,14 +94,13 @@ building.addEventListener(
 
 
 
-    // 通常階
+    // 通常階追加
 
     for(
-        let i=1;
-        i<=floors[value];
+        let i = 1;
+        i <= floors[value];
         i++
     ){
-
 
         let option =
         document.createElement("option");
@@ -145,7 +111,8 @@ building.addEventListener(
 
 
         option.textContent =
-        i+"階";
+        i + "階";
+
 
 
         floor.appendChild(option);
@@ -156,9 +123,11 @@ building.addEventListener(
 
 
 
-    // 新館だけ1階上を追加
 
-    if(value==="S"){
+
+    // 新館だけ追加
+
+    if(value === "S"){
 
 
         let option =
@@ -173,6 +142,7 @@ building.addEventListener(
         "1階上";
 
 
+
         floor.appendChild(option);
 
 
@@ -181,7 +151,6 @@ building.addEventListener(
 
 
 });
-
 
 
 
@@ -201,20 +170,22 @@ floor.addEventListener(
 ()=>{
 
 
-    let b =
+    let buildingName =
     building.value;
 
 
-    let f =
+    let floorNumber =
     floor.value;
 
 
 
     if(
-        b==="" ||
-        f===""
+        buildingName === "" ||
+        floorNumber === ""
     ){
+
         return;
+
     }
 
 
@@ -222,41 +193,48 @@ floor.addEventListener(
 
 
 
-    let filename;
+    let file;
 
 
 
-    // 特殊階チェック
+    // 特殊画像チェック
 
     if(
-        specialFloors[b] &&
-        specialFloors[b][f]
+        specialFloors[buildingName] &&
+        specialFloors[buildingName][floorNumber]
     ){
 
-        filename =
-        specialFloors[b][f];
+
+        file =
+        specialFloors[buildingName][floorNumber];
+
 
     }
     else{
 
-        filename =
-        b + f + "F.png";
+
+        file =
+        buildingName +
+        floorNumber +
+        "F.png";
+
 
     }
+
 
 
 
 
 
     console.log(
-        "変更:",
-        filename
+        "表示:",
+        file
     );
 
 
 
     map.src =
-    filename;
+    file;
 
 
 
@@ -270,38 +248,14 @@ floor.addEventListener(
 
 
 
-// =====================
-// 画像読み込み
-// =====================
-
-map.onload = ()=>{
-
-
-    canvas.width =
-    map.clientWidth;
-
-
-    canvas.height =
-    map.clientHeight;
-
-
-
-};
-
-
-
-
-
-
-
-
 
 // =====================
-// 座標表示
+// 画像クリック座標
 // =====================
 
 map.onclick =
 function(e){
+
 
 
     let x =
@@ -320,129 +274,4 @@ function(e){
 
 
 
-    console.log(
-        "X:",
-        x,
-        "Y:",
-        y
-    );
-
-
 };
-
-
-
-
-
-
-
-
-
-// =====================
-// 経路表示
-// =====================
-
-function drawRoute(){
-
-
-
-    let start =
-    document.getElementById("start").value;
-
-
-
-    let goal =
-    document.getElementById("goal").value;
-
-
-
-
-
-    if(
-        start==="" ||
-        goal===""
-    ){
-
-        alert(
-        "現在地と目的地を選択してください"
-        );
-
-        return;
-
-    }
-
-
-
-
-
-
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
-
-
-
-
-
-
-
-    let sx =
-    locations[start].x / 3186 *
-    canvas.width;
-
-
-    let sy =
-    locations[start].y / 2088 *
-    canvas.height;
-
-
-
-
-
-    let gx =
-    locations[goal].x / 3186 *
-    canvas.width;
-
-
-    let gy =
-    locations[goal].y / 2088 *
-    canvas.height;
-
-
-
-
-
-
-
-    ctx.strokeStyle =
-    "red";
-
-
-    ctx.lineWidth =
-    8;
-
-
-
-    ctx.beginPath();
-
-
-    ctx.moveTo(
-        sx,
-        sy
-    );
-
-
-    ctx.lineTo(
-        gx,
-        gy
-    );
-
-
-    ctx.stroke();
-
-
-
-}
