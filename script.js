@@ -1,18 +1,22 @@
 // =====================
-// 設定
+// 建物設定
 // =====================
 
 const floors = {
+
     S:6,
     AB:6,
     G:5
+
 };
 
 
 const specialFloors = {
+
     S:{
         "1.5":"S11F.png"
     }
+
 };
 
 
@@ -38,21 +42,168 @@ document.getElementById("marker");
 
 
 
-let currentDestination = null;
+
+
+
+
+// =====================
+// 目的地データ
+// =====================
+
+const destinations = {
+
+
+Library:{
+
+building:"AB",
+floor:"6",
+
+x:57,
+y:469
+
+},
+
+
+Ignitionbase:{
+
+building:"AB",
+floor:"6",
+
+x:302,
+y:402
+
+},
+
+
+Studyroom:{
+
+building:"AB",
+floor:"6",
+
+x:300,
+y:291
+
+},
+
+
+Millenniumhall:{
+
+building:"AB",
+floor:"6",
+
+x:753,
+y:470
+
+},
+
+
+Artroom:{
+
+building:"AB",
+floor:"6",
+
+x:538,
+y:435
+
+},
+
+
+Exerciseroom:{
+
+building:"AB",
+floor:"6",
+
+x:985,
+y:435
+
+}
+
+
+};
+
+
+
+
+
 
 
 
 
 
 // =====================
-// 建物変更
+// 画像表示範囲取得
 // =====================
 
-building.onchange = ()=>{
+function getImageInfo(){
+
+
+    const box =
+    document
+    .getElementById("map-container");
+
+
+    let scale =
+    Math.min(
+
+        box.clientWidth / map.naturalWidth,
+
+        box.clientHeight / map.naturalHeight
+
+    );
+
+
+
+    let width =
+    map.naturalWidth * scale;
+
+
+    let height =
+    map.naturalHeight * scale;
+
+
+
+
+    return {
+
+
+        scale:scale,
+
+
+        offsetX:
+        (box.clientWidth-width)/2,
+
+
+        offsetY:
+        (box.clientHeight-height)/2
+
+
+    };
+
+
+}
+
+
+
+
+
+
+
+
+
+// =====================
+// 建物選択
+// =====================
+
+building.onchange=function(){
+
 
 
     floor.innerHTML =
-    `<option value="">階を選択</option>`;
+    `
+    <option value="">
+    階を選択
+    </option>
+    `;
 
 
 
@@ -60,11 +211,20 @@ building.onchange = ()=>{
     building.value;
 
 
-    if(!b)return;
+
+    if(!b){
+        return;
+    }
 
 
 
-    for(let i=1;i<=floors[b];i++){
+
+
+    for(
+        let i=1;
+        i<=floors[b];
+        i++
+    ){
 
 
         let option =
@@ -80,6 +240,8 @@ building.onchange = ()=>{
         floor.appendChild(option);
 
     }
+
+
 
 
 
@@ -109,11 +271,15 @@ building.onchange = ()=>{
 
 
 
+
+
+
 // =====================
 // 階変更
 // =====================
 
-floor.onchange = ()=>{
+floor.onchange=function(){
+
 
 
     let b =
@@ -125,7 +291,10 @@ floor.onchange = ()=>{
 
 
 
-    if(!b || !f)return;
+    if(!b || !f){
+        return;
+    }
+
 
 
 
@@ -151,11 +320,8 @@ floor.onchange = ()=>{
 
 
 
-    // マーカー消す
 
     marker.style.display="none";
-
-    currentDestination=null;
 
 
 
@@ -173,164 +339,57 @@ floor.onchange = ()=>{
 
 
 // =====================
-// 座標取得
+// クリック座標
 // =====================
 
-map.onclick=(e)=>{
+map.onclick=function(e){
 
 
-    let pos =
-    getImagePosition(e);
-
-
-
-    document
-    .getElementById("coordinate")
-    .textContent =
-    `X:${Math.round(pos.x)} Y:${Math.round(pos.y)}`;
-
-
-};
+    let info =
+    getImageInfo();
 
 
 
-
-
-
-
-
-
-// =====================
-// 画像内座標取得
-// =====================
-
-function getImagePosition(e){
-
-
-    const rect =
-    map.getBoundingClientRect();
-
-
-
-    const container =
+    let rect =
     document
     .getElementById("map-container")
     .getBoundingClientRect();
 
 
 
-    let imageRatio =
-    Math.min(
-        container.width / map.naturalWidth,
-        container.height / map.naturalHeight
-    );
-
-
-
-    let imageWidth =
-    map.naturalWidth * imageRatio;
-
-
-    let imageHeight =
-    map.naturalHeight * imageRatio;
-
-
-
-
-    let offsetX =
-    (container.width-imageWidth)/2;
-
-
-    let offsetY =
-    (container.height-imageHeight)/2;
-
-
-
-
 
     let x =
-    (e.clientX - container.left - offsetX)
-    / imageRatio;
+    (
+        e.clientX -
+        rect.left -
+        info.offsetX
+    )
+    /
+    info.scale;
 
 
 
     let y =
-    (e.clientY - container.top - offsetY)
-    / imageRatio;
-
-
-
-    return {
-        x:x,
-        y:y
-    };
-
-}
+    (
+        e.clientY -
+        rect.top -
+        info.offsetY
+    )
+    /
+    info.scale;
 
 
 
 
 
+    document
+    .getElementById("coordinate")
+    .textContent =
+    `X:${Math.round(x)} Y:${Math.round(y)}`;
 
 
-
-
-// =====================
-// 目的地
-// =====================
-
-const destinations = {
-
-
-Library:{
-    building:"AB",
-    floor:"6",
-    x:57,
-    y:469
-},
-
-
-Ignitionbase:{
-    building:"AB",
-    floor:"6",
-    x:302,
-    y:402
-},
-
-
-Studyroom:{
-    building:"AB",
-    floor:"6",
-    x:981,
-    y:422
-},
-
-
-Millenniumhall:{
-    building:"AB",
-    floor:"6",
-    x:753,
-    y:470
-},
-
-
-Artroom:{
-    building:"AB",
-    floor:"6",
-    x:538,
-    y:435
-},
-
-
-Exerciseroom:{
-    building:"AB",
-    floor:"6",
-    x:985,
-    y:435
-}
 
 };
-
 
 
 
@@ -354,7 +413,10 @@ function showDestination(){
 
 
 
-    if(!key)return;
+    if(!key){
+        return;
+    }
+
 
 
 
@@ -362,8 +424,6 @@ function showDestination(){
     destinations[key];
 
 
-
-    currentDestination=p;
 
 
 
@@ -375,6 +435,7 @@ function showDestination(){
 
 
 
+
     floor.value =
     p.floor;
 
@@ -383,17 +444,18 @@ function showDestination(){
 
 
 
-    map.onload=()=>{
+
+    setTimeout(()=>{
 
 
         showMarker(p);
 
 
-    };
+    },500);
+
 
 
 }
-
 
 
 
@@ -410,35 +472,8 @@ function showDestination(){
 function showMarker(p){
 
 
-
-    const container =
-    document.getElementById("map-container");
-
-
-
-    let ratio =
-    Math.min(
-        container.clientWidth / map.naturalWidth,
-        container.clientHeight / map.naturalHeight
-    );
-
-
-
-    let imageWidth =
-    map.naturalWidth * ratio;
-
-
-    let imageHeight =
-    map.naturalHeight * ratio;
-
-
-
-    let offsetX =
-    (container.clientWidth-imageWidth)/2;
-
-
-    let offsetY =
-    (container.clientHeight-imageHeight)/2;
+    let info =
+    getImageInfo();
 
 
 
@@ -446,21 +481,28 @@ function showMarker(p){
 
     marker.style.left =
 
-    offsetX +
-    p.x * ratio
+    (
+        info.offsetX +
+        p.x * info.scale
+    )
     +"px";
+
 
 
 
     marker.style.top =
 
-    offsetY +
-    p.y * ratio
+    (
+        info.offsetY +
+        p.y * info.scale
+    )
     +"px";
+
 
 
 
     marker.style.display =
     "block";
+
 
 }
