@@ -23,6 +23,7 @@ const locations = {
 
 
 
+
 // =====================
 // 建物設定
 // =====================
@@ -39,7 +40,22 @@ const floors = {
 
 
 // =====================
-// 要素
+// 特殊画像設定
+// =====================
+
+const specialFloors = {
+
+    S:{
+        "1.5":"S11F.png"
+    }
+
+};
+
+
+
+
+// =====================
+// 要素取得
 // =====================
 
 const building =
@@ -66,6 +82,9 @@ canvas.getContext("2d");
 
 
 
+
+
+
 // =====================
 // 建物変更
 // =====================
@@ -79,17 +98,18 @@ building.addEventListener(
     "";
 
 
-    let empty =
+
+    let first =
     document.createElement("option");
 
 
-    empty.value="";
+    first.value="";
 
-    empty.textContent=
+    first.textContent =
     "階を選択";
 
 
-    floor.appendChild(empty);
+    floor.appendChild(first);
 
 
 
@@ -103,6 +123,11 @@ building.addEventListener(
     }
 
 
+
+
+
+
+    // 通常階
 
     for(
         let i=1;
@@ -125,12 +150,40 @@ building.addEventListener(
 
         floor.appendChild(option);
 
+    }
+
+
+
+
+
+    // 新館だけ1階上を追加
+
+    if(value==="S"){
+
+
+        let option =
+        document.createElement("option");
+
+
+        option.value =
+        "1.5";
+
+
+        option.textContent =
+        "1階上";
+
+
+        floor.appendChild(option);
+
 
     }
 
 
 
 });
+
+
+
 
 
 
@@ -161,15 +214,37 @@ floor.addEventListener(
         b==="" ||
         f===""
     ){
-
         return;
-
     }
 
 
 
-    let filename =
-    b + f + "F.png";
+
+
+
+    let filename;
+
+
+
+    // 特殊階チェック
+
+    if(
+        specialFloors[b] &&
+        specialFloors[b][f]
+    ){
+
+        filename =
+        specialFloors[b][f];
+
+    }
+    else{
+
+        filename =
+        b + f + "F.png";
+
+    }
+
+
 
 
 
@@ -210,7 +285,9 @@ map.onload = ()=>{
     map.clientHeight;
 
 
+
 };
+
 
 
 
@@ -244,8 +321,10 @@ function(e){
 
 
     console.log(
-    x,
-    y
+        "X:",
+        x,
+        "Y:",
+        y
     );
 
 
@@ -258,19 +337,24 @@ function(e){
 
 
 
+
 // =====================
-// 経路
+// 経路表示
 // =====================
 
 function drawRoute(){
+
 
 
     let start =
     document.getElementById("start").value;
 
 
+
     let goal =
     document.getElementById("goal").value;
+
+
 
 
 
@@ -289,12 +373,19 @@ function drawRoute(){
 
 
 
+
+
+
     ctx.clearRect(
         0,
         0,
         canvas.width,
         canvas.height
     );
+
+
+
+
 
 
 
@@ -309,6 +400,8 @@ function drawRoute(){
 
 
 
+
+
     let gx =
     locations[goal].x / 3186 *
     canvas.width;
@@ -317,6 +410,10 @@ function drawRoute(){
     let gy =
     locations[goal].y / 2088 *
     canvas.height;
+
+
+
+
 
 
 
@@ -345,6 +442,7 @@ function drawRoute(){
 
 
     ctx.stroke();
+
 
 
 }
