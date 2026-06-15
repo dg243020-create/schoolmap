@@ -29,7 +29,7 @@ const specialFloors = {
 
 
 // =====================
-// 要素取得
+// 要素
 // =====================
 
 const building =
@@ -52,7 +52,6 @@ document.getElementById("marker");
 
 
 
-
 // =====================
 // 建物変更
 // =====================
@@ -66,17 +65,15 @@ building.addEventListener(
     "";
 
 
-    let option =
+    let first =
     document.createElement("option");
 
 
-    option.value="";
-
-    option.textContent =
-    "階を選択";
+    first.value="";
+    first.textContent="階を選択";
 
 
-    floor.appendChild(option);
+    floor.appendChild(first);
 
 
 
@@ -91,29 +88,23 @@ building.addEventListener(
 
 
 
-
     for(
         let i=1;
         i<=floors[value];
         i++
     ){
 
-
-        let item =
+        let option =
         document.createElement("option");
 
 
-        item.value=i;
+        option.value=i;
+        option.textContent=i+"階";
 
 
-        item.textContent =
-        i+"階";
-
-
-        floor.appendChild(item);
+        floor.appendChild(option);
 
     }
-
 
 
 
@@ -121,18 +112,15 @@ building.addEventListener(
     if(value==="S"){
 
 
-        let item =
+        let option =
         document.createElement("option");
 
 
-        item.value="1.5";
+        option.value="1.5";
+        option.textContent="1階上";
 
 
-        item.textContent =
-        "1階上";
-
-
-        floor.appendChild(item);
+        floor.appendChild(option);
 
     }
 
@@ -176,7 +164,6 @@ floor.addEventListener(
 
 
 
-
     let file;
 
 
@@ -193,26 +180,17 @@ floor.addEventListener(
     else{
 
         file =
-        b + f + "F.png";
+        b+f+"F.png";
 
     }
 
 
 
-    console.log(
-        "表示:",
-        file
-    );
+    map.src=file;
 
 
-    map.src =
-    file;
+    marker.style.display="none";
 
-
-    // 階変更したら一旦光を消す
-
-    marker.style.display =
-    "none";
 
 
 });
@@ -229,12 +207,12 @@ floor.addEventListener(
 // 座標表示
 // =====================
 
-map.onclick =
-function(e){
+map.onclick=function(e){
 
 
     let rect =
     map.getBoundingClientRect();
+
 
 
     let x =
@@ -263,95 +241,48 @@ function(e){
 
 
 // =====================
-// 目的地
+// 目的地データ
 // =====================
 
 const destinations = {
 
 
-Library:{
+library:{
 
-    building:"AB",
-    floor:"6",
+building:"S",
+floor:"2",
 
-    x:57,
-    y:469
-
-},
-
-Ignitionbase:{
-
-    building:"AB",
-    floor:"6",
-
-    x:302,
-    y:402
+x:2500,
+y:600
 
 },
 
-Studyroom:{
 
-    building:"AB",
-    floor:"6",
-
-    x:500,
-    y:500
-
-},    
-
-Millenniumhall:{
-
-    building:"AB",
-    floor:"6",
-
-    x:753,
-    y:470
-
-},    
-
-Artroom:{
-
-    building:"AB",
-    floor:"6",
-
-    x:538,
-    y:435
-
-},    
-
-Exerciseroom:{
-
-    building:"AB",
-    floor:"6",
-
-    x:985,
-    y:435
-
-},    
-    
 entrance:{
 
-    building:"G",
-    floor:"1",
+building:"G",
+floor:"1",
 
-    x:300,
-    y:500
+x:300,
+y:500
 
 },
 
 
 stairs:{
 
-    building:"S",
-    floor:"1.5",
+building:"S",
+floor:"1.5",
 
-    x:1600,
-    y:1000
+x:1600,
+y:1000
 
 }
 
 
 };
+
+
 
 
 
@@ -381,10 +312,8 @@ function showDestination(){
 
 
 
-
     building.value =
     place.building;
-
 
 
     building.dispatchEvent(
@@ -393,10 +322,8 @@ function showDestination(){
 
 
 
-
     floor.value =
     place.floor;
-
 
 
     floor.dispatchEvent(
@@ -410,65 +337,69 @@ function showDestination(){
     setTimeout(()=>{
 
 
-    const container =
-    document.getElementById("map-container");
-
-
-    const imgRect =
-    map.getBoundingClientRect();
-
-
-    const containerRect =
-    container.getBoundingClientRect();
+        let container =
+        document.getElementById("map-container");
 
 
 
-    // 表示されている画像サイズ
-
-    const scaleX =
-    imgRect.width / 3186;
+        let imgRect =
+        map.getBoundingClientRect();
 
 
-    const scaleY =
-    imgRect.height / 2088;
-
-
-
-    // 余白分を引く
-
-    const offsetX =
-    imgRect.left - containerRect.left;
-
-
-    const offsetY =
-    imgRect.top - containerRect.top;
+        let containerRect =
+        container.getBoundingClientRect();
 
 
 
 
-    const x =
-    place.x * scaleX + offsetX;
+        // object-fit contain 対応
+
+        let scaleX =
+        imgRect.width / 3186;
 
 
-    const y =
-    place.y * scaleY + offsetY;
-
-
-
-
-
-    marker.style.left =
-    x + "px";
-
-
-    marker.style.top =
-    y + "px";
+        let scaleY =
+        imgRect.height / 2088;
 
 
 
-    marker.style.display =
-    "block";
+
+        let offsetX =
+        imgRect.left -
+        containerRect.left;
+
+
+        let offsetY =
+        imgRect.top -
+        containerRect.top;
 
 
 
-},300);
+
+        let x =
+        place.x * scaleX + offsetX;
+
+
+        let y =
+        place.y * scaleY + offsetY;
+
+
+
+
+        marker.style.left =
+        x+"px";
+
+
+        marker.style.top =
+        y+"px";
+
+
+        marker.style.display =
+        "block";
+
+
+
+    },500);
+
+
+}
