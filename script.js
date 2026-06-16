@@ -77,8 +77,8 @@ Studyroom:{
 Millenniumhall:{
     building:"AB",
     floor:"6",
-    x:753,
-    y:470
+    x:2400,
+    y:950
 },
 
 
