@@ -61,16 +61,16 @@ Library:{
 Ignitionbase:{
     building:"AB",
     floor:"6",
-    x:302,
-    y:402
+    x:974,
+    y:731
 },
 
 
 Studyroom:{
     building:"AB",
     floor:"6",
-    x:300,
-    y:291
+    x:1000,
+    y:600
 },
 
 
