@@ -62,16 +62,16 @@ Ignitionbase:{
 Studyroom:{
     building:"AB",
     floor:"6",
-    x:974,
-    y:461
+    x:1000,
+    y:500
 },
 
 
 Millenniumhall:{
     building:"AB",
     floor:"6",
-    x:753,
-    y:470
+    x:2420,
+    y:1030
 },
 
 
