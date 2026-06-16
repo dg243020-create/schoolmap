@@ -16,27 +16,14 @@ const specialFloors = {
 };
 
 
-
-
 // =====================
 // 要素
 // =====================
 
-const building =
-document.getElementById("building");
-
-
-const floor =
-document.getElementById("floor");
-
-
-const map =
-document.getElementById("map");
-
-
-const marker =
-document.getElementById("marker");
-
+const building = document.getElementById("building");
+const floor = document.getElementById("floor");
+const map = document.getElementById("map");
+const marker = document.getElementById("marker");
 
 
 
@@ -47,14 +34,12 @@ document.getElementById("marker");
 
 const destinations = {
 
-
 Library:{
     building:"AB",
     floor:"6",
     x:150,
     y:1000
 },
-
 
 Ignitionbase:{
     building:"AB",
@@ -63,14 +48,12 @@ Ignitionbase:{
     y:925
 },
 
-
 Studyroom:{
     building:"AB",
     floor:"6",
     x:968,
     y:461
 },
-
 
 Millenniumhall:{
     building:"AB",
@@ -79,14 +62,12 @@ Millenniumhall:{
     y:1030
 },
 
-
 Artroom:{
     building:"AB",
     floor:"6",
     x:1750,
     y:910
 },
-
 
 Exerciseroom:{
     building:"AB",
@@ -95,23 +76,16 @@ Exerciseroom:{
     y:928
 }
 
-
 };
 
 
 
 
-
-
-
-
-
 // =====================
-// 画像倍率取得
+// 画像情報
 // =====================
 
 function getImageInfo(){
-
 
     const rect =
     map.getBoundingClientRect();
@@ -119,27 +93,18 @@ function getImageInfo(){
 
     return {
 
-
         left:rect.left,
-
         top:rect.top,
-
 
         scaleX:
         rect.width / map.naturalWidth,
 
-
         scaleY:
         rect.height / map.naturalHeight
-
 
     };
 
 }
-
-
-
-
 
 
 
@@ -151,8 +116,6 @@ function getImageInfo(){
 
 building.onchange=function(){
 
-
-
     floor.innerHTML =
     `
     <option value="">
@@ -161,65 +124,45 @@ building.onchange=function(){
     `;
 
 
-
-    let b =
-    building.value;
-
+    let b = building.value;
 
 
     if(!b)return;
 
 
 
-    for(
-        let i=1;
-        i<=floors[b];
-        i++
-    ){
-
+    for(let i=1;i<=floors[b];i++){
 
         let option =
         document.createElement("option");
 
 
         option.value=i;
-
-        option.textContent =
-        i+"階";
+        option.textContent=i+"階";
 
 
         floor.appendChild(option);
-
 
     }
 
 
 
-
-
     if(b==="S"){
-
 
         let option =
         document.createElement("option");
 
 
         option.value="1.5";
-
-        option.textContent =
-        "1階上";
+        option.textContent="1階上";
 
 
         floor.appendChild(option);
-
 
     }
 
 
 };
-
-
-
 
 
 
@@ -233,17 +176,11 @@ building.onchange=function(){
 floor.onchange=function(){
 
 
-    let b =
-    building.value;
-
-
-    let f =
-    floor.value;
-
+    let b = building.value;
+    let f = floor.value;
 
 
     if(!b || !f)return;
-
 
 
 
@@ -269,11 +206,25 @@ floor.onchange=function(){
 
 
 
-
-    // マーカー完全消去
-
     marker.style.display="none";
-    marker.className="";
+
+
+    map.onload=function(){
+
+        // 画像サイズ確定後
+
+        const selected =
+        document.getElementById("destination").value;
+
+
+        if(selected &&
+        destinations[selected]){
+
+            showMarker(destinations[selected]);
+
+        }
+
+    };
 
 
 
@@ -281,8 +232,6 @@ floor.onchange=function(){
 
 
 };
-
-
 
 
 
@@ -303,18 +252,16 @@ map.onclick=function(e){
 
 
     let x =
-    (e.clientX - info.left)
+    (e.clientX-info.left)
     /
     info.scaleX;
 
 
 
     let y =
-    (e.clientY - info.top)
+    (e.clientY-info.top)
     /
     info.scaleY;
-
-
 
 
 
@@ -322,7 +269,6 @@ map.onclick=function(e){
     .getElementById("coordinate")
     .textContent =
     `X:${Math.round(x)} Y:${Math.round(y)}`;
-
 
 };
 
@@ -333,9 +279,8 @@ map.onclick=function(e){
 
 
 
-
 // =====================
-// 目的地表示
+// 目的地
 // =====================
 
 function showDestination(){
@@ -365,404 +310,10 @@ function showDestination(){
 
 
 
-
     floor.value =
     place.floor;
 
 
-
-
-
-    // 画像読み込み後だけ表示
-
-    map.onload = ()=>{
-
-
-        showMarker(place);
-
-
-    };
-
-
-
-    floor.onchange();
-
-
-}
-
-
-
-
-
-
-
-
-
-// =====================
-// マーカー表示
-// =====================
-
-function showMarker(place){
-
-
-
-    const info =
-    getImageInfo();
-
-
-
-
-
-    marker.style.left =
-    (
-        place.x * info.scaleX
-    )
-    +"px";
-
-
-
-
-    marker.style.top =
-    (
-        place.y * info.scaleY
-    )
-    +"px";
-
-
-
-
-
-
-    // 色判定
-
-    marker.className="";
-
-
-
-    let file =
-    map.src;
-
-
-
-    if(
-        file.includes("AB6F.png") ||
-        file.includes("S1F.png")
-    ){
-
-        marker.classList.add("redMarker");
-
-
-    }
-
-
-
-
-
-
-    marker.style.display="block";
-
-
-}    y:461
-},
-
-
-Millenniumhall:{
-    building:"AB",
-    floor:"6",
-    x:2420,
-    y:1030
-},
-
-
-Artroom:{
-    building:"AB",
-    floor:"6",
-    x:1750,
-    y:910
-},
-
-
-Exerciseroom:{
-    building:"AB",
-    floor:"6",
-    x:3200,
-    y:928
-}
-
-
-};
-
-
-
-
-
-
-
-
-
-// =====================
-// 画像情報取得
-// =====================
-
-function getImageInfo(){
-
-
-    const rect =
-    map.getBoundingClientRect();
-
-
-    return {
-
-        left:rect.left,
-
-        top:rect.top,
-
-        width:rect.width,
-
-        height:rect.height,
-
-
-        scaleX:
-        rect.width / map.naturalWidth,
-
-
-        scaleY:
-        rect.height / map.naturalHeight
-
-    };
-
-}
-
-
-
-
-
-
-
-
-
-// =====================
-// 建物選択
-// =====================
-
-building.onchange=function(){
-
-
-    floor.innerHTML =
-    `
-    <option value="">
-    階を選択
-    </option>
-    `;
-
-
-
-    let b =
-    building.value;
-
-
-
-    if(!b)return;
-
-
-
-    for(
-        let i=1;
-        i<=floors[b];
-        i++
-    ){
-
-
-        let option =
-        document.createElement("option");
-
-
-        option.value=i;
-
-        option.textContent =
-        i+"階";
-
-
-        floor.appendChild(option);
-
-    }
-
-
-
-
-    if(b==="S"){
-
-
-        let option =
-        document.createElement("option");
-
-
-        option.value="1.5";
-
-        option.textContent =
-        "1階上";
-
-
-        floor.appendChild(option);
-
-    }
-
-};
-
-
-
-
-
-
-
-
-
-// =====================
-// 階変更
-// =====================
-
-floor.onchange=function(){
-
-
-    let b =
-    building.value;
-
-
-    let f =
-    floor.value;
-
-
-
-    if(!b || !f)return;
-
-
-
-    let file;
-
-
-
-    if(
-        specialFloors[b] &&
-        specialFloors[b][f]
-    ){
-
-        file =
-        specialFloors[b][f];
-
-    }
-    else{
-
-        file =
-        b+f+"F.png";
-
-    }
-
-
-
-
-    // マーカー消す
-
-    marker.style.display="none";
-
-
-
-    map.src=file;
-
-
-};
-
-
-
-
-
-
-
-
-
-// =====================
-// 座標クリック
-// =====================
-
-map.onclick=function(e){
-
-
-
-    const info =
-    getImageInfo();
-
-
-
-    let x =
-    (e.clientX - info.left)
-    /
-    info.scaleX;
-
-
-
-    let y =
-    (e.clientY - info.top)
-    /
-    info.scaleY;
-
-
-
-
-
-    document
-    .getElementById("coordinate")
-    .textContent =
-    `X:${Math.round(x)} Y:${Math.round(y)}`;
-
-
-};
-
-
-
-
-
-
-
-
-
-// =====================
-// 目的地表示
-// =====================
-
-function showDestination(){
-
-
-    let key =
-    document
-    .getElementById("destination")
-    .value;
-
-
-
-    if(!key)return;
-
-
-
-    let place =
-    destinations[key];
-
-
-
-
-    building.value =
-    place.building;
-
-
-    building.onchange();
-
-
-
-    floor.value =
-    place.floor;
-
-
-
-
-    // 画像変更後に表示
 
     map.onload=function(){
 
@@ -783,14 +334,11 @@ function showDestination(){
 
 
 
-
-
 // =====================
-// マーカー表示
+// マーカー
 // =====================
 
 function showMarker(place){
-
 
 
     const info =
@@ -798,24 +346,39 @@ function showMarker(place){
 
 
 
-
     marker.style.left =
-    (
-        place.x * info.scaleX
-    )
-    +"px";
-
+    place.x * info.scaleX + "px";
 
 
     marker.style.top =
-    (
-        place.y * info.scaleY
-    )
-    +"px";
+    place.y * info.scaleY + "px";
 
 
 
-    marker.style.display =
-    "block";
+    // 一旦リセット
+
+    marker.classList.remove("redMarker");
+
+
+
+    // 現在階判定
+
+    let file =
+    map.src.split("/").pop();
+
+
+
+    if(
+        file === "AB6F.png" ||
+        file === "S11F.png"
+    ){
+
+        marker.classList.add("redMarker");
+
+    }
+
+
+
+    marker.style.display="block";
 
 }
