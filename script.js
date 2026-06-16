@@ -62,8 +62,8 @@ Ignitionbase:{
 Studyroom:{
     building:"AB",
     floor:"6",
-    x:1000,
-    y:500
+    x:950,
+    y:450
 },
 
 
