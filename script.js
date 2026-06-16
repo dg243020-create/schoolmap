@@ -78,8 +78,8 @@ Millenniumhall:{
 Artroom:{
     building:"AB",
     floor:"6",
-    x:538,
-    y:435
+    x:1750,
+    y:910
 },
 
 
