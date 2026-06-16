@@ -3,20 +3,16 @@
 // =====================
 
 const floors = {
-
     S:6,
     AB:6,
     G:5
-
 };
 
 
 const specialFloors = {
-
     S:{
         "1.5":"S11F.png"
     }
-
 };
 
 
@@ -28,14 +24,11 @@ const specialFloors = {
 const building =
 document.getElementById("building");
 
-
 const floor =
 document.getElementById("floor");
 
-
 const map =
 document.getElementById("map");
-
 
 const marker =
 document.getElementById("marker");
@@ -44,7 +37,7 @@ document.getElementById("marker");
 
 
 // =====================
-// 目的地データ
+// 目的地
 // =====================
 
 const destinations = {
@@ -61,8 +54,8 @@ Library:{
 Ignitionbase:{
     building:"AB",
     floor:"6",
-    x:974,
-    y:731
+    x:302,
+    y:402
 },
 
 
@@ -77,8 +70,8 @@ Studyroom:{
 Millenniumhall:{
     building:"AB",
     floor:"6",
-    x:2400,
-    y:950
+    x:753,
+    y:470
 },
 
 
@@ -107,8 +100,9 @@ Exerciseroom:{
 
 
 
+
 // =====================
-// 実際の画像位置取得
+// 画像情報取得
 // =====================
 
 function getImageInfo(){
@@ -118,25 +112,23 @@ function getImageInfo(){
     map.getBoundingClientRect();
 
 
-
-    const scaleX =
-    rect.width / map.naturalWidth;
-
-
-    const scaleY =
-    rect.height / map.naturalHeight;
-
-
-
     return {
 
         left:rect.left,
 
         top:rect.top,
 
-        scaleX:scaleX,
+        width:rect.width,
 
-        scaleY:scaleY
+        height:rect.height,
+
+
+        scaleX:
+        rect.width / map.naturalWidth,
+
+
+        scaleY:
+        rect.height / map.naturalHeight
 
     };
 
@@ -150,13 +142,11 @@ function getImageInfo(){
 
 
 
-
 // =====================
-// 建物変更
+// 建物選択
 // =====================
 
 building.onchange=function(){
-
 
 
     floor.innerHTML =
@@ -216,9 +206,7 @@ building.onchange=function(){
 
         floor.appendChild(option);
 
-
     }
-
 
 };
 
@@ -272,7 +260,8 @@ floor.onchange=function(){
 
 
 
-    // マーカー消去
+
+    // マーカー消す
 
     marker.style.display="none";
 
@@ -292,10 +281,11 @@ floor.onchange=function(){
 
 
 // =====================
-// クリック座標
+// 座標クリック
 // =====================
 
 map.onclick=function(e){
+
 
 
     const info =
@@ -318,11 +308,11 @@ map.onclick=function(e){
 
 
 
+
     document
     .getElementById("coordinate")
     .textContent =
     `X:${Math.round(x)} Y:${Math.round(y)}`;
-
 
 
 };
@@ -353,13 +343,14 @@ function showDestination(){
 
 
 
-    let p =
+    let place =
     destinations[key];
 
 
 
+
     building.value =
-    p.building;
+    place.building;
 
 
     building.onchange();
@@ -367,16 +358,19 @@ function showDestination(){
 
 
     floor.value =
-    p.floor;
+    place.floor;
 
 
-    // 画像読み込み後表示
+
+
+    // 画像変更後に表示
 
     map.onload=function(){
 
-        showMarker(p);
+        showMarker(place);
 
     };
+
 
 
     floor.onchange();
@@ -396,7 +390,8 @@ function showDestination(){
 // マーカー表示
 // =====================
 
-function showMarker(p){
+function showMarker(place){
+
 
 
     const info =
@@ -405,29 +400,23 @@ function showMarker(p){
 
 
 
-    let x =
-    p.x * info.scaleX;
-
-
-    let y =
-    p.y * info.scaleY;
-
-
-
-
-
     marker.style.left =
-    x + "px";
+    (
+        place.x * info.scaleX
+    )
+    +"px";
 
 
 
     marker.style.top =
-    y + "px";
+    (
+        place.y * info.scaleY
+    )
+    +"px";
 
 
 
     marker.style.display =
     "block";
-
 
 }
