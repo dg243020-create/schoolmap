@@ -204,53 +204,29 @@ button{
 
     0%{
 
-
         box-shadow:
-
         0 0 0 0
         rgba(0,229,255,0.9);
 
-
-        transform:
-        translate(-50%,-50%)
-        scale(1);
-
-
     }
 
 
+    70%{
 
-    50%{
-
-
-        transform:
-        translate(-50%,-50%)
-        scale(1.1);
-
+        box-shadow:
+        0 0 0 35px
+        rgba(0,229,255,0);
 
     }
-
-
-
 
 
     100%{
 
-
         box-shadow:
-
-        0 0 0 35px
+        0 0 0 0
         rgba(0,229,255,0);
 
-
-
-        transform:
-        translate(-50%,-50%)
-        scale(1);
-
-
     }
-
 
 }
 
