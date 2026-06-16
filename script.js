@@ -17,6 +17,7 @@ const specialFloors = {
 
 
 
+
 // =====================
 // 要素
 // =====================
@@ -24,14 +25,18 @@ const specialFloors = {
 const building =
 document.getElementById("building");
 
+
 const floor =
 document.getElementById("floor");
+
 
 const map =
 document.getElementById("map");
 
+
 const marker =
 document.getElementById("marker");
+
 
 
 
@@ -64,6 +69,400 @@ Studyroom:{
     floor:"6",
     x:968,
     y:461
+},
+
+
+Millenniumhall:{
+    building:"AB",
+    floor:"6",
+    x:2420,
+    y:1030
+},
+
+
+Artroom:{
+    building:"AB",
+    floor:"6",
+    x:1750,
+    y:910
+},
+
+
+Exerciseroom:{
+    building:"AB",
+    floor:"6",
+    x:3200,
+    y:928
+}
+
+
+};
+
+
+
+
+
+
+
+
+
+// =====================
+// 画像倍率取得
+// =====================
+
+function getImageInfo(){
+
+
+    const rect =
+    map.getBoundingClientRect();
+
+
+    return {
+
+
+        left:rect.left,
+
+        top:rect.top,
+
+
+        scaleX:
+        rect.width / map.naturalWidth,
+
+
+        scaleY:
+        rect.height / map.naturalHeight
+
+
+    };
+
+}
+
+
+
+
+
+
+
+
+
+// =====================
+// 建物変更
+// =====================
+
+building.onchange=function(){
+
+
+
+    floor.innerHTML =
+    `
+    <option value="">
+    階を選択
+    </option>
+    `;
+
+
+
+    let b =
+    building.value;
+
+
+
+    if(!b)return;
+
+
+
+    for(
+        let i=1;
+        i<=floors[b];
+        i++
+    ){
+
+
+        let option =
+        document.createElement("option");
+
+
+        option.value=i;
+
+        option.textContent =
+        i+"階";
+
+
+        floor.appendChild(option);
+
+
+    }
+
+
+
+
+
+    if(b==="S"){
+
+
+        let option =
+        document.createElement("option");
+
+
+        option.value="1.5";
+
+        option.textContent =
+        "1階上";
+
+
+        floor.appendChild(option);
+
+
+    }
+
+
+};
+
+
+
+
+
+
+
+
+
+// =====================
+// 階変更
+// =====================
+
+floor.onchange=function(){
+
+
+    let b =
+    building.value;
+
+
+    let f =
+    floor.value;
+
+
+
+    if(!b || !f)return;
+
+
+
+
+    let file;
+
+
+
+    if(
+        specialFloors[b] &&
+        specialFloors[b][f]
+    ){
+
+        file =
+        specialFloors[b][f];
+
+    }
+    else{
+
+        file =
+        b + f + "F.png";
+
+    }
+
+
+
+
+    // マーカー完全消去
+
+    marker.style.display="none";
+    marker.className="";
+
+
+
+    map.src=file;
+
+
+};
+
+
+
+
+
+
+
+
+
+// =====================
+// 座標表示
+// =====================
+
+map.onclick=function(e){
+
+
+    const info =
+    getImageInfo();
+
+
+
+    let x =
+    (e.clientX - info.left)
+    /
+    info.scaleX;
+
+
+
+    let y =
+    (e.clientY - info.top)
+    /
+    info.scaleY;
+
+
+
+
+
+    document
+    .getElementById("coordinate")
+    .textContent =
+    `X:${Math.round(x)} Y:${Math.round(y)}`;
+
+
+};
+
+
+
+
+
+
+
+
+
+// =====================
+// 目的地表示
+// =====================
+
+function showDestination(){
+
+
+    let key =
+    document
+    .getElementById("destination")
+    .value;
+
+
+
+    if(!key)return;
+
+
+
+    let place =
+    destinations[key];
+
+
+
+    building.value =
+    place.building;
+
+
+    building.onchange();
+
+
+
+
+    floor.value =
+    place.floor;
+
+
+
+
+
+    // 画像読み込み後だけ表示
+
+    map.onload = ()=>{
+
+
+        showMarker(place);
+
+
+    };
+
+
+
+    floor.onchange();
+
+
+}
+
+
+
+
+
+
+
+
+
+// =====================
+// マーカー表示
+// =====================
+
+function showMarker(place){
+
+
+
+    const info =
+    getImageInfo();
+
+
+
+
+
+    marker.style.left =
+    (
+        place.x * info.scaleX
+    )
+    +"px";
+
+
+
+
+    marker.style.top =
+    (
+        place.y * info.scaleY
+    )
+    +"px";
+
+
+
+
+
+
+    // 色判定
+
+    marker.className="";
+
+
+
+    let file =
+    map.src;
+
+
+
+    if(
+        file.includes("AB6F.png") ||
+        file.includes("S1F.png")
+    ){
+
+        marker.classList.add("redMarker");
+
+
+    }
+
+
+
+
+
+
+    marker.style.display="block";
+
+
+}    y:461
 },
 
 
