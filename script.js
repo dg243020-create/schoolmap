@@ -82,14 +82,14 @@ Exerciseroom:{
     floor:"6",
     x:3200,
     y:928
-}
+},
 
 Scienceroom:{
     building:"AB",
     floor:"5",
     x:971,
     y:792
-}
+},
 
     
 Kateikaroom:{
@@ -97,42 +97,42 @@ Kateikaroom:{
     floor:"4",
     x:971,
     y:792
-}
+},
 
 Shodouroom:{
     building:"AB",
     floor:"3",
     x:971,
     y:792
-}
+},
 
 Shokuinroom:{
     building:"AB",
     floor:"2",
     x:450,
     y:930
-}
+},
 
 Seitosidouroom:{
     building:"AB",
     floor:"2",
     x:1621,
     y:1213
-}
+},
 
 Shokudou:{
     building:"AB",
     floor:"1",
     x:595,
     y:1132
-}
+},
  
 Jimuroom:{
     building:"AB",
     floor:"1",
     x:2020,
     y:1200
-}
+},
 
 
 Hokenroom:{
@@ -140,21 +140,21 @@ Hokenroom:{
     floor:"1",
     x:3131,
     y:1017
-}
+},
 
 Koudoutaiikukan:{
     building:"G",
     floor:"2",
     x:1178,
     y:1134
-}
+},
 
 Sinkanshokuinroom:{
     building:"S",
     floor:"1",
     x:866,
     y:440
-}
+},
 
  
 Musicroom:{
@@ -162,7 +162,7 @@ Musicroom:{
     floor:"1",
     x:369,
     y:1122
-}
+},
 
  
 Danceroom:{
@@ -170,7 +170,7 @@ Danceroom:{
     floor:"1",
     x:900,
     y:1600
-}
+},
 
  
 Gomishori:{
@@ -178,7 +178,7 @@ Gomishori:{
     floor:"1",
     x:869,
     y:177
-}
+},
 
  
   
