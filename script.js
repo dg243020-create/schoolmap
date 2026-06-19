@@ -80,9 +80,6 @@ Exerciseroom:{
 
 
 
-// =====================
-// 選択中目的地
-// =====================
 
 let currentPlace = null;
 
@@ -90,22 +87,18 @@ let currentPlace = null;
 
 
 // =====================
-// 画像情報
+// 画像倍率
 // =====================
 
 function getImageInfo(){
 
-    const rect =
-    map.getBoundingClientRect();
-
-
     return {
 
         scaleX:
-        rect.width / map.naturalWidth,
+        map.clientWidth / map.naturalWidth,
 
         scaleY:
-        rect.height / map.naturalHeight
+        map.clientHeight / map.naturalHeight
 
     };
 
@@ -113,16 +106,23 @@ function getImageInfo(){
 
 
 
+
 // =====================
-// 消去
+// 完全消去
 // =====================
 
 function hideMarker(){
 
     marker.style.display="none";
+
+    marker.style.left="-9999px";
+    marker.style.top="-9999px";
+
     marker.classList.remove("redMarker");
 
 }
+
+
 
 
 
@@ -134,7 +134,6 @@ function hideMarker(){
 
 building.onchange=function(){
 
-
     floor.innerHTML =
     `
     <option value="">
@@ -143,23 +142,23 @@ building.onchange=function(){
     `;
 
 
-    let b =
-    building.value;
+    let b = building.value;
 
 
     if(!b)return;
 
 
-
     for(let i=1;i<=floors[b];i++){
 
-        let option =
+        let op =
         document.createElement("option");
 
-        option.value=i;
-        option.textContent=i+"階";
 
-        floor.appendChild(option);
+        op.value=i;
+        op.textContent=i+"階";
+
+
+        floor.appendChild(op);
 
     }
 
@@ -167,19 +166,19 @@ building.onchange=function(){
 
     if(b==="S"){
 
-        let option =
+        let op =
         document.createElement("option");
 
-        option.value="1.5";
-        option.textContent="1階上";
 
-        floor.appendChild(option);
+        op.value="1.5";
+        op.textContent="1階上";
+
+
+        floor.appendChild(op);
 
     }
 
 };
-
-
 
 
 
@@ -200,6 +199,7 @@ floor.onchange=function(){
     floor.value;
 
 
+
     if(!b||!f)return;
 
 
@@ -209,6 +209,7 @@ floor.onchange=function(){
 
 
     let file;
+
 
 
     if(
@@ -228,29 +229,71 @@ floor.onchange=function(){
 
 
 
-    map.onload=function(){
-
-
-        if(
-            currentPlace &&
-            currentPlace.building==b &&
-            currentPlace.floor==f
-        ){
-
-            showMarker(currentPlace);
-
-        }
-
-
-    };
-
-
-
     map.src=file;
-
 
 };
 
+
+
+
+
+
+
+// =====================
+// 画像読み込み後
+// =====================
+
+map.onload=function(){
+
+
+
+    hideMarker();
+
+
+
+    if(!currentPlace)return;
+
+
+
+    let nowFile =
+    map.src.split("/").pop();
+
+
+
+    let nowFloor =
+    nowFile.replace("F.png","")
+    .replace("S1.5","1.5");
+
+
+
+    let nowBuilding =
+    nowFile.substring(0,2);
+
+
+
+    if(
+        currentPlace.building==="AB" &&
+        nowFile==="AB6F.png"
+    ){
+        showMarker(currentPlace);
+        return;
+    }
+
+
+
+    if(
+        nowFile ===
+        currentPlace.building +
+        currentPlace.floor +
+        "F.png"
+    ){
+
+        showMarker(currentPlace);
+
+    }
+
+
+};
 
 
 
@@ -295,9 +338,7 @@ function showDestination(){
 
     floor.onchange();
 
-
 }
-
 
 
 
@@ -310,6 +351,7 @@ function showDestination(){
 // =====================
 
 function showMarker(place){
+
 
 
     const info =
@@ -326,18 +368,9 @@ function showMarker(place){
 
 
 
-    marker.classList.remove("redMarker");
-
-
-
-    let file =
-    map.src.split("/").pop();
-
-
-
     if(
-        file==="AB6F.png" ||
-        file==="S11F.png"
+        map.src.includes("AB6F.png") ||
+        map.src.includes("S11F.png")
     ){
 
         marker.classList.add("redMarker");
@@ -349,3 +382,38 @@ function showMarker(place){
     marker.style.display="block";
 
 }
+
+
+
+
+
+
+
+// =====================
+// 座標確認
+// =====================
+
+map.onclick=function(e){
+
+    const rect =
+    map.getBoundingClientRect();
+
+
+    let x =
+    (e.clientX-rect.left)
+    /
+    (rect.width/map.naturalWidth);
+
+
+    let y =
+    (e.clientY-rect.top)
+    /
+    (rect.height/map.naturalHeight);
+
+
+
+    document.getElementById("coordinate")
+    .textContent =
+    `X:${Math.round(x)} Y:${Math.round(y)}`;
+
+};
