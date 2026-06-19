@@ -91,7 +91,6 @@ Scienceroom:{
     y:792
 },
 
-    
 Kateikaroom:{
     building:"AB",
     floor:"4",
@@ -126,14 +125,13 @@ Shokudou:{
     x:595,
     y:1132
 },
- 
+
 Jimuroom:{
     building:"AB",
     floor:"1",
     x:2020,
     y:1200
 },
-
 
 Hokenroom:{
     building:"AB",
@@ -156,7 +154,6 @@ Sinkanshokuinroom:{
     y:440
 },
 
- 
 Musicroom:{
     building:"S",
     floor:"1",
@@ -164,7 +161,6 @@ Musicroom:{
     y:1122
 },
 
- 
 Danceroom:{
     building:"S",
     floor:"1",
@@ -172,28 +168,22 @@ Danceroom:{
     y:1600
 },
 
- 
 Gomishori:{
     building:"S",
     floor:"1",
     x:869,
     y:177
-},
+}
 
- 
-  
 };
 
 
 
-
 // =====================
-// 現在選択中
+// 現在選択
 // =====================
 
 let currentPlace = null;
-
-
 
 
 
@@ -223,8 +213,6 @@ function getImageInfo(){
 
 
 
-
-
 // =====================
 // マーカー消去
 // =====================
@@ -232,11 +220,10 @@ function getImageInfo(){
 function clearMarker(){
 
     marker.style.display="none";
+
     marker.classList.remove("redMarker");
 
 }
-
-
 
 
 
@@ -247,7 +234,6 @@ function clearMarker(){
 // =====================
 
 building.onchange=function(){
-
 
     floor.innerHTML =
     `
@@ -264,7 +250,6 @@ building.onchange=function(){
     if(!b)return;
 
 
-
     for(let i=1;i<=floors[b];i++){
 
         let option =
@@ -272,6 +257,7 @@ building.onchange=function(){
 
 
         option.value=i;
+
         option.textContent=i+"階";
 
 
@@ -283,12 +269,12 @@ building.onchange=function(){
 
     if(b==="S"){
 
-
         let option =
         document.createElement("option");
 
 
         option.value="1.5";
+
         option.textContent="1階上";
 
 
@@ -303,13 +289,11 @@ building.onchange=function(){
 
 
 
-
 // =====================
 // 階変更
 // =====================
 
 floor.onchange=function(){
-
 
     let b =
     building.value;
@@ -326,9 +310,7 @@ floor.onchange=function(){
     clearMarker();
 
 
-
     let file;
-
 
 
     if(
@@ -347,7 +329,6 @@ floor.onchange=function(){
     }
 
 
-
     map.src=file;
 
 };
@@ -357,17 +338,13 @@ floor.onchange=function(){
 
 
 
-
-
 // =====================
-// 画像読み込み完了
+// 画像読み込み
 // =====================
 
 map.onload=function(){
 
-
     clearMarker();
-
 
 
     if(!currentPlace)
@@ -379,11 +356,24 @@ map.onload=function(){
     map.src.split("/").pop();
 
 
+    let target;
 
-    let target =
-    currentPlace.building +
-    currentPlace.floor +
-    "F.png";
+
+    if(
+        currentPlace.building==="S" &&
+        currentPlace.floor==="1.5"
+    ){
+
+        target="S11F.png";
+
+    }else{
+
+        target =
+        currentPlace.building +
+        currentPlace.floor +
+        "F.png";
+
+    }
 
 
 
@@ -400,19 +390,16 @@ map.onload=function(){
 
 
 
-
 // =====================
 // 目的地表示
 // =====================
 
 function showDestination(){
 
-
     let key =
     document
     .getElementById("destination")
     .value;
-
 
 
     if(!key)return;
@@ -440,10 +427,7 @@ function showDestination(){
 
     floor.onchange();
 
-
 }
-
-
 
 
 
@@ -462,12 +446,34 @@ function showMarker(place){
 
 
 
+    const mapRect =
+    map.getBoundingClientRect();
+
+
+    const parentRect =
+    map.parentElement.getBoundingClientRect();
+
+
+
+    const offsetX =
+    mapRect.left - parentRect.left;
+
+
+    const offsetY =
+    mapRect.top - parentRect.top;
+
+
+
     marker.style.left =
-    place.x * info.scaleX + "px";
+    offsetX +
+    place.x * info.scaleX +
+    "px";
 
 
     marker.style.top =
-    place.y * info.scaleY + "px";
+    offsetY +
+    place.y * info.scaleY +
+    "px";
 
 
 
@@ -480,23 +486,21 @@ function showMarker(place){
 
 
 
-if(
-    file==="AB6F.png" ||
-    file==="S1F.png" ||
-    file==="AB1F.png"
-){
+    if(
+        file==="S1F.png" ||
+        file==="AB1F.png" ||
+        file==="AB6F.png"
+    ){
 
-    marker.classList.add("redMarker");
+        marker.classList.add("redMarker");
 
-}
+    }
 
 
 
     marker.style.display="block";
 
 }
-
-
 
 
 
@@ -525,7 +529,7 @@ map.onclick=function(e){
     let y =
     (e.clientY-rect.top)
     /
-    (rect.height/map.naturalHeight);
+    (rect.height/map.naturalWidth);
 
 
 
