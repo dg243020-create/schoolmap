@@ -173,7 +173,15 @@ Gomishori:{
     floor:"1",
     x:869,
     y:177
-}
+},
+
+a:{
+    building:"S",
+    floor:"1",
+    x:,
+    y:
+},
+    
 
 };
 
