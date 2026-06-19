@@ -244,18 +244,11 @@ button{
 
 
 .redMarker{
-
-
     background:red !important;
 
-
     animation:
-
-    redPulse 1.2s infinite;
-
-
+    redPulse 1.2s infinite !important;
 }
-
 
 
 
