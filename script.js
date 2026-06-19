@@ -179,11 +179,10 @@ Gomishori:{
 a:{
     building:"S",
     floor:"1",
-    x:,
-    y:
+    x:0,
+    y:0
 },
-
-/*
+*/
 
 };
 
