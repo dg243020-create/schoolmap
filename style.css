@@ -54,7 +54,7 @@ button{
 
     border-radius:8px;
 
-    border:1px solid #aaa;
+    border:1px solid#aa;
 
 }
 
@@ -64,7 +64,6 @@ button{
     cursor:pointer;
 
 }
-
 
 
 
@@ -148,7 +147,7 @@ button{
 
 
 /* =====================
-   マーカー
+   通常マーカー
 ===================== */
 
 
@@ -195,7 +194,7 @@ button{
 
 
 /* =====================
-   マーカー光
+   通常マーカー光
 ===================== */
 
 
@@ -237,38 +236,34 @@ button{
 
 
 
+
 /* =====================
-   座標表示
+   赤マーカー
+   AB6F / S11F / AB1F
 ===================== */
 
 
-#coordinate{
-
-
-    font-weight:bold;
-
-    font-size:18px;
-
-
-}
-
-/* AB6F と S1F用 */
-
 .redMarker{
+
 
     background:red !important;
 
-}
-
-
-
-.redMarker{
 
     animation:
+
     redPulse 1.2s infinite;
+
 
 }
 
+
+
+
+
+
+/* =====================
+   赤マーカー光
+===================== */
 
 
 @keyframes redPulse{
@@ -301,5 +296,27 @@ button{
         rgba(255,0,0,0);
 
     }
+
+}
+
+
+
+
+
+
+
+
+/* =====================
+   座標表示
+===================== */
+
+
+#coordinate{
+
+
+    font-weight:bold;
+
+    font-size:18px;
+
 
 }
