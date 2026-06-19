@@ -21,10 +21,18 @@ const specialFloors = {
 // 要素
 // =====================
 
-const building = document.getElementById("building");
-const floor = document.getElementById("floor");
-const map = document.getElementById("map");
-const marker = document.getElementById("marker");
+const building =
+document.getElementById("building");
+
+const floor =
+document.getElementById("floor");
+
+const map =
+document.getElementById("map");
+
+const marker =
+document.getElementById("marker");
+
 
 
 
@@ -81,7 +89,13 @@ Exerciseroom:{
 
 
 
+// =====================
+// 現在選択中
+// =====================
+
 let currentPlace = null;
+
+
 
 
 
@@ -92,13 +106,17 @@ let currentPlace = null;
 
 function getImageInfo(){
 
+    const rect =
+    map.getBoundingClientRect();
+
+
     return {
 
         scaleX:
-        map.clientWidth / map.naturalWidth,
+        rect.width / map.naturalWidth,
 
         scaleY:
-        map.clientHeight / map.naturalHeight
+        rect.height / map.naturalHeight
 
     };
 
@@ -107,17 +125,15 @@ function getImageInfo(){
 
 
 
+
+
 // =====================
-// 完全消去
+// マーカー消去
 // =====================
 
-function hideMarker(){
+function clearMarker(){
 
     marker.style.display="none";
-
-    marker.style.left="-9999px";
-    marker.style.top="-9999px";
-
     marker.classList.remove("redMarker");
 
 }
@@ -134,6 +150,7 @@ function hideMarker(){
 
 building.onchange=function(){
 
+
     floor.innerHTML =
     `
     <option value="">
@@ -142,23 +159,25 @@ building.onchange=function(){
     `;
 
 
-    let b = building.value;
+    let b =
+    building.value;
 
 
     if(!b)return;
 
 
+
     for(let i=1;i<=floors[b];i++){
 
-        let op =
+        let option =
         document.createElement("option");
 
 
-        op.value=i;
-        op.textContent=i+"階";
+        option.value=i;
+        option.textContent=i+"階";
 
 
-        floor.appendChild(op);
+        floor.appendChild(option);
 
     }
 
@@ -166,19 +185,21 @@ building.onchange=function(){
 
     if(b==="S"){
 
-        let op =
+
+        let option =
         document.createElement("option");
 
 
-        op.value="1.5";
-        op.textContent="1階上";
+        option.value="1.5";
+        option.textContent="1階上";
 
 
-        floor.appendChild(op);
+        floor.appendChild(option);
 
     }
 
 };
+
 
 
 
@@ -195,16 +216,16 @@ floor.onchange=function(){
     let b =
     building.value;
 
+
     let f =
     floor.value;
-
 
 
     if(!b||!f)return;
 
 
 
-    hideMarker();
+    clearMarker();
 
 
 
@@ -239,59 +260,40 @@ floor.onchange=function(){
 
 
 
+
 // =====================
-// 画像読み込み後
+// 画像読み込み完了
 // =====================
 
 map.onload=function(){
 
 
-
-    hideMarker();
-
-
-
-    if(!currentPlace)return;
+    clearMarker();
 
 
 
-    let nowFile =
+    if(!currentPlace)
+    return;
+
+
+
+    let now =
     map.src.split("/").pop();
 
 
 
-    let nowFloor =
-    nowFile.replace("F.png","")
-    .replace("S1.5","1.5");
+    let target =
+    currentPlace.building +
+    currentPlace.floor +
+    "F.png";
 
 
 
-    let nowBuilding =
-    nowFile.substring(0,2);
-
-
-
-    if(
-        currentPlace.building==="AB" &&
-        nowFile==="AB6F.png"
-    ){
-        showMarker(currentPlace);
-        return;
-    }
-
-
-
-    if(
-        nowFile ===
-        currentPlace.building +
-        currentPlace.floor +
-        "F.png"
-    ){
+    if(now===target){
 
         showMarker(currentPlace);
 
     }
-
 
 };
 
@@ -302,7 +304,7 @@ map.onload=function(){
 
 
 // =====================
-// 目的地
+// 目的地表示
 // =====================
 
 function showDestination(){
@@ -328,6 +330,7 @@ function showDestination(){
     currentPlace.building;
 
 
+
     building.onchange();
 
 
@@ -336,7 +339,9 @@ function showDestination(){
     currentPlace.floor;
 
 
+
     floor.onchange();
+
 
 }
 
@@ -346,12 +351,12 @@ function showDestination(){
 
 
 
+
 // =====================
-// マーカー
+// マーカー表示
 // =====================
 
 function showMarker(place){
-
 
 
     const info =
@@ -367,363 +372,19 @@ function showMarker(place){
     place.y * info.scaleY + "px";
 
 
-
-    if(
-        map.src.includes("AB6F.png") ||
-        map.src.includes("S11F.png")
-    ){
-
-        marker.classList.add("redMarker");
-
-    }
-
-
-
-    marker.style.display="block";
-
-}
-
-
-
-
-
-
-
-// =====================
-// 座標確認
-// =====================
-
-map.onclick=function(e){
-
-    const rect =
-    map.getBoundingClientRect();
-
-
-    let x =
-    (e.clientX-rect.left)
-    /
-    (rect.width/map.naturalWidth);
-
-
-    let y =
-    (e.clientY-rect.top)
-    /
-    (rect.height/map.naturalHeight);
-
-
-
-    document.getElementById("coordinate")
-    .textContent =
-    `X:${Math.round(x)} Y:${Math.round(y)}`;
-
-};    building:"AB",
-    floor:"6",
-    x:1750,
-    y:910
-},
-
-Exerciseroom:{
-    building:"AB",
-    floor:"6",
-    x:3200,
-    y:928
-}
-
-};
-
-
-
-
-let currentPlace = null;
-
-
-
-
-// =====================
-// 画像倍率
-// =====================
-
-function getImageInfo(){
-
-    return {
-
-        scaleX:
-        map.clientWidth / map.naturalWidth,
-
-        scaleY:
-        map.clientHeight / map.naturalHeight
-
-    };
-
-}
-
-
-
-
-// =====================
-// 完全消去
-// =====================
-
-function hideMarker(){
-
-    marker.style.display="none";
-
-    marker.style.left="-9999px";
-    marker.style.top="-9999px";
 
     marker.classList.remove("redMarker");
 
-}
 
 
-
-
-
-
-
-// =====================
-// 建物変更
-// =====================
-
-building.onchange=function(){
-
-    floor.innerHTML =
-    `
-    <option value="">
-    階を選択
-    </option>
-    `;
-
-
-    let b = building.value;
-
-
-    if(!b)return;
-
-
-    for(let i=1;i<=floors[b];i++){
-
-        let op =
-        document.createElement("option");
-
-
-        op.value=i;
-        op.textContent=i+"階";
-
-
-        floor.appendChild(op);
-
-    }
-
-
-
-    if(b==="S"){
-
-        let op =
-        document.createElement("option");
-
-
-        op.value="1.5";
-        op.textContent="1階上";
-
-
-        floor.appendChild(op);
-
-    }
-
-};
-
-
-
-
-
-
-// =====================
-// 階変更
-// =====================
-
-floor.onchange=function(){
-
-
-    let b =
-    building.value;
-
-    let f =
-    floor.value;
-
-
-
-    if(!b||!f)return;
-
-
-
-    hideMarker();
-
-
-
-    let file;
-
-
-
-    if(
-        specialFloors[b] &&
-        specialFloors[b][f]
-    ){
-
-        file =
-        specialFloors[b][f];
-
-    }else{
-
-        file =
-        b+f+"F.png";
-
-    }
-
-
-
-    map.src=file;
-
-};
-
-
-
-
-
-
-
-// =====================
-// 画像読み込み後
-// =====================
-
-map.onload=function(){
-
-
-
-    hideMarker();
-
-
-
-    if(!currentPlace)return;
-
-
-
-    let nowFile =
+    let file =
     map.src.split("/").pop();
 
 
 
-    let nowFloor =
-    nowFile.replace("F.png","")
-    .replace("S1.5","1.5");
-
-
-
-    let nowBuilding =
-    nowFile.substring(0,2);
-
-
-
     if(
-        currentPlace.building==="AB" &&
-        nowFile==="AB6F.png"
-    ){
-        showMarker(currentPlace);
-        return;
-    }
-
-
-
-    if(
-        nowFile ===
-        currentPlace.building +
-        currentPlace.floor +
-        "F.png"
-    ){
-
-        showMarker(currentPlace);
-
-    }
-
-
-};
-
-
-
-
-
-
-
-// =====================
-// 目的地
-// =====================
-
-function showDestination(){
-
-
-    let key =
-    document
-    .getElementById("destination")
-    .value;
-
-
-
-    if(!key)return;
-
-
-
-    currentPlace =
-    destinations[key];
-
-
-
-    building.value =
-    currentPlace.building;
-
-
-    building.onchange();
-
-
-
-    floor.value =
-    currentPlace.floor;
-
-
-    floor.onchange();
-
-}
-
-
-
-
-
-
-
-// =====================
-// マーカー
-// =====================
-
-function showMarker(place){
-
-
-
-    const info =
-    getImageInfo();
-
-
-
-    marker.style.left =
-    place.x * info.scaleX + "px";
-
-
-    marker.style.top =
-    place.y * info.scaleY + "px";
-
-
-
-    if(
-        map.src.includes("AB6F.png") ||
-        map.src.includes("S11F.png")
+        file==="AB6F.png" ||
+        file==="S11F.png"
     ){
 
         marker.classList.add("redMarker");
@@ -742,20 +403,24 @@ function showMarker(place){
 
 
 
+
 // =====================
-// 座標確認
+// 座標表示
 // =====================
 
 map.onclick=function(e){
 
+
     const rect =
     map.getBoundingClientRect();
+
 
 
     let x =
     (e.clientX-rect.left)
     /
     (rect.width/map.naturalWidth);
+
 
 
     let y =
@@ -765,7 +430,8 @@ map.onclick=function(e){
 
 
 
-    document.getElementById("coordinate")
+    document
+    .getElementById("coordinate")
     .textContent =
     `X:${Math.round(x)} Y:${Math.round(y)}`;
 
