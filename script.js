@@ -416,4 +416,357 @@ map.onclick=function(e){
     .textContent =
     `X:${Math.round(x)} Y:${Math.round(y)}`;
 
+};    building:"AB",
+    floor:"6",
+    x:1750,
+    y:910
+},
+
+Exerciseroom:{
+    building:"AB",
+    floor:"6",
+    x:3200,
+    y:928
+}
+
+};
+
+
+
+
+let currentPlace = null;
+
+
+
+
+// =====================
+// 画像倍率
+// =====================
+
+function getImageInfo(){
+
+    return {
+
+        scaleX:
+        map.clientWidth / map.naturalWidth,
+
+        scaleY:
+        map.clientHeight / map.naturalHeight
+
+    };
+
+}
+
+
+
+
+// =====================
+// 完全消去
+// =====================
+
+function hideMarker(){
+
+    marker.style.display="none";
+
+    marker.style.left="-9999px";
+    marker.style.top="-9999px";
+
+    marker.classList.remove("redMarker");
+
+}
+
+
+
+
+
+
+
+// =====================
+// 建物変更
+// =====================
+
+building.onchange=function(){
+
+    floor.innerHTML =
+    `
+    <option value="">
+    階を選択
+    </option>
+    `;
+
+
+    let b = building.value;
+
+
+    if(!b)return;
+
+
+    for(let i=1;i<=floors[b];i++){
+
+        let op =
+        document.createElement("option");
+
+
+        op.value=i;
+        op.textContent=i+"階";
+
+
+        floor.appendChild(op);
+
+    }
+
+
+
+    if(b==="S"){
+
+        let op =
+        document.createElement("option");
+
+
+        op.value="1.5";
+        op.textContent="1階上";
+
+
+        floor.appendChild(op);
+
+    }
+
+};
+
+
+
+
+
+
+// =====================
+// 階変更
+// =====================
+
+floor.onchange=function(){
+
+
+    let b =
+    building.value;
+
+    let f =
+    floor.value;
+
+
+
+    if(!b||!f)return;
+
+
+
+    hideMarker();
+
+
+
+    let file;
+
+
+
+    if(
+        specialFloors[b] &&
+        specialFloors[b][f]
+    ){
+
+        file =
+        specialFloors[b][f];
+
+    }else{
+
+        file =
+        b+f+"F.png";
+
+    }
+
+
+
+    map.src=file;
+
+};
+
+
+
+
+
+
+
+// =====================
+// 画像読み込み後
+// =====================
+
+map.onload=function(){
+
+
+
+    hideMarker();
+
+
+
+    if(!currentPlace)return;
+
+
+
+    let nowFile =
+    map.src.split("/").pop();
+
+
+
+    let nowFloor =
+    nowFile.replace("F.png","")
+    .replace("S1.5","1.5");
+
+
+
+    let nowBuilding =
+    nowFile.substring(0,2);
+
+
+
+    if(
+        currentPlace.building==="AB" &&
+        nowFile==="AB6F.png"
+    ){
+        showMarker(currentPlace);
+        return;
+    }
+
+
+
+    if(
+        nowFile ===
+        currentPlace.building +
+        currentPlace.floor +
+        "F.png"
+    ){
+
+        showMarker(currentPlace);
+
+    }
+
+
+};
+
+
+
+
+
+
+
+// =====================
+// 目的地
+// =====================
+
+function showDestination(){
+
+
+    let key =
+    document
+    .getElementById("destination")
+    .value;
+
+
+
+    if(!key)return;
+
+
+
+    currentPlace =
+    destinations[key];
+
+
+
+    building.value =
+    currentPlace.building;
+
+
+    building.onchange();
+
+
+
+    floor.value =
+    currentPlace.floor;
+
+
+    floor.onchange();
+
+}
+
+
+
+
+
+
+
+// =====================
+// マーカー
+// =====================
+
+function showMarker(place){
+
+
+
+    const info =
+    getImageInfo();
+
+
+
+    marker.style.left =
+    place.x * info.scaleX + "px";
+
+
+    marker.style.top =
+    place.y * info.scaleY + "px";
+
+
+
+    if(
+        map.src.includes("AB6F.png") ||
+        map.src.includes("S11F.png")
+    ){
+
+        marker.classList.add("redMarker");
+
+    }
+
+
+
+    marker.style.display="block";
+
+}
+
+
+
+
+
+
+
+// =====================
+// 座標確認
+// =====================
+
+map.onclick=function(e){
+
+    const rect =
+    map.getBoundingClientRect();
+
+
+    let x =
+    (e.clientX-rect.left)
+    /
+    (rect.width/map.naturalWidth);
+
+
+    let y =
+    (e.clientY-rect.top)
+    /
+    (rect.height/map.naturalHeight);
+
+
+
+    document.getElementById("coordinate")
+    .textContent =
+    `X:${Math.round(x)} Y:${Math.round(y)}`;
+
 };
