@@ -480,14 +480,15 @@ function showMarker(place){
 
 
 
-    if(
-        file==="AB6F.png" ||
-        file==="S11F.png"
-    ){
+if(
+    file==="AB6F.png" ||
+    file==="S1F.png" ||
+    file==="AB1F.png"
+){
 
-        marker.classList.add("redMarker");
+    marker.classList.add("redMarker");
 
-    }
+}
 
 
 
