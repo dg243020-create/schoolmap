@@ -16,6 +16,7 @@ const specialFloors = {
 };
 
 
+
 // =====================
 // 要素
 // =====================
@@ -24,8 +25,6 @@ const building = document.getElementById("building");
 const floor = document.getElementById("floor");
 const map = document.getElementById("map");
 const marker = document.getElementById("marker");
-
-
 
 
 
@@ -82,12 +81,10 @@ Exerciseroom:{
 
 
 // =====================
-// 現在表示中
+// 選択中目的地
 // =====================
 
 let currentPlace = null;
-
-
 
 
 
@@ -104,9 +101,6 @@ function getImageInfo(){
 
     return {
 
-        left:rect.left,
-        top:rect.top,
-
         scaleX:
         rect.width / map.naturalWidth,
 
@@ -119,11 +113,8 @@ function getImageInfo(){
 
 
 
-
-
-
 // =====================
-// マーカー完全消去
+// 消去
 // =====================
 
 function hideMarker(){
@@ -137,12 +128,12 @@ function hideMarker(){
 
 
 
-
 // =====================
 // 建物変更
 // =====================
 
 building.onchange=function(){
+
 
     floor.innerHTML =
     `
@@ -165,10 +156,8 @@ building.onchange=function(){
         let option =
         document.createElement("option");
 
-
         option.value=i;
         option.textContent=i+"階";
-
 
         floor.appendChild(option);
 
@@ -181,18 +170,14 @@ building.onchange=function(){
         let option =
         document.createElement("option");
 
-
         option.value="1.5";
         option.textContent="1階上";
-
 
         floor.appendChild(option);
 
     }
 
-
 };
-
 
 
 
@@ -211,23 +196,19 @@ floor.onchange=function(){
     let b =
     building.value;
 
-
     let f =
     floor.value;
 
 
-    if(!b || !f)return;
+    if(!b||!f)return;
 
 
 
     hideMarker();
 
-    currentPlace=null;
-
 
 
     let file;
-
 
 
     if(
@@ -238,8 +219,7 @@ floor.onchange=function(){
         file =
         specialFloors[b][f];
 
-    }
-    else{
+    }else{
 
         file =
         b+f+"F.png";
@@ -248,18 +228,19 @@ floor.onchange=function(){
 
 
 
-
     map.onload=function(){
+
 
         if(
             currentPlace &&
-            currentPlace.building===b &&
-            currentPlace.floor===f
+            currentPlace.building==b &&
+            currentPlace.floor==f
         ){
 
             showMarker(currentPlace);
 
         }
+
 
     };
 
@@ -267,44 +248,6 @@ floor.onchange=function(){
 
     map.src=file;
 
-};
-
-
-
-
-
-
-
-
-
-// =====================
-// 座標表示
-// =====================
-
-map.onclick=function(e){
-
-
-    const info =
-    getImageInfo();
-
-
-    let x =
-    (e.clientX-info.left)
-    /
-    info.scaleX;
-
-
-    let y =
-    (e.clientY-info.top)
-    /
-    info.scaleY;
-
-
-
-    document
-    .getElementById("coordinate")
-    .textContent =
-    `X:${Math.round(x)} Y:${Math.round(y)}`;
 
 };
 
@@ -315,9 +258,8 @@ map.onclick=function(e){
 
 
 
-
 // =====================
-// 目的地表示
+// 目的地
 // =====================
 
 function showDestination(){
@@ -351,7 +293,6 @@ function showDestination(){
     currentPlace.floor;
 
 
-
     floor.onchange();
 
 
@@ -364,9 +305,8 @@ function showDestination(){
 
 
 
-
 // =====================
-// マーカー表示
+// マーカー
 // =====================
 
 function showMarker(place){
