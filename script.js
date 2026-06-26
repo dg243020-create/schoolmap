@@ -35,7 +35,6 @@ document.getElementById("marker");
 
 
 
-
 // =====================
 // 目的地
 // =====================
@@ -187,7 +186,7 @@ Juudouroom:{
     floor:"1",
     x:404,
     y:1833
-},    
+},
 
 Kendouroom:{
     building:"G",
@@ -201,7 +200,7 @@ Takkyuuroom:{
     floor:"1",
     x:1127,
     y:2678
-},    
+},
 
 Taiikukanhousousitu:{
     building:"G",
@@ -215,20 +214,9 @@ Taiikukanshokuinsitu:{
     floor:"2",
     x:1943,
     y:447
-},    
-    
-/*
-a:{
-    building:"S",
-    floor:"1",
-    x:0,
-    y:0
-},
-*/
+}
 
 };
-
-
 
 // =====================
 // 現在選択
@@ -249,13 +237,25 @@ function getImageInfo(){
     map.getBoundingClientRect();
 
 
+    const scale =
+    Math.min(
+        rect.width / map.naturalWidth,
+        rect.height / map.naturalHeight
+    );
+
+
     return {
 
-        scaleX:
-        rect.width / map.naturalWidth,
+        scaleX:scale,
+        scaleY:scale,
 
-        scaleY:
-        rect.height / map.naturalHeight
+        offsetX:
+        (rect.width -
+        map.naturalWidth * scale) / 2,
+
+        offsetY:
+        (rect.height -
+        map.naturalHeight * scale) / 2
 
     };
 
@@ -361,7 +361,9 @@ floor.onchange=function(){
     clearMarker();
 
 
+
     let file;
+
 
 
     if(
@@ -407,7 +409,9 @@ map.onload=function(){
     map.src.split("/").pop();
 
 
+
     let target;
+
 
 
     if(
@@ -480,11 +484,6 @@ function showDestination(){
 
 }
 
-
-
-
-
-
 // =====================
 // マーカー表示
 // =====================
@@ -506,25 +505,25 @@ function showMarker(place){
 
 
 
-    const offsetX =
-    mapRect.left - parentRect.left;
-
-
-    const offsetY =
-    mapRect.top - parentRect.top;
-
-
-
     marker.style.left =
-    offsetX +
-    place.x * info.scaleX +
-    "px";
+    (
+        mapRect.left -
+        parentRect.left +
+        info.offsetX +
+        place.x * info.scaleX
+    )
+    + "px";
+
 
 
     marker.style.top =
-    offsetY +
-    place.y * info.scaleY +
-    "px";
+    (
+        mapRect.top -
+        parentRect.top +
+        info.offsetY +
+        place.y * info.scaleY
+    )
+    + "px";
 
 
 
@@ -580,7 +579,7 @@ map.onclick=function(e){
     let y =
     (e.clientY-rect.top)
     /
-    (rect.height/map.naturalWidth);
+    (rect.height/map.naturalHeight);
 
 
 
