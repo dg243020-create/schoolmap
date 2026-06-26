@@ -112,13 +112,6 @@ Shokuinroom:{
     y:930
 },
 
-Seitosidouroom:{
-    building:"AB",
-    floor:"2",
-    x:1621,
-    y:1213
-},
-
 Shokudou:{
     building:"AB",
     floor:"1",
@@ -175,6 +168,55 @@ Gomishori:{
     y:177
 },
 
+Informationroom:{
+    building:"S",
+    floor:"2",
+    x:356,
+    y:788
+},
+
+Sinkantaiikukan:{
+    building:"S",
+    floor:"4",
+    x:646,
+    y:499
+},
+
+Juudouroom:{
+    building:"G",
+    floor:"1",
+    x:404,
+    y:1833
+},    
+
+Kendouroom:{
+    building:"G",
+    floor:"1",
+    x:400,
+    y:2909
+},
+
+Takkyuuroom:{
+    building:"G",
+    floor:"1",
+    x:1127,
+    y:2678
+},    
+
+Taiikukanhousousitu:{
+    building:"G",
+    floor:"3",
+    x:2444,
+    y:1326
+},
+
+Taiikukanshokuinsitu:{
+    building:"G",
+    floor:"2",
+    x:1943,
+    y:447
+},    
+    
 /*
 a:{
     building:"S",
