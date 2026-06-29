@@ -205,14 +205,14 @@ TakkyuuRoom:{
 11:{
     building:"S",
     floor:"2",
-    x:983,
+    x:1000,
     y:956
 },
 
 12:{
     building:"S",
     floor:"3",
-    x:983,
+    x:1000,
     y:1326
 },
 
@@ -410,6 +410,27 @@ TakkyuuRoom:{
     floor:"4",
     x:156,
     y:290
+},
+
+31:{
+    building:"S",
+    floor:"2",
+    x:1000,
+    y:1700
+},
+    
+32:{
+    building:"S",
+    floor:"2",
+    x:1000,
+    y:579
+},
+
+33:{
+    building:"S",
+    floor:"2",
+    x:1000,
+    y:259
 },
     
 /*
