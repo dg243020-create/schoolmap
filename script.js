@@ -334,6 +334,13 @@ TakkyuuRoom:{
     x:429,
     y:963
 },
+
+24:{
+    building:"S",
+    floor:"3",
+    x:429,
+    y:605
+},
     
 /*
 
