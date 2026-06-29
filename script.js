@@ -341,6 +341,48 @@ TakkyuuRoom:{
     x:429,
     y:605
 },
+
+25:{
+    building:"AB",
+    floor:"4",
+    x:3263,
+    y:906
+},
+
+26:{
+    building:"AB",
+    floor:"3",
+    x:950,
+    y:261
+},
+    
+27:{
+    building:"AB",
+    floor:"4",
+    x:2880,
+    y:906
+},
+
+28:{
+    building:"AB",
+    floor:"4",
+    x:2488,
+    y:906
+},
+
+29:{
+    building:"AB",
+    floor:"4",
+    x:2088,
+    y:906
+},
+
+210:{
+    building:"AB",
+    floor:"4",
+    x:1693,
+    y:906
+},
     
 /*
 
