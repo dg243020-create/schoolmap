@@ -864,33 +864,3 @@ function showMarker(place){
 
 // =====================
 // 座標表示
-// =====================
-
-map.onclick=function(e){
-
-
-    const rect =
-    map.getBoundingClientRect();
-
-
-
-    let x =
-    (e.clientX-rect.left)
-    /
-    (rect.width/map.naturalWidth);
-
-
-
-    let y =
-    (e.clientY-rect.top)
-    /
-    (rect.height/map.naturalHeight);
-
-
-
-    document
-    .getElementById("coordinate")
-    .textContent =
-    `X:${Math.round(x)} Y:${Math.round(y)}`;
-
-};
