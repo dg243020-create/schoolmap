@@ -184,38 +184,47 @@ Sinkantaiikukan:{
 Juudouroom:{
     building:"G",
     floor:"1",
-    x:404,
-    y:1833
+    x:420,
+    y:1024
 },
 
 Kendouroom:{
     building:"G",
     floor:"1",
-    x:400,
-    y:2909
+    x:1126,
+    y:1466
 },
 
-Takkyuuroom:{
+TakkyuuRoom:{
     building:"G",
     floor:"1",
-    x:1127,
-    y:2678
+    x:416,
+    y:1619
 },
 
-Taiikukanhousousitu:{
-    building:"G",
-    floor:"3",
-    x:2444,
-    y:1326
-},
-
-Taiikukanshokuinsitu:{
-    building:"G",
+11:{
+    building:"S",
     floor:"2",
-    x:1943,
-    y:447
-}
+    x:983,
+    y:956
+},
 
+12:{
+    building:"S",
+    floor:"3",
+    x:983,
+    y:1326
+}
+    
+/*
+11:{
+    building:"S",
+    floor:"2",
+    x:,
+    y:
+},
+*/
+    
 };
 
 // =====================
