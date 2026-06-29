@@ -446,12 +446,68 @@ S206:{
     x:1000,
     y:259
 },
-
+    
 34:{
-    building:"S",
+    building:"AB",
     floor:"3",
-    x:429,
-    y:600
+    x:3263,
+    y:906
+},
+
+35:{
+    building:"AB",
+    floor:"3",
+    x:156,
+    y:290
+},
+    
+36:{
+    building:"AB",
+    floor:"3",
+    x:2880,
+    y:906
+},
+
+37:{
+    building:"AB",
+    floor:"3",
+    x:2488,
+    y:906
+},
+
+38:{
+    building:"AB",
+    floor:"3",
+    x:2088,
+    y:906
+},
+
+39:{
+    building:"AB",
+    floor:"3",
+    x:1693,
+    y:906
+},
+
+310:{
+    building:"AB",
+    floor:"3",
+    x:156,
+    y:1465
+},
+
+311:{
+    building:"AB",
+    floor:"3",
+    x:156,
+    y:1085
+},
+
+312:{
+    building:"AB",
+    floor:"3",
+    x:156,
+    y:673
 },
     
 /*
