@@ -128,8 +128,8 @@ Jimuroom:{
 Hokenroom:{
     building:"AB",
     floor:"1",
-    x:3131,
-    y:1017
+    x:3139,
+    y:1194
 },
 
 Koudoutaiikukan:{
@@ -214,15 +214,115 @@ TakkyuuRoom:{
     floor:"3",
     x:983,
     y:1326
-}
-    
-/*
-11:{
+},
+
+13:{
     building:"S",
-    floor:"2",
+    floor:"3",
+    x:1000,
+    y:972
+},
+    
+14:{
+    building:"S",
+    floor:"3",
+    x:1000,
+    y:579
+},
+
+15:{
+    building:"S",
+    floor:"3",
+    x:1000,
+    y:259
+},
+
+16:{
+    building:"AB",
+    floor:"5",
+    x:3263,
+    y:906
+},
+
+17:{
+    building:"AB",
+    floor:"5",
+    x:2880,
+    y:906
+},
+
+18:{
+    building:"AB",
+    floor:"5",
+    x:2488,
+    y:906
+},
+
+19:{
+    building:"AB",
+    floor:"5",
+    x:2088,
+    y:906
+},
+
+110:{
+    building:"AB",
+    floor:"5",
+    x:1693,
+    y:906
+},
+
+111:{
+    building:"AB",
+    floor:"5",
+    x:156,
+    y:1465
+},
+
+112:{
+    building:"AB",
+    floor:"5",
+    x:156,
+    y:1085
+},
+
+113:{
+    building:"AB",
+    floor:"5",
+    x:156,
+    y:673
+},
+
+114:{
+    building:"AB",
+    floor:"5",
+    x:156,
+    y:290
+},
+
+115:{
+    building:"AB",
+    floor:"5",
+    x:950,
+    y:261
+},
+
+116:{
+    building:"AB",
+    floor:"4",
+    x:950,
+    y:261
+},
+
+/*
+
+11:{
+    building:"AB",
+    floor:"5",
     x:,
     y:
 },
+
 */
     
 };
