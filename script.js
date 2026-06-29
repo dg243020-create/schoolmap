@@ -314,6 +314,27 @@ TakkyuuRoom:{
     y:261
 },
 
+21:{
+    building:"S",
+    floor:"2",
+    x:983,
+    y:1326
+},
+
+22:{
+    building:"S",
+    floor:"3",
+    x:429,
+    y:1326
+},
+
+23:{
+    building:"S",
+    floor:"3",
+    x:429,
+    y:963
+},
+    
 /*
 
 11:{
