@@ -383,6 +383,34 @@ TakkyuuRoom:{
     x:1693,
     y:906
 },
+
+211:{
+    building:"AB",
+    floor:"4",
+    x:156,
+    y:1465
+},
+
+212:{
+    building:"AB",
+    floor:"4",
+    x:156,
+    y:1085
+},
+
+213:{
+    building:"AB",
+    floor:"4",
+    x:156,
+    y:673
+},
+
+214:{
+    building:"AB",
+    floor:"4",
+    x:156,
+    y:290
+},
     
 /*
 
