@@ -170,7 +170,7 @@ Gomishori:{
 Informationroom:{
     building:"S",
     floor:"2",
-    x:441,
+    x:380,
     y:1283
 },
 
