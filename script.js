@@ -177,7 +177,7 @@ Informationroom:{
 Sinkantaiikukan:{
     building:"S",
     floor:"4",
-    x:646,
+    x:983,
     y:499
 },
 
