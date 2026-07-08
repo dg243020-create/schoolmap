@@ -170,8 +170,8 @@ Gomishori:{
 Informationroom:{
     building:"S",
     floor:"2",
-    x:983,
-    y:788
+    x:429,
+    y:1000
 },
 
 Sinkantaiikukan:{
