@@ -866,3 +866,25 @@ function showMarker(place){
 
 // =====================
 // 座標表示
+
+const params = new URLSearchParams(location.search);
+
+if (params.get("debug") === "true") {
+
+    map.onclick = function (e) {
+
+        const rect = map.getBoundingClientRect();
+
+        const x =
+            (e.clientX - rect.left) /
+            (rect.width / map.naturalWidth);
+
+        const y =
+            (e.clientY - rect.top) /
+            (rect.height / map.naturalHeight);
+
+        alert(`X:${Math.round(x)}  Y:${Math.round(y)}`);
+
+    };
+
+}
