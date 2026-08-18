@@ -1,60 +1,116 @@
-// =====================
+// ==================================================
+// 大商学園 校内マップ
+// script.js
+// ==================================================
+
+
+// ==================================================
 // 建物設定
-// =====================
+// ==================================================
 
 const floors = {
 
-    S:5,
+    S: 5,
 
-    AB:6,
+    AB: 6,
 
-    G:4
+    G: 4
 
 };
 
 
 const specialFloors = {
 
-    S:{
-        "1.5":"S11F.png"
+    S: {
+        "1.5": "S11F.png"
     }
 
 };
 
 
 
-// =====================
-// 要素
-// =====================
+// ==================================================
+// 座標確認デバッグ
+// ==================================================
+//
+// true  → 地図をクリックすると座標をコンソール表示
+// false → 座標確認をOFF
+//
+// 座標を調べ終わったら false にしてください。
+// ==================================================
+
+const DEBUG_COORDINATES = true;
+
+
+
+// ==================================================
+// 要素取得
+// ==================================================
 
 const building =
-document.getElementById("building");
+    document.getElementById("building");
 
 const floor =
-document.getElementById("floor");
+    document.getElementById("floor");
 
 const map =
-document.getElementById("map");
+    document.getElementById("map");
 
 const marker =
-document.getElementById("marker");
-
-const classroomLayer =
-document.getElementById("classroom-layer");
+    document.getElementById("marker");
 
 
 
-// =====================
+// ==================================================
+// 文化祭クリックレイヤー
+// ==================================================
+//
+// HTMLに無ければ自動作成
+// ==================================================
+
+let classroomLayer =
+    document.getElementById("classroom-layer");
+
+
+if (!classroomLayer) {
+
+    classroomLayer =
+        document.createElement("div");
+
+    classroomLayer.id =
+        "classroom-layer";
+
+    const mapContainer =
+        document.getElementById("map-container");
+
+    if (mapContainer) {
+
+        mapContainer.appendChild(
+            classroomLayer
+        );
+
+    }
+
+}
+
+
+
+// ==================================================
 // 目的地
-// =====================
+// ==================================================
 
 const destinations = {
 
-    Library:{
-        building:"AB",
-        floor:"6",
-        x:150,
-        y:1000
+    Library: {
+
+        building: "AB",
+
+        floor: "6",
+
+        x: 150,
+
+        y: 1000
+
     },
 
 
@@ -65,11 +121,16 @@ const destinations = {
 
     例：
 
-    Studyroom:{
-        building:"AB",
-        floor:"6",
-        x:968,
-        y:461
+    Studyroom: {
+
+        building: "AB",
+
+        floor: "6",
+
+        x: 968,
+
+        y: 461
+
     }
 
     */
@@ -78,9 +139,9 @@ const destinations = {
 
 
 
-// =====================
-// 現在選択
-// =====================
+// ==================================================
+// 現在選択中の目的地
+// ==================================================
 
 let currentPlace = null;
 
@@ -90,119 +151,160 @@ let currentPlace = null;
 // 文化祭
 // ==================================================
 //
-// x / y / width / height は
-// 「元画像そのもの」の座標です。
-// 自分であとから入力してください。
-//
-// x      = 左からの位置
-// y      = 上からの位置
+// x      = 左端
+// y      = 上端
 // width  = 横幅
 // height = 縦幅
 //
+// すべて「元画像」の座標です。
+//
+// 例えば
+//
+// x:100
+// y:200
+// width:300
+// height:150
+//
+// なら
+//
+// 左上 X100 Y200
+// 右下 X400 Y350
+//
+// の範囲がクリック可能になります。
 // ==================================================
 
 const classroomAreas = {
 
-    /*
-    ==================================================
-    例
-    ==================================================
 
-    "11":{
+    // ==================================================
+    // 例
+    // ==================================================
+    //
+    // "11": {
+    //
+    //     building: "AB",
+    //     floor: "1",
+    //
+    //     x: 100,
+    //     y: 100,
+    //
+    //     width: 200,
+    //     height: 100
+    //
+    // }
+    //
+    // ==================================================
 
-        building:"AB",
-
-        floor:"1",
-
-        x:100,
-
-        y:100,
-
-        width:200,
-
-        height:100
-
-    }
-
-    ==================================================
-    */
 
 };
 
 
 
 // ==================================================
-// 文化祭の情報
+// 文化祭情報
 // ==================================================
 //
-// classroomAreas のキーと同じ名前を使用します。
+// classroomAreas と同じキーを使います。
 //
-// 例：
 // "11" → 1-1
+// "12" → 1-2
+// "21" → 2-1
 //
 // ==================================================
 
 const festivalInfo = {
 
-    /*
-    ==================================================
-    例
-    ==================================================
 
-    "11":{
-
-        title:"1-1 クラス企画",
-
-        image:"festival/1-1.jpg",
-
-        description:
-        "ここに1-1の文化祭企画の説明を書きます。"
-
-    }
-
-    ==================================================
-    */
+    // ==================================================
+    // 例
+    // ==================================================
+    //
+    // "11": {
+    //
+    //     title: "1-1 クラス企画",
+    //
+    //     image: "festival/1-1.png",
+    //
+    //     description:
+    //         "ここに1-1の文化祭企画の説明を書きます。"
+    //
+    // }
+    //
+    // ==================================================
 
 
 };
 
 
 
-// =====================
+// ==================================================
 // 現在表示している画像の情報
-// =====================
+// ==================================================
 
-function getImageInfo(){
+function getImageInfo() {
+
 
     const rect =
-    map.getBoundingClientRect();
+        map.getBoundingClientRect();
 
+
+    const naturalWidth =
+        map.naturalWidth;
+
+
+    const naturalHeight =
+        map.naturalHeight;
+
+
+    if (
+        !naturalWidth ||
+        !naturalHeight
+    ) {
+
+        return {
+
+            scaleX: 1,
+
+            scaleY: 1,
+
+            offsetX: 0,
+
+            offsetY: 0
+
+        };
+
+    }
+
+
+
+    // object-fit: contain と同じ倍率
 
     const scale =
-    Math.min(
+        Math.min(
 
-        rect.width / map.naturalWidth,
+            rect.width / naturalWidth,
 
-        rect.height / map.naturalHeight
+            rect.height / naturalHeight
 
-    );
+        );
+
 
 
     return {
 
-        scaleX:scale,
+        scaleX: scale,
 
-        scaleY:scale,
+        scaleY: scale,
 
 
         offsetX:
-        (rect.width -
-        map.naturalWidth * scale) / 2,
+            (rect.width -
+                naturalWidth * scale) / 2,
 
 
         offsetY:
-        (rect.height -
-        map.naturalHeight * scale) / 2
+            (rect.height -
+                naturalHeight * scale) / 2
 
     };
 
@@ -210,51 +312,63 @@ function getImageInfo(){
 
 
 
-// =====================
+// ==================================================
 // マーカー消去
-// =====================
+// ==================================================
 
-function clearMarker(){
+function clearMarker() {
 
-    marker.style.display="none";
 
-    marker.classList.remove("redMarker");
+    if (!marker) return;
+
+
+    marker.style.display =
+        "none";
+
+
+    marker.classList.remove(
+        "redMarker"
+    );
 
 }
 
 
 
-// =====================
+// ==================================================
 // 文化祭クリック範囲消去
-// =====================
+// ==================================================
 
-function clearClassroomAreas(){
+function clearClassroomAreas() {
 
-    classroomLayer.innerHTML="";
+
+    if (!classroomLayer) return;
+
+
+    classroomLayer.innerHTML = "";
 
 }
 
 
 
-// =====================
+// ==================================================
 // 建物変更
-// =====================
+// ==================================================
 
-building.onchange=function(){
+building.onchange = function () {
 
-    floor.innerHTML=
-    `
-    <option value="">
-        階を選択
-    </option>
+
+    floor.innerHTML = `
+        <option value="">
+            階を選択
+        </option>
     `;
 
 
     const b =
-    building.value;
+        building.value;
 
 
-    if(!b){
+    if (!b) {
 
         clearClassroomAreas();
 
@@ -263,42 +377,63 @@ building.onchange=function(){
     }
 
 
-    for(
-        let i=1;
-        i<=floors[b];
+
+    // 通常階
+
+    for (
+        let i = 1;
+        i <= floors[b];
         i++
-    ){
+    ) {
+
 
         const option =
-        document.createElement("option");
+            document.createElement(
+                "option"
+            );
 
 
-        option.value=i;
-
-        option.textContent=
-        i+"階";
+        option.value =
+            i;
 
 
-        floor.appendChild(option);
+        option.textContent =
+            i + "階";
+
+
+        floor.appendChild(
+            option
+        );
 
     }
 
 
-    if(b==="S"){
+
+    // 新館の1階上
+
+    if (b === "S") {
+
 
         const option =
-        document.createElement("option");
+            document.createElement(
+                "option"
+            );
 
 
-        option.value="1.5";
-
-        option.textContent=
-        "1階上";
+        option.value =
+            "1.5";
 
 
-        floor.appendChild(option);
+        option.textContent =
+            "1階上";
+
+
+        floor.appendChild(
+            option
+        );
 
     }
+
 
 
     clearClassroomAreas();
@@ -307,21 +442,22 @@ building.onchange=function(){
 
 
 
-// =====================
+// ==================================================
 // 階変更
-// =====================
+// ==================================================
 
-floor.onchange=function(){
+floor.onchange = function () {
+
 
     const b =
-    building.value;
+        building.value;
 
 
     const f =
-    floor.value;
+        floor.value;
 
 
-    if(!b || !f){
+    if (!b || !f) {
 
         clearClassroomAreas();
 
@@ -330,94 +466,113 @@ floor.onchange=function(){
     }
 
 
+
     clearMarker();
 
     clearClassroomAreas();
+
 
 
     let file;
 
 
-    if(
 
+    // 特殊階
+
+    if (
         specialFloors[b] &&
-
         specialFloors[b][f]
-
-    ){
+    ) {
 
         file =
-        specialFloors[b][f];
+            specialFloors[b][f];
 
     }
 
-    else{
+    // 通常階
+
+    else {
 
         file =
-        b + f + "F.png";
+            b +
+            f +
+            "F.png";
 
     }
 
 
-    map.src=file;
+
+    map.src =
+        file;
 
 };
 
 
 
-// =====================
+// ==================================================
 // 画像読み込み
-// =====================
+// ==================================================
 
-map.onload=function(){
+map.onload = function () {
+
 
     clearMarker();
 
     clearClassroomAreas();
 
 
+
+    // 文化祭クリック範囲作成
+
     createClassroomAreas();
 
 
-    if(!currentPlace){
+
+    if (!currentPlace) {
 
         return;
 
     }
 
 
+
     const now =
-    map.src.split("/").pop();
+        map.src
+            .split("/")
+            .pop();
+
 
 
     let target;
 
 
-    if(
 
-        currentPlace.building==="S" &&
+    if (
+        currentPlace.building === "S" &&
+        currentPlace.floor === "1.5"
+    ) {
 
-        currentPlace.floor==="1.5"
-
-    ){
-
-        target="S11F.png";
-
-    }
-
-    else{
-
-        target=
-        currentPlace.building +
-        currentPlace.floor +
-        "F.png";
+        target =
+            "S11F.png";
 
     }
 
+    else {
 
-    if(now===target){
+        target =
+            currentPlace.building +
+            currentPlace.floor +
+            "F.png";
 
-        showMarker(currentPlace);
+    }
+
+
+
+    if (now === target) {
+
+        showMarker(
+            currentPlace
+        );
 
     }
 
@@ -429,41 +584,52 @@ map.onload=function(){
 // 目的地表示
 // ==================================================
 
-function showDestination(){
+function showDestination() {
+
 
     const key =
-    document
-    .getElementById("destination")
-    .value;
+        document
+            .getElementById(
+                "destination"
+            )
+            .value;
 
 
-    if(!key){
+    if (!key) {
 
         return;
 
     }
+
 
 
     currentPlace =
-    destinations[key];
+        destinations[key];
 
 
-    if(!currentPlace){
+
+    if (!currentPlace) {
 
         return;
 
     }
 
 
+
+    // 建物変更
+
     building.value =
-    currentPlace.building;
+        currentPlace.building;
 
 
     building.onchange();
 
 
+
+    // 階変更
+
     floor.value =
-    currentPlace.floor;
+        currentPlace.floor;
 
 
     floor.onchange();
@@ -476,49 +642,58 @@ function showDestination(){
 // マーカー表示
 // ==================================================
 
-function showMarker(place){
+function showMarker(place) {
+
+
+    if (!marker) return;
+
+
 
     const info =
-    getImageInfo();
+        getImageInfo();
+
 
 
     const mapRect =
-    map.getBoundingClientRect();
+        map.getBoundingClientRect();
 
 
     const parentRect =
-    map.parentElement
-    .getBoundingClientRect();
+        map.parentElement
+            .getBoundingClientRect();
 
 
-    marker.style.left=
 
-    (
+    marker.style.left =
 
-        mapRect.left -
-        parentRect.left +
+        (
 
-        info.offsetX +
+            mapRect.left -
+            parentRect.left +
 
-        place.x *
-        info.scaleX
+            info.offsetX +
 
-    )+"px";
+            place.x *
+            info.scaleX
+
+        ) + "px";
 
 
-    marker.style.top=
 
-    (
+    marker.style.top =
 
-        mapRect.top -
-        parentRect.top +
+        (
 
-        info.offsetY +
+            mapRect.top -
+            parentRect.top +
 
-        place.y *
-        info.scaleY
+            info.offsetY +
 
-    )+"px";
+            place.y *
+            info.scaleY
+
+        ) + "px";
+
 
 
     marker.classList.remove(
@@ -526,19 +701,25 @@ function showMarker(place){
     );
 
 
+
     const file =
-    map.src.split("/").pop();
+        map.src
+            .split("/")
+            .pop();
 
 
-    if(
 
-        file==="S1F.png" ||
+    // 赤マーカー
 
-        file==="AB1F.png" ||
+    if (
 
-        file==="AB6F.png"
+        file === "S1F.png" ||
 
-    ){
+        file === "AB1F.png" ||
+
+        file === "AB6F.png"
+
+    ) {
 
         marker.classList.add(
             "redMarker"
@@ -547,144 +728,526 @@ function showMarker(place){
     }
 
 
-    marker.style.display=
-    "block";
+
+    marker.style.display =
+        "block";
 
 }
 
 
 
 // ==================================================
-// 文化祭のクリック範囲を作る
+// 文化祭クリック範囲を作る
 // ==================================================
 
-function createClassroomAreas(){
+function createClassroomAreas() {
+
 
     clearClassroomAreas();
 
 
-    const info =
-    getImageInfo();
-
 
     const b =
-    building.value;
+        building.value;
 
 
     const f =
-    floor.value;
+        floor.value;
 
 
-    if(!b || !f){
+    if (!b || !f) {
 
         return;
 
     }
 
 
-    Object.keys(classroomAreas)
-    .forEach(key=>{
 
-        const room =
-        classroomAreas[key];
+    if (
+        !map.naturalWidth ||
+        !map.naturalHeight
+    ) {
 
+        return;
 
-        // 現在の建物・階だけ表示
-
-        if(
-            room.building !== b ||
-            room.floor !== f
-        ){
-
-            return;
-
-        }
-
-
-        // 文化祭情報がなければ
-        // クリック範囲を作らない
-
-        if(!festivalInfo[key]){
-
-            return;
-
-        }
-
-
-        const area =
-        document.createElement("div");
-
-
-        area.className=
-        "classroom-area";
-
-
-        area.dataset.room=
-        key;
-
-
-        area.style.left=
-
-        (
-
-            info.offsetX +
-
-            room.x *
-            info.scaleX
-
-        )+"px";
-
-
-        area.style.top=
-
-        (
-
-            info.offsetY +
-
-            room.y *
-            info.scaleY
-
-        )+"px";
-
-
-        area.style.width=
-
-        (
-
-            room.width *
-            info.scaleX
-
-        )+"px";
-
-
-        area.style.height=
-
-        (
-
-            room.height *
-            info.scaleY
-
-        )+"px";
+    }
 
 
 
-        // クリック
+    const info =
+        getImageInfo();
 
-        area.addEventListener(
-            "click",
-            function(){
 
-                openFestivalModal(key);
+
+    Object.keys(
+        classroomAreas
+    ).forEach(
+        function (key) {
+
+
+            const room =
+                classroomAreas[key];
+
+
+
+            // 建物が違う
+
+            if (
+                room.building !== b
+            ) {
+
+                return;
 
             }
+
+
+
+            // 階が違う
+
+            if (
+                String(room.floor) !==
+                String(f)
+            ) {
+
+                return;
+
+            }
+
+
+
+            // 文化祭情報が無い場合
+
+            if (
+                !festivalInfo[key]
+            ) {
+
+                return;
+
+            }
+
+
+
+            const area =
+                document.createElement(
+                    "div"
+                );
+
+
+            area.className =
+                "classroom-area";
+
+
+            area.dataset.room =
+                key;
+
+
+
+            // ==================================================
+            // 左位置
+            // ==================================================
+
+            area.style.left =
+
+                (
+
+                    info.offsetX +
+
+                    room.x *
+                    info.scaleX
+
+                ) + "px";
+
+
+
+            // ==================================================
+            // 上位置
+            // ==================================================
+
+            area.style.top =
+
+                (
+
+                    info.offsetY +
+
+                    room.y *
+                    info.scaleY
+
+                ) + "px";
+
+
+
+            // ==================================================
+            // 横幅
+            // ==================================================
+
+            area.style.width =
+
+                (
+
+                    room.width *
+                    info.scaleX
+
+                ) + "px";
+
+
+
+            // ==================================================
+            // 高さ
+            // ==================================================
+
+            area.style.height =
+
+                (
+
+                    room.height *
+                    info.scaleY
+
+                ) + "px";
+
+
+
+            // ==================================================
+            // クリック
+            // ==================================================
+
+            area.addEventListener(
+                "click",
+                function (e) {
+
+
+                    // デバッグ座標計算
+
+                    if (
+                        DEBUG_COORDINATES
+                    ) {
+
+                        showDebugCoordinate(
+                            e
+                        );
+
+                    }
+
+
+
+                    openFestivalModal(
+                        key
+                    );
+
+                }
+            );
+
+
+
+            classroomLayer.appendChild(
+                area
+            );
+
+        }
+    );
+
+}
+
+
+
+// ==================================================
+// 座標確認
+// ==================================================
+//
+// クリックした位置を
+// 「元画像のX / Y」に変換する。
+// ==================================================
+
+function getImageCoordinate(e) {
+
+
+    const container =
+        document.getElementById(
+            "map-container"
         );
 
 
-        classroomLayer.appendChild(
-            area
+    if (!container) {
+
+        return null;
+
+    }
+
+
+
+    const containerRect =
+        container.getBoundingClientRect();
+
+
+
+    const info =
+        getImageInfo();
+
+
+
+    // コンテナ内座標
+
+    const clickX =
+        e.clientX -
+        containerRect.left;
+
+
+    const clickY =
+        e.clientY -
+        containerRect.top;
+
+
+
+    // 実際の画像部分
+
+    const imageX =
+        clickX -
+        info.offsetX;
+
+
+    const imageY =
+        clickY -
+        info.offsetY;
+
+
+
+    // 元画像座標
+
+    const x =
+        imageX /
+        info.scaleX;
+
+
+    const y =
+        imageY /
+        info.scaleY;
+
+
+
+    return {
+
+        x: Math.round(x),
+
+        y: Math.round(y)
+
+    };
+
+}
+
+
+
+// ==================================================
+// 座標デバッグ表示
+// ==================================================
+
+function showDebugCoordinate(e) {
+
+
+    const coordinate =
+        getImageCoordinate(e);
+
+
+    if (!coordinate) {
+
+        return;
+
+    }
+
+
+
+    console.log(
+        "=============================="
+    );
+
+
+    console.log(
+        "文化祭座標確認"
+    );
+
+
+    console.log(
+        "X:",
+        coordinate.x
+    );
+
+
+    console.log(
+        "Y:",
+        coordinate.y
+    );
+
+
+    console.log(
+        `x:${coordinate.x}, y:${coordinate.y}`
+    );
+
+
+    console.log(
+        "=============================="
+    );
+
+}
+
+
+
+// ==================================================
+// 地図クリックで座標確認
+// ==================================================
+//
+// classroom-area のクリックも
+// 親へイベントが伝わるため、
+// その場合も座標を取得できます。
+// ==================================================
+
+document
+    .getElementById("map-container")
+    .addEventListener(
+        "click",
+        function (e) {
+
+
+            if (
+                !DEBUG_COORDINATES
+            ) {
+
+                return;
+
+            }
+
+
+
+            const coordinate =
+                getImageCoordinate(e);
+
+
+
+            if (!coordinate) {
+
+                return;
+
+            }
+
+
+
+            console.log(
+                `クリック座標 → X:${coordinate.x} Y:${coordinate.y}`
+            );
+
+        }
+    );
+
+
+
+// ==================================================
+// 文化祭モーダルを作成
+// ==================================================
+
+function createFestivalModal() {
+
+
+    let modal =
+        document.getElementById(
+            "festival-modal"
         );
 
-    });
+
+
+    // 既にHTMLにあるなら何もしない
+
+    if (modal) {
+
+        return;
+
+    }
+
+
+
+    modal =
+        document.createElement(
+            "div"
+        );
+
+
+    modal.id =
+        "festival-modal";
+
+
+
+    modal.innerHTML = `
+
+        <div class="festival-modal-content">
+
+            <button
+                id="festival-close"
+                type="button"
+            >
+                ×
+            </button>
+
+
+            <h2 id="festival-title">
+            </h2>
+
+
+            <div
+                id="festival-image-container"
+            >
+
+                <img
+                    id="festival-image"
+                    src=""
+                    alt=""
+                >
+
+            </div>
+
+
+            <p
+                id="festival-description"
+            >
+            </p>
+
+        </div>
+
+    `;
+
+
+
+    document.body.appendChild(
+        modal
+    );
+
+
+
+    // ×ボタン
+
+    document
+        .getElementById(
+            "festival-close"
+        )
+        .addEventListener(
+            "click",
+            closeFestivalModal
+        );
+
+
+
+    // 外側クリック
+
+    modal.addEventListener(
+        "click",
+        function (e) {
+
+
+            if (
+                e.target === modal
+            ) {
+
+                closeFestivalModal();
+
+            }
+
+        }
+    );
 
 }
 
@@ -694,81 +1257,104 @@ function createClassroomAreas(){
 // 文化祭情報表示
 // ==================================================
 
-function openFestivalModal(key){
+function openFestivalModal(key) {
+
 
     const info =
-    festivalInfo[key];
+        festivalInfo[key];
 
 
-    if(!info){
+    if (!info) {
 
         return;
 
     }
 
 
+
+    createFestivalModal();
+
+
+
     const modal =
-    document.getElementById(
-        "festival-modal"
-    );
+        document.getElementById(
+            "festival-modal"
+        );
 
 
     const title =
-    document.getElementById(
-        "festival-title"
-    );
+        document.getElementById(
+            "festival-title"
+        );
 
 
     const image =
-    document.getElementById(
-        "festival-image"
-    );
+        document.getElementById(
+            "festival-image"
+        );
 
 
     const imageContainer =
-    document.getElementById(
-        "festival-image-container"
-    );
+        document.getElementById(
+            "festival-image-container"
+        );
 
 
     const description =
-    document.getElementById(
-        "festival-description"
-    );
+        document.getElementById(
+            "festival-description"
+        );
 
 
-    title.textContent=
-    info.title || key;
+
+    // タイトル
+
+    title.textContent =
+        info.title || key;
 
 
-    description.textContent=
-    info.description || "";
+
+    // 説明
+
+    description.textContent =
+        info.description || "";
 
 
-    // 画像が設定されている場合
 
-    if(info.image){
+    // 画像
 
-        image.src=
-        info.image;
+    if (info.image) {
 
-        image.alt=
-        info.title || "文化祭企画";
 
-        imageContainer.style.display=
-        "block";
+        image.src =
+            info.image;
+
+
+        image.alt =
+            info.title ||
+            "文化祭企画";
+
+
+        imageContainer.style.display =
+            "block";
 
     }
 
-    else{
+    else {
 
-        image.src="";
 
-        imageContainer.style.display=
-        "none";
+        image.src =
+            "";
+
+
+        imageContainer.style.display =
+            "none";
 
     }
 
+
+
+    // 表示
 
     modal.classList.add(
         "show"
@@ -782,12 +1368,21 @@ function openFestivalModal(key){
 // 文化祭情報を閉じる
 // ==================================================
 
-function closeFestivalModal(){
+function closeFestivalModal() {
+
 
     const modal =
-    document.getElementById(
-        "festival-modal"
-    );
+        document.getElementById(
+            "festival-modal"
+        );
+
+
+    if (!modal) {
+
+        return;
+
+    }
+
 
 
     modal.classList.remove(
@@ -799,18 +1394,17 @@ function closeFestivalModal(){
 
 
 // ==================================================
-// ポップアップの外側をクリックしたら閉じる
+// ESCキーで閉じる
 // ==================================================
 
-document
-.getElementById("festival-modal")
-.addEventListener(
-    "click",
-    function(e){
+document.addEventListener(
+    "keydown",
+    function (e) {
 
-        if(
-            e.target === this
-        ){
+
+        if (
+            e.key === "Escape"
+        ) {
 
             closeFestivalModal();
 
@@ -824,54 +1418,67 @@ document
 // ==================================================
 // 画面サイズ変更
 // ==================================================
-//
-// スマホの縦横変更などでも
-// クリック範囲を正しい位置に戻す
-//
 
 window.addEventListener(
     "resize",
-    function(){
+    function () {
 
-        if(map.complete){
+
+        if (
+            map.complete &&
+            map.naturalWidth
+        ) {
+
+
+            // クリック範囲を再計算
 
             createClassroomAreas();
 
-            if(currentPlace){
+
+
+            // マーカーも再計算
+
+            if (currentPlace) {
+
 
                 const file =
-                map.src
-                .split("/")
-                .pop();
+                    map.src
+                        .split("/")
+                        .pop();
+
 
 
                 let target;
 
 
-                if(
 
-                    currentPlace.building==="S" &&
+                if (
 
-                    currentPlace.floor==="1.5"
+                    currentPlace.building === "S" &&
 
-                ){
+                    currentPlace.floor === "1.5"
 
-                    target=
-                    "S11F.png";
+                ) {
 
-                }
-
-                else{
-
-                    target=
-                    currentPlace.building +
-                    currentPlace.floor +
-                    "F.png";
+                    target =
+                        "S11F.png";
 
                 }
 
+                else {
 
-                if(file===target){
+                    target =
+                        currentPlace.building +
+                        currentPlace.floor +
+                        "F.png";
+
+                }
+
+
+
+                if (
+                    file === target
+                ) {
 
                     showMarker(
                         currentPlace
@@ -885,3 +1492,11 @@ window.addEventListener(
 
     }
 );
+
+
+
+// ==================================================
+// 初期化
+// ==================================================
+
+createFestivalModal();
