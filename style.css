@@ -7,6 +7,11 @@
 }
 
 
+html{
+    scroll-behavior:smooth;
+}
+
+
 body{
 
     margin:0;
@@ -21,89 +26,31 @@ body{
 
     background:#f5f7fa;
 
+    color:#222;
+
 }
 
 
 
 /* =====================
-   タイトル
+   ヘッダー
 ===================== */
+
+header{
+
+    margin-bottom:20px;
+
+}
+
 
 h1{
 
-    margin:10px 0 20px;
+    margin:10px 0;
 
     font-size:28px;
 
 }
 
-
-/* =====================
-   アンケート
-===================== */
-
-.survey{
-
-    width:90%;
-
-    max-width:800px;
-
-    margin:30px auto;
-
-    padding:25px;
-
-    background:white;
-
-    border-radius:15px;
-
-    box-shadow:
-    0 5px 20px
-    rgba(0,0,0,0.12);
-
-}
-
-
-.survey h2{
-
-    margin-top:0;
-
-}
-
-
-.survey p{
-
-    font-size:16px;
-
-    line-height:1.8;
-
-}
-
-
-
-.survey button{
-
-    background:#4285f4;
-
-    color:white;
-
-    border:none;
-
-    padding:14px 25px;
-
-}
-
-
-@media(max-width:600px){
-
-    .survey{
-
-        width:100%;
-
-        padding:20px;
-
-    }
-
-}
 
 
 /* =====================
@@ -119,14 +66,13 @@ h1{
 
     justify-content:center;
 
+    align-items:center;
+
     gap:10px;
 
     flex-wrap:wrap;
 
 }
-
-
-
 
 
 select,
@@ -145,26 +91,24 @@ button{
 }
 
 
-
 button{
 
     cursor:pointer;
 
-    transition:.2s;
+    transition:
+    transform .2s,
+    opacity .2s;
 
 }
-
 
 
 button:hover{
 
     transform:scale(1.05);
 
+    opacity:.9;
+
 }
-
-
-
-
 
 
 
@@ -174,44 +118,29 @@ button:hover{
 
 #map-container{
 
-
     width:95%;
-
 
     max-width:1200px;
 
-
     aspect-ratio:1 / 1;
-
 
     height:auto;
 
-
     margin:20px auto;
-
 
     position:relative;
 
-
     overflow:hidden;
-
 
     background:white;
 
-
     border-radius:15px;
-
 
     box-shadow:
     0 5px 20px
     rgba(0,0,0,0.15);
 
-
 }
-
-
-
-
 
 
 
@@ -219,26 +148,88 @@ button:hover{
    地図画像
 ===================== */
 
-
 #map{
-
 
     width:100%;
 
     height:100%;
 
-
     object-fit:contain;
 
-
     display:block;
-
 
 }
 
 
 
+/* =====================
+   クラスクリックレイヤー
+===================== */
 
+#class-layer{
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    width:100%;
+
+    height:100%;
+
+    pointer-events:none;
+
+    z-index:10;
+
+}
+
+
+
+/* =====================
+   クラスクリック領域
+===================== */
+
+.class-hotspot{
+
+    position:absolute;
+
+    padding:0;
+
+    margin:0;
+
+    border:none;
+
+    border-radius:0;
+
+    background:transparent;
+
+    opacity:0;
+
+    pointer-events:auto;
+
+    cursor:pointer;
+
+    transform:none;
+
+}
+
+
+
+/*
+   マウスを乗せたときだけ
+   クリック範囲を確認できる
+*/
+
+.class-hotspot:hover{
+
+    opacity:.25;
+
+    background:#00aaff;
+
+    outline:2px solid #0088cc;
+
+}
 
 
 
@@ -246,46 +237,29 @@ button:hover{
    通常マーカー
 ===================== */
 
-
 #marker{
 
-
     position:absolute;
-
 
     width:28px;
 
     height:28px;
 
-
     background:#00e5ff;
 
-
     border-radius:50%;
-
 
     transform:
     translate(-50%,-50%);
 
-
     display:none;
-
 
     z-index:20;
 
-
-
     animation:
-
     markerPulse 1.2s infinite;
 
-
 }
-
-
-
-
-
 
 
 
@@ -293,9 +267,7 @@ button:hover{
    通常マーカー光
 ===================== */
 
-
 @keyframes markerPulse{
-
 
     0%{
 
@@ -305,7 +277,6 @@ button:hover{
 
     }
 
-
     70%{
 
         box-shadow:
@@ -313,7 +284,6 @@ button:hover{
         rgba(0,229,255,0);
 
     }
-
 
     100%{
 
@@ -327,32 +297,18 @@ button:hover{
 
 
 
-
-
-
-
-
-
 /* =====================
    赤マーカー
 ===================== */
 
-
 .redMarker{
-
 
     background:red !important;
 
-
     animation:
-
     redPulse 1.2s infinite !important;
 
-
 }
-
-
-
 
 
 
@@ -360,9 +316,7 @@ button:hover{
    赤マーカー光
 ===================== */
 
-
 @keyframes redPulse{
-
 
     0%{
 
@@ -372,8 +326,6 @@ button:hover{
 
     }
 
-
-
     70%{
 
         box-shadow:
@@ -381,8 +333,6 @@ button:hover{
         rgba(255,0,0,0);
 
     }
-
-
 
     100%{
 
@@ -396,9 +346,315 @@ button:hover{
 
 
 
+/* =====================
+   クラス紹介モーダル
+===================== */
+
+#class-modal{
+
+    position:fixed;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+
+    background:
+    rgba(0,0,0,0.65);
+
+    z-index:1000;
+
+}
 
 
 
+/* =====================
+   モーダル本体
+===================== */
+
+.class-modal-content{
+
+    position:relative;
+
+    width:90%;
+
+    max-width:700px;
+
+    max-height:90vh;
+
+    overflow-y:auto;
+
+    padding:30px;
+
+    background:white;
+
+    border-radius:18px;
+
+    box-shadow:
+    0 10px 40px
+    rgba(0,0,0,0.3);
+
+    text-align:center;
+
+    animation:
+    modalOpen .25s ease;
+
+}
+
+
+@keyframes modalOpen{
+
+    from{
+
+        opacity:0;
+
+        transform:
+        scale(.9);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+        scale(1);
+
+    }
+
+}
+
+
+
+/* =====================
+   閉じる ×
+===================== */
+
+#class-modal-close{
+
+    position:absolute;
+
+    right:15px;
+
+    top:10px;
+
+    width:45px;
+
+    height:45px;
+
+    padding:0;
+
+    border:none;
+
+    background:transparent;
+
+    font-size:32px;
+
+    line-height:1;
+
+    color:#555;
+
+}
+
+
+#class-modal-close:hover{
+
+    transform:none;
+
+    color:#000;
+
+}
+
+
+
+/* =====================
+   モーダルタイトル
+===================== */
+
+#class-modal-title{
+
+    margin:0 40px 20px;
+
+    font-size:28px;
+
+}
+
+
+
+/* =====================
+   クラス画像
+===================== */
+
+#class-modal-image{
+
+    display:none;
+
+    width:100%;
+
+    max-height:400px;
+
+    object-fit:contain;
+
+    margin:0 auto 25px;
+
+    border-radius:12px;
+
+}
+
+
+
+/* =====================
+   モーダル文章
+===================== */
+
+.class-modal-text{
+
+    text-align:left;
+
+}
+
+
+.class-modal-text h3{
+
+    margin:
+    20px 0 8px;
+
+    font-size:19px;
+
+}
+
+
+.class-modal-text p{
+
+    margin:0;
+
+    line-height:1.8;
+
+    white-space:pre-wrap;
+
+}
+
+
+
+/* =====================
+   下の閉じるボタン
+===================== */
+
+#class-modal-close-bottom{
+
+    margin-top:25px;
+
+    min-width:120px;
+
+    background:#333;
+
+    color:white;
+
+    border:none;
+
+}
+
+
+
+/* =====================
+   アンケート
+===================== */
+
+.survey{
+
+    width:90%;
+
+    max-width:800px;
+
+    margin:40px auto 30px;
+
+    padding:25px;
+
+    background:white;
+
+    border-radius:15px;
+
+    box-shadow:
+    0 5px 20px
+    rgba(0,0,0,0.10);
+
+}
+
+
+.survey h2{
+
+    margin:0 0 10px;
+
+    font-size:22px;
+
+}
+
+
+.survey p{
+
+    margin:0 0 20px;
+
+    font-size:16px;
+
+    line-height:1.8;
+
+}
+
+
+.survey a{
+
+    text-decoration:none;
+
+}
+
+
+.survey button{
+
+    background:#4285f4;
+
+    color:white;
+
+    border:none;
+
+    padding:14px 25px;
+
+}
+
+
+
+/* =====================
+   フッター
+===================== */
+
+footer{
+
+    margin-top:40px;
+
+    padding:20px 10px;
+
+    border-top:1px solid #ddd;
+
+    color:#777;
+
+    font-size:14px;
+
+}
+
+
+footer p{
+
+    margin:0;
+
+}
 
 
 
@@ -406,9 +662,7 @@ button:hover{
    スマホ対応
 ===================== */
 
-
 @media(max-width:600px){
-
 
     body{
 
@@ -417,13 +671,11 @@ button:hover{
     }
 
 
-
     h1{
 
         font-size:22px;
 
     }
-
 
 
     .destination,
@@ -436,36 +688,35 @@ button:hover{
     }
 
 
-
     select,
-    button{
-
+    .destination button{
 
         width:90%;
 
-
         font-size:17px;
-
 
     }
 
+
+    .floor-select select{
+
+        width:90%;
+
+        font-size:17px;
+
+    }
 
 
     #map-container{
 
-
         width:100%;
 
-
         border-radius:10px;
-
 
     }
 
 
-
     #marker{
-
 
         width:22px;
 
@@ -473,5 +724,90 @@ button:hover{
 
     }
 
+
+    .survey{
+
+        width:100%;
+
+        padding:20px;
+
+        margin-top:30px;
+
+    }
+
+
+    .survey h2{
+
+        font-size:20px;
+
+    }
+
+
+    .survey p{
+
+        font-size:15px;
+
+    }
+
+
+    .survey button{
+
+        width:90%;
+
+        font-size:16px;
+
+    }
+
+
+    .class-modal-content{
+
+        width:95%;
+
+        max-height:90vh;
+
+        padding:22px 18px;
+
+        border-radius:15px;
+
+    }
+
+
+    #class-modal-title{
+
+        font-size:23px;
+
+        margin-bottom:15px;
+
+    }
+
+
+    #class-modal-image{
+
+        max-height:300px;
+
+    }
+
+
+    .class-modal-text h3{
+
+        font-size:17px;
+
+    }
+
+
+    .class-modal-text p{
+
+        font-size:15px;
+
+    }
+
+
+    footer{
+
+        margin-top:30px;
+
+        padding-bottom:10px;
+
+    }
 
 }
