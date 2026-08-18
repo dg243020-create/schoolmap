@@ -381,7 +381,53 @@ content="width=device-width, initial-scale=1.0">
         alt="校内マップ"
     >
 
+    <!-- 文化祭のクリック範囲がここに自動生成される -->
+
+    <div id="classroom-layer"></div>
+
     <div id="marker"></div>
+
+</div>
+
+
+
+<!-- =====================
+     文化祭情報ポップアップ
+===================== -->
+
+<div id="festival-modal">
+
+    <div class="festival-content">
+
+        <button
+            id="festival-close"
+            onclick="closeFestivalModal()"
+        >
+            ×
+        </button>
+
+
+        <h2 id="festival-title">
+            1-1
+        </h2>
+
+
+        <div id="festival-image-container">
+
+            <img
+                id="festival-image"
+                src=""
+                alt="文化祭企画"
+            >
+
+        </div>
+
+
+        <div id="festival-description">
+        </div>
+
+
+    </div>
 
 </div>
 
