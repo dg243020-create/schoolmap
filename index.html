@@ -6,9 +6,9 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+      content="width=device-width, initial-scale=1.0">
 
-<title>大商学園 校内マップ</title>
+<title>校内マップ 座標確認ツール</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -18,312 +18,17 @@ content="width=device-width, initial-scale=1.0">
 <body>
 
 
-<!-- =====================
-     ヘッダー
-===================== -->
-
 <header>
 
     <h1>
-        大商学園 校内マップ
+        校内マップ 座標確認ツール
     </h1>
 
+    <p>
+        地図上をドラッグしてクリック範囲を作成してください
+    </p>
+
 </header>
-
-
-
-<!-- =====================
-     目的地選択
-===================== -->
-
-<div class="destination">
-
-    <select id="destination">
-
-        <option value="">
-            目的地を選択
-        </option>
-
-
-        <option value="Library">
-            図書室
-        </option>
-
-        <option value="Ignitionbase">
-            Ignition Base
-        </option>
-
-        <option value="Studyroom">
-            Study Room
-        </option>
-
-        <option value="Millenniumhall">
-            ミレニアムホール
-        </option>
-
-        <option value="Artroom">
-            美術室
-        </option>
-
-        <option value="Exerciseroom">
-            演習室
-        </option>
-
-        <option value="Scienceroom">
-            理科実験室
-        </option>
-
-        <option value="Kateikaroom">
-            家庭科室
-        </option>
-
-        <option value="Shodouroom">
-            書道教室
-        </option>
-
-        <option value="Hokenroom">
-            保健室
-        </option>
-
-        <option value="Jimuroom">
-            事務室
-        </option>
-
-        <option value="Shokuinroom">
-            職員室
-        </option>
-
-        <option value="Koudoutaiikukan">
-            講堂体育館
-        </option>
-
-        <option value="Shokudou">
-            食堂
-        </option>
-
-        <option value="Sinkanshokuinroom">
-            新館職員室
-        </option>
-
-        <option value="Musicroom">
-            音楽室
-        </option>
-
-        <option value="Danceroom">
-            ダンス教室
-        </option>
-
-        <option value="Gomishori">
-            ゴミ処理場
-        </option>
-
-        <option value="Informationroom">
-            新館情報処理室
-        </option>
-
-        <option value="Sinkantaiikukan">
-            新館体育館
-        </option>
-
-        <option value="TakkyuuRoom">
-            卓球場
-        </option>
-
-        <option value="Juudouroom">
-            柔道場
-        </option>
-
-        <option value="Kendouroom">
-            剣道場
-        </option>
-
-        <option value="S301">
-            S301
-        </option>
-
-        <option value="S206">
-            S206
-        </option>
-
-
-        <option value="11">
-            1-1
-        </option>
-
-        <option value="12">
-            1-2
-        </option>
-
-        <option value="13">
-            1-3
-        </option>
-
-        <option value="14">
-            1-4
-        </option>
-
-        <option value="15">
-            1-5
-        </option>
-
-        <option value="16">
-            1-6
-        </option>
-
-        <option value="17">
-            1-7
-        </option>
-
-        <option value="18">
-            1-8
-        </option>
-
-        <option value="19">
-            1-9
-        </option>
-
-        <option value="110">
-            1-10
-        </option>
-
-        <option value="111">
-            1-11
-        </option>
-
-        <option value="112">
-            1-12
-        </option>
-
-        <option value="113">
-            1-13
-        </option>
-
-        <option value="114">
-            1-14
-        </option>
-
-        <option value="115">
-            1-15
-        </option>
-
-        <option value="116">
-            1-16
-        </option>
-
-
-        <option value="21">
-            2-1
-        </option>
-
-        <option value="22">
-            2-2
-        </option>
-
-        <option value="23">
-            2-3
-        </option>
-
-        <option value="24">
-            2-4
-        </option>
-
-        <option value="25">
-            2-5
-        </option>
-
-        <option value="26">
-            2-6
-        </option>
-
-        <option value="27">
-            2-7
-        </option>
-
-        <option value="28">
-            2-8
-        </option>
-
-        <option value="29">
-            2-9
-        </option>
-
-        <option value="210">
-            2-10
-        </option>
-
-        <option value="211">
-            2-11
-        </option>
-
-        <option value="212">
-            2-12
-        </option>
-
-        <option value="213">
-            2-13
-        </option>
-
-        <option value="214">
-            2-14
-        </option>
-
-
-        <option value="31">
-            3-1
-        </option>
-
-        <option value="32">
-            3-2
-        </option>
-
-        <option value="33">
-            3-3
-        </option>
-
-        <option value="34">
-            3-4
-        </option>
-
-        <option value="35">
-            3-5
-        </option>
-
-        <option value="36">
-            3-6
-        </option>
-
-        <option value="37">
-            3-7
-        </option>
-
-        <option value="38">
-            3-8
-        </option>
-
-        <option value="39">
-            3-9
-        </option>
-
-        <option value="310">
-            3-10
-        </option>
-
-        <option value="311">
-            3-11
-        </option>
-
-        <option value="312">
-            3-12
-        </option>
-
-    </select>
-
-
-    <button onclick="showDestination()">
-        表示
-    </button>
-
-</div>
 
 
 
@@ -331,7 +36,7 @@ content="width=device-width, initial-scale=1.0">
      建物・階
 ===================== -->
 
-<div class="floor-select">
+<div class="controls">
 
 
     <select id="building">
@@ -375,108 +80,153 @@ content="width=device-width, initial-scale=1.0">
 
 <div id="map-container">
 
+
     <img
         id="map"
         src="AB1F.png"
         alt="校内マップ"
     >
 
-    <!-- 文化祭のクリック範囲がここに自動生成される -->
 
-    <div id="classroom-layer"></div>
+    <!-- ドラッグ範囲 -->
 
-    <div id="marker"></div>
+    <div id="selection"></div>
+
 
 </div>
 
 
 
 <!-- =====================
-     文化祭情報ポップアップ
+     座標結果
 ===================== -->
 
-<div id="festival-modal">
-
-    <div class="festival-content">
-
-        <button
-            id="festival-close"
-            onclick="closeFestivalModal()"
-        >
-            ×
-        </button>
+<section class="result">
 
 
-        <h2 id="festival-title">
-            1-1
-        </h2>
+    <h2>
+        選択範囲
+    </h2>
 
 
-        <div id="festival-image-container">
+    <div class="coordinate-grid">
 
-            <img
-                id="festival-image"
-                src=""
-                alt="文化祭企画"
-            >
+
+        <div>
+
+            <span>
+                X
+            </span>
+
+            <strong id="x">
+                ---
+            </strong>
 
         </div>
 
 
-        <div id="festival-description">
+        <div>
+
+            <span>
+                Y
+            </span>
+
+            <strong id="y">
+                ---
+            </strong>
+
+        </div>
+
+
+        <div>
+
+            <span>
+                Width
+            </span>
+
+            <strong id="width">
+                ---
+            </strong>
+
+        </div>
+
+
+        <div>
+
+            <span>
+                Height
+            </span>
+
+            <strong id="height">
+                ---
+            </strong>
+
         </div>
 
 
     </div>
 
-</div>
 
 
+    <!-- JSにそのまま貼る用 -->
 
-<!-- =====================
-     アンケート
-===================== -->
+    <div class="code-result">
 
-<section class="survey">
-
-    <h2>
-        ご協力お願いします
-    </h2>
+        <p>
+            JS用
+        </p>
 
 
-    <p>
-        より使いやすい校内マップにするため、<br>
-        アンケートへのご協力をお願いします。
-    </p>
+        <code id="code">
+            x: ---,
+            y: ---,
+            width: ---,
+            height: ---
+        </code>
 
 
-    <a
-        href="https://docs.google.com/forms/d/e/1FAIpQLScHAQ7Bb5pybXmkcQGz82Oxv5hUuDgrsDF0ePRvq0drNrjCxw/viewform"
-        target="_blank"
-        rel="noopener noreferrer"
-    >
-
-        <button>
-            アンケートに回答する
+        <button id="copy-button">
+            コピー
         </button>
 
-    </a>
+    </div>
+
 
 </section>
 
 
 
 <!-- =====================
-     フッター
+     説明
 ===================== -->
 
-<footer>
+<section class="help">
 
-    <p>
-        © 2026 Information Creative Course Inc.
-    </p>
+    <h2>
+        使い方
+    </h2>
 
-</footer>
+    <ol>
+
+        <li>
+            建物と階を選択
+        </li>
+
+        <li>
+            地図上で、教室の左上から右下までドラッグ
+        </li>
+
+        <li>
+            X・Y・Width・Heightが自動で表示されます
+        </li>
+
+        <li>
+            「コピー」でJSに貼り付けられます
+        </li>
+
+    </ol>
+
+</section>
 
 
 
