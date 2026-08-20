@@ -2464,7 +2464,6 @@ window.addEventListener(
 
 // 目的地一覧を作成
 
-createDestinationOptions();
 
 
 // ============================================================
