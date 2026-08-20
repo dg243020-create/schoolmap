@@ -2,236 +2,177 @@
 <html lang="ja">
 
 <head>
+    <meta charset="UTF-8">
 
-<meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+    <title>大商学園 校内マップ</title>
 
-<title>校内マップ 座標確認ツール</title>
-
-<link rel="stylesheet" href="style.css">
-
+    <link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
-
-<header>
-
-    <h1>
-        校内マップ 座標確認ツール
-    </h1>
-
-    <p>
-        地図上をドラッグしてクリック範囲を作成してください
-    </p>
-
+<header class="header">
+    <h1>大商学園 校内マップ</h1>
 </header>
 
 
+<main>
 
-<!-- =====================
-     建物・階
-===================== -->
+    <!-- =========================
+         通常の目的地検索
+    ========================== -->
 
-<div class="controls">
+    <section class="control-panel">
 
+        <div class="select-group">
 
-    <select id="building">
+            <label for="building">
+                建物
+            </label>
 
-        <option value="">
-            建物を選択
-        </option>
+            <select id="building">
 
-        <option value="S">
-            新館
-        </option>
+                <option value="">
+                    建物を選択
+                </option>
 
-        <option value="AB">
-            AB館
-        </option>
+                <option value="S">
+                    新館
+                </option>
 
-        <option value="G">
-            グラウンド側
-        </option>
+                <option value="AB">
+                    AB館
+                </option>
 
-    </select>
+                <option value="G">
+                    グラウンド側
+                </option>
 
+            </select>
 
-
-    <select id="floor">
-
-        <option value="">
-            階を選択
-        </option>
-
-    </select>
+        </div>
 
 
-</div>
+        <div class="select-group">
+
+            <label for="floor">
+                階
+            </label>
+
+            <select id="floor">
+
+                <option value="">
+                    階を選択
+                </option>
+
+            </select>
+
+        </div>
 
 
+        <div class="select-group destination-group">
 
-<!-- =====================
-     地図
-===================== -->
+            <label for="destination">
+                目的地
+            </label>
 
-<div id="map-container">
+            <select
+                id="destination"
+                onchange="showDestination()"
+            >
+
+                <option value="">
+                    目的地を選択
+                </option>
+
+            </select>
+
+        </div>
+
+    </section>
 
 
-    <img
-        id="map"
-        src="AB1F.png"
-        alt="校内マップ"
+    <!-- =========================
+         地図
+    ========================== -->
+
+    <section id="map-wrapper">
+
+        <div id="map-container">
+
+            <img
+                id="map"
+                src=""
+                alt="校内地図"
+            >
+
+            <!-- 目的地マーカー -->
+            <div id="marker"></div>
+
+            <!-- 文化祭クリック範囲 -->
+            <div id="classroom-layer"></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         文化祭ポップアップ
+    ========================== -->
+
+    <div
+        id="festival-modal"
+        class="modal"
     >
 
+        <div class="modal-content">
 
-    <!-- ドラッグ範囲 -->
-
-    <div id="selection"></div>
-
-
-</div>
-
-
-
-<!-- =====================
-     座標結果
-===================== -->
-
-<section class="result">
+            <button
+                class="modal-close"
+                onclick="closeFestivalModal()"
+                aria-label="閉じる"
+            >
+                ×
+            </button>
 
 
-    <h2>
-        選択範囲
-    </h2>
+            <h2 id="festival-title">
+                企画名
+            </h2>
 
 
-    <div class="coordinate-grid">
+            <div
+                id="festival-image-container"
+                class="festival-image-container"
+            >
+
+                <img
+                    id="festival-image"
+                    src=""
+                    alt=""
+                >
+
+            </div>
 
 
-        <div>
-
-            <span>
-                X
-            </span>
-
-            <strong id="x">
-                ---
-            </strong>
-
-        </div>
-
-
-        <div>
-
-            <span>
-                Y
-            </span>
-
-            <strong id="y">
-                ---
-            </strong>
+            <p id="festival-description">
+                紹介文
+            </p>
 
         </div>
-
-
-        <div>
-
-            <span>
-                Width
-            </span>
-
-            <strong id="width">
-                ---
-            </strong>
-
-        </div>
-
-
-        <div>
-
-            <span>
-                Height
-            </span>
-
-            <strong id="height">
-                ---
-            </strong>
-
-        </div>
-
 
     </div>
 
-
-
-    <!-- JSにそのまま貼る用 -->
-
-    <div class="code-result">
-
-        <p>
-            JS用
-        </p>
-
-
-        <code id="code">
-            x: ---,
-            y: ---,
-            width: ---,
-            height: ---
-        </code>
-
-
-        <button id="copy-button">
-            コピー
-        </button>
-
-    </div>
-
-
-</section>
-
-
-
-<!-- =====================
-     説明
-===================== -->
-
-<section class="help">
-
-    <h2>
-        使い方
-    </h2>
-
-    <ol>
-
-        <li>
-            建物と階を選択
-        </li>
-
-        <li>
-            地図上で、教室の左上から右下までドラッグ
-        </li>
-
-        <li>
-            X・Y・Width・Heightが自動で表示されます
-        </li>
-
-        <li>
-            「コピー」でJSに貼り付けられます
-        </li>
-
-    </ol>
-
-</section>
-
+</main>
 
 
 <script src="script.js"></script>
 
 </body>
-
 </html>
