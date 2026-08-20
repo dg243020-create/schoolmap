@@ -1229,7 +1229,7 @@ const festivalInfo = {
 
     "34s": {
         title: "3-4 模擬店 いのちのからあげ",
-        image: "festival/1-1.jpg",
+        image: "AB1F.png",
         description: "ここに1-1の文化祭企画の説明を書きます。"
     },
 
@@ -1327,53 +1327,11 @@ const festivalInfo = {
 
 let currentPlace = null;
 
-
-
-// ============================================================
-// 地図システム本体
-// ============================================================
-
-
-// ============================================================
-// HTML要素
-// ============================================================
-
-const building =
-document.getElementById("building");
-
-const floor =
-document.getElementById("floor");
-
-const destination =
-document.getElementById("destination");
-
-const map =
-document.getElementById("map");
-
-const marker =
-document.getElementById("marker");
-
-const classroomLayer =
-document.getElementById("classroom-layer");
-
-// ============================================================
-// 現在の状態
-// ============================================================
-
-let currentPlace = null;
-
-
-// ============================================================
-// 地図変更中の処理を管理
-// ============================================================
-
 let mapChangeId = 0;
 
 
 // ============================================================
-// 画像が実際に表示されている領域を取得
-//
-// object-fit: contain によってできる余白も計算する
+// 地図画像の表示情報を取得
 // ============================================================
 
 function getImageInfo() {
@@ -1397,7 +1355,8 @@ function getImageInfo() {
     ) {
 
         return {
-            scale: 1,
+            scaleX: 1,
+            scaleY: 1,
             offsetX: 0,
             offsetY: 0
         };
@@ -1405,20 +1364,15 @@ function getImageInfo() {
     }
 
 
-    const scaleX =
-        imageRect.width /
-        naturalWidth;
-
-    const scaleY =
-        imageRect.height /
-        naturalHeight;
-
-
     return {
 
-        scaleX: scaleX,
+        scaleX:
+            imageRect.width /
+            naturalWidth,
 
-        scaleY: scaleY,
+        scaleY:
+            imageRect.height /
+            naturalHeight,
 
         offsetX:
             imageRect.left -
@@ -1463,7 +1417,93 @@ function clearClassroomAreas() {
 
 
 // ============================================================
-// 建物を変更したとき
+// 建物の階選択肢を作る
+// ============================================================
+
+function createFloorOptions(
+    selectedBuilding
+) {
+
+    floor.innerHTML = `
+        <option value="">
+            階を選択
+        </option>
+    `;
+
+
+    if (
+        !selectedBuilding ||
+        !floors[selectedBuilding]
+    ) {
+
+        return;
+
+    }
+
+
+    const floorCount =
+        floors[selectedBuilding];
+
+
+    for (
+        let i = 1;
+        i <= floorCount;
+        i++
+    ) {
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+
+        option.value =
+            String(i);
+
+
+        option.textContent =
+            i + "階";
+
+
+        floor.appendChild(
+            option
+        );
+
+    }
+
+
+    // 新館の特殊階
+
+    if (
+        selectedBuilding === "S"
+    ) {
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+
+        option.value =
+            "1.5";
+
+
+        option.textContent =
+            "1階上";
+
+
+        floor.appendChild(
+            option
+        );
+
+    }
+
+}
+
+
+
+// ============================================================
+// 建物変更
 // ============================================================
 
 building.addEventListener(
@@ -1474,89 +1514,25 @@ building.addEventListener(
             building.value;
 
 
-        // マーカーを消す
-
         clearMarker();
 
         clearClassroomAreas();
 
 
-        // 階選択をリセット
-
-        floor.innerHTML = `
-            <option value="">
-                階を選択
-            </option>
-        `;
+        createFloorOptions(
+            selectedBuilding
+        );
 
 
-        // 建物未選択
+        // 建物が未選択
 
-        if (!selectedBuilding) {
+        if (
+            !selectedBuilding
+        ) {
 
             map.src = "";
 
-            currentPlace = null;
-
             return;
-
-        }
-
-
-        // 階を作る
-
-        const floorCount =
-            floors[selectedBuilding];
-
-
-        for (
-            let i = 1;
-            i <= floorCount;
-            i++
-        ) {
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-
-            option.value =
-                String(i);
-
-
-            option.textContent =
-                i + "階";
-
-
-            floor.appendChild(
-                option
-            );
-
-        }
-
-
-        // 新館だけ特殊階
-
-        if (
-            selectedBuilding === "S"
-        ) {
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-
-            option.value = "1.5";
-
-            option.textContent =
-                "1階上";
-
-
-            floor.appendChild(
-                option
-            );
 
         }
 
@@ -1566,7 +1542,7 @@ building.addEventListener(
 
 
 // ============================================================
-// 階を変更したとき
+// 階変更
 // ============================================================
 
 floor.addEventListener(
@@ -1608,65 +1584,7 @@ floor.addEventListener(
 
 
 // ============================================================
-// 地図を変更
-// ============================================================
-
-function changeMap(
-    selectedBuilding,
-    selectedFloor
-) {
-
-    const thisChangeId =
-        ++mapChangeId;
-
-
-    const fileName =
-        getMapFile(
-            selectedBuilding,
-            selectedFloor
-        );
-
-
-    // 先にマーカーを消す
-
-    clearMarker();
-
-    clearClassroomAreas();
-
-
-    // 現在の画像と同じ場合
-
-    const currentFile =
-        map.src
-            ? map.src.split("/").pop()
-            : "";
-
-
-    if (
-        currentFile === fileName &&
-        map.complete &&
-        map.naturalWidth > 0
-    ) {
-
-        setupCurrentMap(
-            thisChangeId
-        );
-
-        return;
-
-    }
-
-
-    // 画像変更
-
-    map.src = fileName;
-
-}
-
-
-
-// ============================================================
-// 地図ファイル名
+// 地図ファイル名を取得
 // ============================================================
 
 function getMapFile(
@@ -1674,7 +1592,7 @@ function getMapFile(
     selectedFloor
 ) {
 
-    // 新館の特殊階
+    // 特殊階
 
     if (
         specialFloors[selectedBuilding] &&
@@ -1701,7 +1619,70 @@ function getMapFile(
 
 
 // ============================================================
-// 地図画像読み込み完了
+// 地図を変更
+// ============================================================
+
+function changeMap(
+    selectedBuilding,
+    selectedFloor
+) {
+
+    const thisChangeId =
+        ++mapChangeId;
+
+
+    const fileName =
+        getMapFile(
+            selectedBuilding,
+            selectedFloor
+        );
+
+
+    clearMarker();
+
+    clearClassroomAreas();
+
+
+    const currentFile =
+        map.src
+            ? map.src.split("/").pop()
+            : "";
+
+
+    // 同じ画像がすでに表示されている場合
+
+    if (
+        currentFile === fileName &&
+        map.complete &&
+        map.naturalWidth > 0
+    ) {
+
+        requestAnimationFrame(
+            function () {
+
+                setupCurrentMap(
+                    thisChangeId
+                );
+
+            }
+        );
+
+        return;
+
+    }
+
+
+    // 新しい画像を読み込む
+
+    map.src =
+        fileName;
+
+}
+
+
+
+// ============================================================
+// 地図読み込み完了
 // ============================================================
 
 map.addEventListener(
@@ -1711,9 +1692,6 @@ map.addEventListener(
         const thisChangeId =
             mapChangeId;
 
-
-        // 少し待ってから座標計算
-        // object-fitの描画を確実に反映させる
 
         requestAnimationFrame(
             function () {
@@ -1773,7 +1751,8 @@ function setupCurrentMap(
     createClassroomAreas();
 
 
-    // 現在目的地があればマーカー
+    // 現在の目的地が
+    // この階にある場合だけマーカー表示
 
     if (
         currentPlace
@@ -1810,7 +1789,7 @@ function setupCurrentMap(
 
 
 // ============================================================
-// 目的地一覧を作る
+// 目的地一覧を作成
 // ============================================================
 
 function createDestinationOptions() {
@@ -1841,8 +1820,6 @@ function createDestinationOptions() {
                 key;
 
 
-            // nameがなければキーを表示
-
             option.textContent =
                 place.name ||
                 key;
@@ -1860,6 +1837,17 @@ function createDestinationOptions() {
 
 
 // ============================================================
+// 目的地選択イベント
+// ============================================================
+
+destination.addEventListener(
+    "change",
+    showDestination
+);
+
+
+
+// ============================================================
 // 目的地を選択
 // ============================================================
 
@@ -1869,9 +1857,11 @@ function showDestination() {
         destination.value;
 
 
-    // 「目的地を選択」に戻した
+    // 選択解除
 
-    if (!key) {
+    if (
+        !key
+    ) {
 
         currentPlace = null;
 
@@ -1886,7 +1876,11 @@ function showDestination() {
         destinations[key];
 
 
-    if (!place) {
+    if (
+        !place
+    ) {
+
+        currentPlace = null;
 
         clearMarker();
 
@@ -1895,18 +1889,14 @@ function showDestination() {
     }
 
 
-    // 現在の目的地を保存
-
-    currentPlace =
-        place;
-
-
-    // 座標がちゃんと入っているか確認
+    // 座標チェック
 
     if (
         typeof place.x !== "number" ||
         typeof place.y !== "number"
     ) {
+
+        currentPlace = null;
 
         clearMarker();
 
@@ -1921,19 +1911,33 @@ function showDestination() {
     }
 
 
-    // 建物を変更
+    // ========================================================
+    // 重要
+    //
+    // 建物変更・階変更によって currentPlace が
+    // 消されないよう、最後に設定する
+    // ========================================================
+
+    const targetBuilding =
+        String(place.building);
+
+    const targetFloor =
+        String(place.floor);
+
+
+    // 建物が違う場合
 
     if (
         building.value !==
-        String(place.building)
+        targetBuilding
     ) {
 
         building.value =
-            String(place.building);
+            targetBuilding;
 
 
-        building.dispatchEvent(
-            new Event("change")
+        createFloorOptions(
+            targetBuilding
         );
 
     }
@@ -1941,23 +1945,24 @@ function showDestination() {
 
     // 階を変更
 
-    const targetFloor =
-        String(place.floor);
-
-
     floor.value =
         targetFloor;
 
 
-    // 階変更イベント
+    // 目的地を現在地として保存
 
-    floor.dispatchEvent(
-        new Event("change")
+    currentPlace =
+        place;
+
+
+    // 地図を変更
+
+    changeMap(
+        targetBuilding,
+        targetFloor
     );
 
 }
-
-
 
 // ============================================================
 // マーカー表示
@@ -1991,7 +1996,8 @@ function showMarker(place) {
         getImageInfo();
 
 
-    // 元画像座標 → 現在の表示座標
+    // 元画像の座標を
+    // 現在表示されている画像上の座標へ変換
 
     const left =
         info.offsetX +
@@ -2013,7 +2019,9 @@ function showMarker(place) {
         top + "px";
 
 
+    // ========================================================
     // 赤マーカー対象
+    // ========================================================
 
     const currentFile =
         map.src
@@ -2027,20 +2035,9 @@ function showMarker(place) {
 
 
     if (
-
-        currentFile ===
-        "S1F.png"
-
-        ||
-
-        currentFile ===
-        "AB1F.png"
-
-        ||
-
-        currentFile ===
-        "AB6F.png"
-
+        currentFile === "S1F.png" ||
+        currentFile === "AB1F.png" ||
+        currentFile === "AB6F.png"
     ) {
 
         marker.classList.add(
@@ -2107,7 +2104,7 @@ function createClassroomAreas() {
                 classroomAreas[key];
 
 
-            // 建物が違う
+            // 建物が違う場合
 
             if (
                 String(room.building) !==
@@ -2119,7 +2116,7 @@ function createClassroomAreas() {
             }
 
 
-            // 階が違う
+            // 階が違う場合
 
             if (
                 String(room.floor) !==
@@ -2131,7 +2128,7 @@ function createClassroomAreas() {
             }
 
 
-            // 企画情報が存在しない場合
+            // 紹介情報がない場合
 
             if (
                 !festivalInfo[key]
@@ -2156,6 +2153,10 @@ function createClassroomAreas() {
                 key;
 
 
+            // =================================================
+            // 位置
+            // =================================================
+
             area.style.left =
                 (
                     info.offsetX +
@@ -2172,6 +2173,10 @@ function createClassroomAreas() {
                 ) + "px";
 
 
+            // =================================================
+            // 大きさ
+            // =================================================
+
             area.style.width =
                 (
                     room.width *
@@ -2186,11 +2191,16 @@ function createClassroomAreas() {
                 ) + "px";
 
 
+            // =================================================
+            // クリック
+            // =================================================
+
             area.addEventListener(
                 "click",
                 function (event) {
 
                     event.stopPropagation();
+
 
                     openFestivalModal(
                         key
@@ -2221,7 +2231,9 @@ function openFestivalModal(key) {
         festivalInfo[key];
 
 
-    if (!info) {
+    if (
+        !info
+    ) {
 
         return;
 
@@ -2258,15 +2270,27 @@ function openFestivalModal(key) {
         );
 
 
+    // ========================================================
+    // タイトル
+    // ========================================================
+
     title.textContent =
         info.title ||
         key;
 
 
+    // ========================================================
+    // 紹介文
+    // ========================================================
+
     description.textContent =
         info.description ||
         "";
 
+
+    // ========================================================
+    // 画像
+    // ========================================================
 
     if (
         info.image
@@ -2288,13 +2312,18 @@ function openFestivalModal(key) {
 
     else {
 
-        image.src = "";
+        image.src =
+            "";
 
         imageContainer.style.display =
             "none";
 
     }
 
+
+    // ========================================================
+    // ポップアップ表示
+    // ========================================================
 
     modal.classList.add(
         "show"
@@ -2316,6 +2345,15 @@ function closeFestivalModal() {
         );
 
 
+    if (
+        !modal
+    ) {
+
+        return;
+
+    }
+
+
     modal.classList.remove(
         "show"
     );
@@ -2328,17 +2366,23 @@ function closeFestivalModal() {
 // ポップアップ外側クリック
 // ============================================================
 
-document
-    .getElementById(
+const festivalModal =
+    document.getElementById(
         "festival-modal"
-    )
-    .addEventListener(
+    );
+
+
+if (
+    festivalModal
+) {
+
+    festivalModal.addEventListener(
         "click",
         function (event) {
 
             if (
                 event.target ===
-                this
+                festivalModal
             ) {
 
                 closeFestivalModal();
@@ -2348,10 +2392,12 @@ document
         }
     );
 
+}
+
 
 
 // ============================================================
-// ESCで閉じる
+// ESCでポップアップを閉じる
 // ============================================================
 
 document.addEventListener(
@@ -2390,7 +2436,7 @@ window.addEventListener(
         }
 
 
-        // クリック範囲を再計算
+        // 文化祭クリック範囲を再計算
 
         createClassroomAreas();
 
@@ -2416,17 +2462,39 @@ window.addEventListener(
 // 初期化
 // ============================================================
 
-// 目的地一覧
+// 目的地一覧を作成
 
 createDestinationOptions();
 
-building.value = "AB";
 
-building.dispatchEvent(
-    new Event("change")
+// ============================================================
+// 初期状態
+//
+// AB館
+// ↓
+// 1階
+// ↓
+// AB1F.png
+// ============================================================
+
+building.value =
+    "AB";
+
+
+// 階選択肢を作成
+
+createFloorOptions(
+    "AB"
 );
 
-floor.value = "1";
+
+// 1階を選択
+
+floor.value =
+    "1";
+
+
+// AB1F.pngを表示
 
 changeMap(
     "AB",
