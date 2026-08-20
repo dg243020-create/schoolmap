@@ -1,6 +1,17 @@
-// =====================
+// ============================================================
+// 大商学園 校内マップ
+// ============================================================
+//
+// ★★★ 基本的に編集するのはこのファイルの
+// 「目的地」「文化祭クリック範囲」「文化祭情報」だけ ★★★
+//
+// ============================================================
+
+
+
+// ============================================================
 // 建物設定
-// =====================
+// ============================================================
 
 const floors = {
 
@@ -13,9 +24,9 @@ const floors = {
 };
 
 
-// =====================
-// 特殊階
-// =====================
+// ============================================================
+// 特殊な階
+// ============================================================
 
 const specialFloors = {
 
@@ -29,115 +40,1010 @@ const specialFloors = {
 
 
 
-// =====================
-// 要素
-// =====================
+// ============================================================
+// HTML要素
+// ============================================================
 
 const building =
-document.getElementById("building");
+    document.getElementById("building");
 
 const floor =
-document.getElementById("floor");
+    document.getElementById("floor");
+
+const destination =
+    document.getElementById("destination");
 
 const map =
-document.getElementById("map");
+    document.getElementById("map");
 
-const mapContainer =
-document.getElementById("map-container");
+const marker =
+    document.getElementById("marker");
 
-const selection =
-document.getElementById("selection");
-
-
-
-const xOutput =
-document.getElementById("x");
-
-const yOutput =
-document.getElementById("y");
-
-const widthOutput =
-document.getElementById("width");
-
-const heightOutput =
-document.getElementById("height");
-
-const codeOutput =
-document.getElementById("code");
-
-const copyButton =
-document.getElementById("copy-button");
+const classroomLayer =
+    document.getElementById("classroom-layer");
 
 
 
-// =====================
-// 建物変更
-// =====================
+// ============================================================
+// ★ 目的地
+// ============================================================
+//
+// ここに目的地を追加してください。
+//
+// x / y は元画像の座標です。
+//
+// ============================================================
+
+const destinations = {
+
+    Library: {
+
+        name: "図書室",
+
+        building: "AB",
+
+        floor: "6",
+
+        // ★ 座標
+        x: 150,
+
+        y: 1000
+
+    }
+
+    // 例
+    //
+    // Studyroom: {
+    //
+    //     name: "自習室",
+    //
+    //     building: "AB",
+    //
+    //     floor: "6",
+    //
+    //     x: 968,
+    //
+    //     y: 461
+    //
+    // }
+
+};
+
+
+
+// ============================================================
+// ★ 文化祭クリック範囲
+// ============================================================
+//
+// x      = 元画像の左からの座標
+// y      = 元画像の上からの座標
+// width  = 元画像上での横幅
+// height = 元画像上での縦幅
+//
+// ============================================================
+
+const classroomAreas = {
+
+    // --------------------------------------------------------
+    // 1年
+    // --------------------------------------------------------
+
+    "11": {
+        building: "S",
+        floor: "2",
+        x: 720,
+        y: 718,
+        width: 432,
+        height: 364
+    },
+
+    "12": {
+        building: "S",
+        floor: "3",
+        x: 718,
+        y: 1074,
+        width: 426,
+        height: 364
+    },
+
+    "13": {
+        building: "S",
+        floor: "3",
+        x: 720,
+        y: 718,
+        width: 426,
+        height: 354
+    },
+
+    "14": {
+        building: "S",
+        floor: "3",
+        x: 723,
+        y: 356,
+        width: 432,
+        height: 364
+    },
+
+    "15": {
+        building: "S",
+        floor: "3",
+        x: 726,
+        y: 0,
+        width: 432,
+        height: 364
+    },
+
+    "16": {
+        building: "AB",
+        floor: "5",
+        x: 3060,
+        y: 646,
+        width: 393,
+        height: 355
+    },
+
+    "17": {
+        building: "AB",
+        floor: "5",
+        x: 2667,
+        y: 646,
+        width: 393,
+        height: 355
+    },
+
+    "18": {
+        building: "AB",
+        floor: "5",
+        x: 2267,
+        y: 646,
+        width: 393,
+        height: 355
+    },
+
+    "19": {
+        building: "AB",
+        floor: "5",
+        x: 1870,
+        y: 646,
+        width: 393,
+        height: 355
+    },
+
+    "110": {
+        building: "AB",
+        floor: "5",
+        x: 1477,
+        y: 646,
+        width: 393,
+        height: 355
+    },
+
+    "111": {
+        building: "AB",
+        floor: "5",
+        x: 1,
+        y: 1180,
+        width: 348,
+        height: 400
+    },
+
+    "112": {
+        building: "AB",
+        floor: "5",
+        x: 1,
+        y: 790,
+        width: 348,
+        height: 400
+    },
+
+    "113": {
+        building: "AB",
+        floor: "5",
+        x: 1,
+        y: 397,
+        width: 348,
+        height: 400
+    },
+
+    "114": {
+        building: "AB",
+        floor: "5",
+        x: 1,
+        y: 2,
+        width: 348,
+        height: 400
+    },
+
+    "115": {
+        building: "AB",
+        floor: "5",
+        x: 804,
+        y: 0,
+        width: 353,
+        height: 355
+    },
+
+    "116": {
+        building: "AB",
+        floor: "4",
+        x: 804,
+        y: 0,
+        width: 353,
+        height: 355
+    },
+
+
+    // --------------------------------------------------------
+    // 2年
+    // --------------------------------------------------------
+
+    "21": {
+        building: "S",
+        floor: "2",
+        x: 720,
+        y: 1079,
+        width: 432,
+        height: 364
+    },
+
+    "22": {
+        building: "S",
+        floor: "3",
+        x: 143,
+        y: 1079,
+        width: 426,
+        height: 364
+    },
+
+    "23": {
+        building: "S",
+        floor: "3",
+        x: 143,
+        y: 725,
+        width: 432,
+        height: 351
+    },
+
+    "24": {
+        building: "S",
+        floor: "3",
+        x: 143,
+        y: 364,
+        width: 426,
+        height: 364
+    },
+
+    "25": {
+        building: "AB",
+        floor: "4",
+        x: 3060,
+        y: 646,
+        width: 393,
+        height: 355
+    },
+
+    "26": {
+        building: "AB",
+        floor: "3",
+        x: 804,
+        y: 0,
+        width: 353,
+        height: 355
+    },
+
+    "27": {
+        building: "AB",
+        floor: "4",
+        x: 2667,
+        y: 646,
+        width: 393,
+        height: 355
+    },
+
+    "28": {
+        building: "AB",
+        floor: "4",
+        x: 2267,
+        y: 646,
+        width: 393,
+        height: 355
+    },
+
+    "29": {
+        building: "AB",
+        floor: "4",
+        x: 1870,
+        y: 646,
+        width: 393,
+        height: 355
+    },
+
+    "210": {
+        building: "AB",
+        floor: "4",
+        x: 1477,
+        y: 646,
+        width: 393,
+        height: 355
+    },
+
+    "211": {
+        building: "AB",
+        floor: "4",
+        x: 1,
+        y: 1180,
+        width: 348,
+        height: 400
+    },
+
+    "212": {
+        building: "AB",
+        floor: "4",
+        x: 1,
+        y: 790,
+        width: 348,
+        height: 400
+    },
+
+    "213": {
+        building: "AB",
+        floor: "4",
+        x: 1,
+        y: 397,
+        width: 348,
+        height: 400
+    },
+
+    "214": {
+        building: "AB",
+        floor: "4",
+        x: 1,
+        y: 2,
+        width: 348,
+        height: 400
+    },
+
+
+    // --------------------------------------------------------
+    // 3年
+    // --------------------------------------------------------
+
+    "31": {
+        building: "S",
+        floor: "2",
+        x: 720,
+        y: 1438,
+        width: 426,
+        height: 435
+    },
+
+    "32": {
+        building: "S",
+        floor: "2",
+        x: 723,
+        y: 356,
+        width: 432,
+        height: 364
+    },
+
+    "33": {
+        building: "S",
+        floor: "2",
+        x: 726,
+        y: 0,
+        width: 432,
+        height: 364
+    },
+
+    "34": {
+        building: "AB",
+        floor: "3",
+        x: 3060,
+        y: 646,
+        width: 393,
+        height: 355
+    },
+
+    "35": {
+        building: "AB",
+        floor: "3",
+        x: 1,
+        y: 2,
+        width: 348,
+        height: 400
+    },
+
+    "36": {
+        building: "AB",
+        floor: "3",
+        x: 2667,
+        y: 646,
+        width: 393,
+        height: 355
+    },
+
+    "37": {
+        building: "AB",
+        floor: "3",
+        x: 2267,
+        y: 646,
+        width: 393,
+        height: 355
+    },
+
+    "38": {
+        building: "AB",
+        floor: "3",
+        x: 1870,
+        y: 646,
+        width: 393,
+        height: 355
+    },
+
+    "39": {
+        building: "AB",
+        floor: "3",
+        x: 1477,
+        y: 646,
+        width: 393,
+        height: 355
+    },
+
+    "310": {
+        building: "AB",
+        floor: "3",
+        x: 1,
+        y: 1180,
+        width: 348,
+        height: 400
+    },
+
+    "311": {
+        building: "AB",
+        floor: "3",
+        x: 1,
+        y: 790,
+        width: 348,
+        height: 400
+    },
+
+    "312": {
+        building: "AB",
+        floor: "3",
+        x: 1,
+        y: 397,
+        width: 348,
+        height: 400
+    }
+
+};
+
+
+
+// ============================================================
+// ★ 文化祭情報
+// ============================================================
+//
+// classroomAreas のキーと同じ名前を使います。
+//
+// title       = 企画名
+// image       = 画像
+// description = 紹介文
+//
+// ============================================================
+
+const festivalInfo = {
+
+    "11": {
+        title: "1-1 体験 怪力乱心！！ゴーストバスターズ",
+        image: "festival/1-1.jpg",
+        description: "ここに1-1の文化祭企画の説明を書きます。"
+    },
+
+    "12": {
+        title: "1-2 体験 はなひらり、ちょうひらり",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "13": {
+        title: "1-3 体験 ちいかわたちの日常",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "14": {
+        title: "1-4 体験 人力マリオカート",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "15": {
+        title: "1-5 体験 縁日",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "16": {
+        title: "1-2 体験 はなひらり、ちょうひらり",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "17": {
+        title: "1-2 体験 はなひらり、ちょうひらり",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "18": {
+        title: "1-8 体験 1年8組の恐怖地帯",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "19": {
+        title: "1-9 体験 お化け屋敷",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "110": {
+        title: "1-2 体験 はなひらり、ちょうひらり",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "111": {
+        title: "1-11 体験 急げ！恐怖の部屋から緊急脱出！",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "112": {
+        title: "1-12 体験 縁日",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "113": {
+        title: "1-13 体験 ストラックアウト",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "114e": {
+        title: "1-14 体験 今日好きになりました。文化祭編",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "114p": {
+        title: "1-14 パフォーマンス ダンスパラダイス1-14",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "115": {
+        title: "1-5 体験 学校の怪談",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "116": {
+        title: "1-16 モンキー縁日",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+
+    // --------------------------------------------------------
+    // 2年
+    // --------------------------------------------------------
+
+    "21": {
+        title: "2-1 展示 Save Our Blue ～私たちがつなぐ、未来の海～",
+        image: "festival/1-1.jpg",
+        description: "ここに1-1の文化祭企画の説明を書きます。"
+    },
+
+    "22": {
+        title: "2-2 パフォーマンス ARASHI",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "23": {
+        title: "2-3 体験 トモニ、全集中！",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "24": {
+        title: "2-4 体験 Have a nice 縁日！！",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "25": {
+        title: "2-5 体験 MISSION！！縁日を楽しめ",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "26": {
+        title: "2-6 体験 ドールルーム",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "27": {
+        title: "2-7 勝つか、散るか、人生逆転カジノ",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "28": {
+        title: "2-8 パフォーマンス 川口と愉快な仲間たち",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "29": {
+        title: "なんもなし",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "210": {
+        title: "2-10 体験 「カラダ探し」",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "211": {
+        title: "2-11 体験 ディズニーハロウィンのフォトスポット",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "212": {
+        title: '2-12 パフォーマンス "D"スデ～皆にんきもの～',
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "213": {
+        title: "2-13 パフォーマンス urabemax",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "214": {
+        title: "2-14 体験 Daisho Disneyland 2-14",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+
+    // --------------------------------------------------------
+    // 3年
+    // --------------------------------------------------------
+
+    "31e": {
+        title: "3-1 おりがみワークショップ&ラリー",
+        image: "festival/1-1.jpg",
+        description: "ここに1-1の文化祭企画の説明を書きます。"
+    },
+
+    "31s": {
+        title: '3-1 3-5 模擬店 宿命の「夏色」ドリンク ～青春と奇跡の味わい～',
+        image: "festival/1-1.jpg",
+        description: "ここに1-1の文化祭企画の説明を書きます。"
+    },
+
+    "32e": {
+        title: "1-2 体験 はなひらり、ちょうひらり",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "32s": {
+        title: "3-2 模擬店 理系が作る複雑な豚キムチ",
+        image: "festival/1-1.jpg",
+        description: "ここに1-1の文化祭企画の説明を書きます。"
+    },
+
+    "33p": {
+        title: "3-3 パフォーマンス 若原の野望 Vol.2",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "33s": {
+        title: "3-3 模擬店 油に飛び込め！3-3！！",
+        image: "festival/1-1.jpg",
+        description: "ここに1-1の文化祭企画の説明を書きます。"
+    },
+
+    "34t": {
+        title: "3-4 展示 おもちゃばこ",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "34s": {
+        title: "3-4 模擬店 いのちのからあげ",
+        image: "festival/1-1.jpg",
+        description: "ここに1-1の文化祭企画の説明を書きます。"
+    },
+
+    "35": {
+        title: "3-5 校内装飾 カラフルパラソルワンダフル",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "36": {
+        title: "3-6 演劇 3-6STORY",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "37p": {
+        title: "3-7 パフォーマンス ３－７ LiveLive",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "37s": {
+        title: "3-7 模擬店 Cheese!Cheese!",
+        image: "festival/1-1.jpg",
+        description: "ここに1-1の文化祭企画の説明を書きます。"
+    },
+
+    "38": {
+        title: "3-8 パフォーマンス 櫻井Family",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "38s": {
+        title: "3-8 模擬店 ハッピーポテト",
+        image: "festival/1-1.jpg",
+        description: "ここに1-1の文化祭企画の説明を書きます。"
+    },
+
+    "39p": {
+        title: "3-9 パフォーマンス タピオカ帝国",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "39s": {
+        title: "3-9 模擬店 坊主　せんべい＝たません",
+        image: "festival/1-1.jpg",
+        description: "ここに1-1の文化祭企画の説明を書きます。"
+    },
+
+    "310": {
+        title: "1-2 体験 はなひらり、ちょうひらり",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "311p": {
+        title: "3-11 パフォーマンス まさオンズとゆかいな仲間たち",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "311s": {
+        title: "3-11 模擬店 おいし～い焼きバナナ",
+        image: "festival/1-1.jpg",
+        description: "ここに1-1の文化祭企画の説明を書きます。"
+    },
+
+    "312p1": {
+        title: "1-2 体験 はなひらり、ちょうひらり",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "312p2": {
+        title: "3-12 パフォーマンス Final Stage～商業科の軌跡～",
+        image: "festival/1-1.jpg",
+        description: "ここに1-2の文化祭企画の説明を書きます。"
+    },
+
+    "312s": {
+        title: "3-12 模擬店 とりま焼き鳥",
+        image: "festival/1-1.jpg",
+        description: "ここに1-1の文化祭企画の説明を書きます。"
+    }
+
+};
+
+
+
+// ============================================================
+// 現在の状態
+// ============================================================
+
+let currentPlace = null;
+
+
+
+// ============================================================
+// 画像情報
+// ============================================================
+
+function getImageInfo() {
+
+    const rect =
+        map.getBoundingClientRect();
+
+
+    const naturalWidth =
+        map.naturalWidth;
+
+    const naturalHeight =
+        map.naturalHeight;
+
+
+    if (
+        !naturalWidth ||
+        !naturalHeight
+    ) {
+
+        return {
+
+            scaleX: 1,
+            scaleY: 1,
+
+            offsetX: 0,
+            offsetY: 0
+
+        };
+
+    }
+
+
+    const scale =
+        Math.min(
+
+            rect.width / naturalWidth,
+
+            rect.height / naturalHeight
+
+        );
+
+
+    return {
+
+        scaleX: scale,
+
+        scaleY: scale,
+
+        offsetX:
+            (rect.width -
+                naturalWidth * scale) / 2,
+
+        offsetY:
+            (rect.height -
+                naturalHeight * scale) / 2
+
+    };
+
+}
+
+
+
+// ============================================================
+// マーカー消去
+// ============================================================
+
+function clearMarker() {
+
+    marker.style.display = "none";
+
+    marker.classList.remove(
+        "redMarker"
+    );
+
+}
+
+
+
+// ============================================================
+// 文化祭クリック範囲消去
+// ============================================================
+
+function clearClassroomAreas() {
+
+    classroomLayer.innerHTML = "";
+
+}
+
+
+
+// ============================================================
+// 階の選択肢を作る
+// ============================================================
 
 building.addEventListener(
     "change",
-    function(){
+    function () {
 
-        floor.innerHTML =
-        `
-        <option value="">
-            階を選択
-        </option>
+        floor.innerHTML = `
+            <option value="">
+                階を選択
+            </option>
         `;
 
 
         const b =
-        building.value;
+            building.value;
 
 
-        if(!b){
+        clearMarker();
+
+        clearClassroomAreas();
+
+
+        if (!b) {
+
+            map.src = "";
 
             return;
 
         }
 
 
-        for(
-            let i=1;
-            i<=floors[b];
+        for (
+            let i = 1;
+            i <= floors[b];
             i++
-        ){
+        ) {
 
             const option =
-            document.createElement(
-                "option"
-            );
+                document.createElement(
+                    "option"
+                );
 
 
             option.value = i;
 
             option.textContent =
-            i + "階";
+                i + "階";
 
 
-            floor.appendChild(option);
+            floor.appendChild(
+                option
+            );
 
         }
 
 
+        // Sだけ特殊階を追加
 
-        // 新館の特殊階
-
-        if(b === "S"){
+        if (b === "S") {
 
             const option =
-            document.createElement(
-                "option"
-            );
+                document.createElement(
+                    "option"
+                );
 
 
             option.value = "1.5";
 
             option.textContent =
-            "1階上";
+                "1階上";
 
 
-            floor.appendChild(option);
+            floor.appendChild(
+                option
+            );
 
         }
 
@@ -146,22 +1052,29 @@ building.addEventListener(
 
 
 
-// =====================
+// ============================================================
 // 階変更
-// =====================
+// ============================================================
 
 floor.addEventListener(
     "change",
-    function(){
+    function () {
 
         const b =
-        building.value;
+            building.value;
 
         const f =
-        floor.value;
+            floor.value;
 
 
-        if(!b || !f){
+        clearMarker();
+
+        clearClassroomAreas();
+
+
+        if (!b || !f) {
+
+            map.src = "";
 
             return;
 
@@ -171,24 +1084,24 @@ floor.addEventListener(
         let file;
 
 
-        if(
+        if (
             specialFloors[b] &&
             specialFloors[b][f]
-        ){
+        ) {
 
             file =
-            specialFloors[b][f];
-
-        }
-        else{
-
-            file =
-            b + f + "F.png";
+                specialFloors[b][f];
 
         }
 
+        else {
 
-        clearSelection();
+            file =
+                b +
+                f +
+                "F.png";
+
+        }
 
 
         map.src = file;
@@ -198,712 +1111,618 @@ floor.addEventListener(
 
 
 
-// =====================
-// 座標変換
-//
-// 画面上の座標
-// ↓
-// 元画像の座標
-// =====================
+// ============================================================
+// 目的地プルダウン作成
+// ============================================================
 
-function getImageDisplayInfo(){
+function createDestinationOptions() {
 
-    const mapRect =
-    map.getBoundingClientRect();
+    destination.innerHTML = `
+        <option value="">
+            目的地を選択
+        </option>
+    `;
 
 
-    const containerRect =
-    mapContainer.getBoundingClientRect();
+    Object.keys(destinations)
+        .forEach(key => {
 
+            const place =
+                destinations[key];
 
-    const naturalWidth =
-    map.naturalWidth;
 
-    const naturalHeight =
-    map.naturalHeight;
+            const option =
+                document.createElement(
+                    "option"
+                );
 
 
-    if(
-        !naturalWidth ||
-        !naturalHeight
-    ){
+            option.value = key;
 
-        return null;
 
-    }
+            option.textContent =
+                place.name || key;
 
 
-    const containerWidth =
-    containerRect.width;
-
-    const containerHeight =
-    containerRect.height;
-
-
-    const scale =
-    Math.min(
-
-        containerWidth /
-        naturalWidth,
-
-        containerHeight /
-        naturalHeight
-
-    );
-
-
-    const displayWidth =
-    naturalWidth * scale;
-
-    const displayHeight =
-    naturalHeight * scale;
-
-
-    const offsetX =
-    (containerWidth -
-    displayWidth) / 2;
-
-
-    const offsetY =
-    (containerHeight -
-    displayHeight) / 2;
-
-
-    return {
-
-        scale,
-
-        offsetX,
-
-        offsetY,
-
-        displayWidth,
-
-        displayHeight
-
-    };
-
-}
-
-
-
-// =====================
-// 画面座標 → 画像座標
-// =====================
-
-function screenToImage(
-    clientX,
-    clientY
-){
-
-    const info =
-    getImageDisplayInfo();
-
-
-    if(!info){
-
-        return null;
-
-    }
-
-
-    const rect =
-    mapContainer.getBoundingClientRect();
-
-
-    let x =
-    clientX -
-    rect.left -
-    info.offsetX;
-
-
-    let y =
-    clientY -
-    rect.top -
-    info.offsetY;
-
-
-    x /= info.scale;
-
-    y /= info.scale;
-
-
-    return {
-
-        x,
-        y
-
-    };
-
-}
-
-
-
-// =====================
-// 選択開始
-// =====================
-
-let startPoint = null;
-
-let isSelecting = false;
-
-
-
-mapContainer.addEventListener(
-    "pointerdown",
-    function(e){
-
-        // 右クリックなどを除外
-
-        if(e.button !== 0){
-
-            return;
-
-        }
-
-
-        const point =
-        screenToImage(
-            e.clientX,
-            e.clientY
-        );
-
-
-        if(!point){
-
-            return;
-
-        }
-
-
-        const info =
-        getImageDisplayInfo();
-
-
-        const rect =
-        mapContainer.getBoundingClientRect();
-
-
-        const displayX =
-        e.clientX -
-        rect.left;
-
-
-        const displayY =
-        e.clientY -
-        rect.top;
-
-
-        startPoint = {
-
-            imageX: point.x,
-
-            imageY: point.y,
-
-            displayX,
-
-            displayY
-
-        };
-
-
-        isSelecting = true;
-
-
-        selection.style.display =
-        "block";
-
-
-        selection.style.left =
-        displayX + "px";
-
-
-        selection.style.top =
-        displayY + "px";
-
-
-        selection.style.width =
-        "0px";
-
-
-        selection.style.height =
-        "0px";
-
-
-        mapContainer.setPointerCapture(
-            e.pointerId
-        );
-
-    }
-);
-
-
-
-// =====================
-// ドラッグ中
-// =====================
-
-mapContainer.addEventListener(
-    "pointermove",
-    function(e){
-
-        if(!isSelecting){
-
-            return;
-
-        }
-
-
-        const rect =
-        mapContainer.getBoundingClientRect();
-
-
-        const currentX =
-        e.clientX -
-        rect.left;
-
-
-        const currentY =
-        e.clientY -
-        rect.top;
-
-
-        const left =
-        Math.min(
-            startPoint.displayX,
-            currentX
-        );
-
-
-        const top =
-        Math.min(
-            startPoint.displayY,
-            currentY
-        );
-
-
-        const width =
-        Math.abs(
-            currentX -
-            startPoint.displayX
-        );
-
-
-        const height =
-        Math.abs(
-            currentY -
-            startPoint.displayY
-        );
-
-
-        selection.style.left =
-        left + "px";
-
-
-        selection.style.top =
-        top + "px";
-
-
-        selection.style.width =
-        width + "px";
-
-
-        selection.style.height =
-        height + "px";
-
-    }
-);
-
-
-
-// =====================
-// ドラッグ終了
-// =====================
-
-mapContainer.addEventListener(
-    "pointerup",
-    function(e){
-
-        if(!isSelecting){
-
-            return;
-
-        }
-
-
-        isSelecting = false;
-
-
-        const endPoint =
-        screenToImage(
-            e.clientX,
-            e.clientY
-        );
-
-
-        if(!endPoint){
-
-            return;
-
-        }
-
-
-        let x =
-        Math.min(
-            startPoint.imageX,
-            endPoint.x
-        );
-
-
-        let y =
-        Math.min(
-            startPoint.imageY,
-            endPoint.y
-        );
-
-
-        let width =
-        Math.abs(
-            endPoint.x -
-            startPoint.imageX
-        );
-
-
-        let height =
-        Math.abs(
-            endPoint.y -
-            startPoint.imageY
-        );
-
-
-        // 整数にする
-
-        x =
-        Math.round(x);
-
-        y =
-        Math.round(y);
-
-        width =
-        Math.round(width);
-
-        height =
-        Math.round(height);
-
-
-        // 画像外にはみ出さないようにする
-
-        x =
-        Math.max(
-            0,
-            Math.min(
-                x,
-                map.naturalWidth
-            )
-        );
-
-
-        y =
-        Math.max(
-            0,
-            Math.min(
-                y,
-                map.naturalHeight
-            )
-        );
-
-
-        width =
-        Math.min(
-            width,
-            map.naturalWidth - x
-        );
-
-
-        height =
-        Math.min(
-            height,
-            map.naturalHeight - y
-        );
-
-
-        showResult(
-            x,
-            y,
-            width,
-            height
-        );
-
-    }
-);
-
-
-
-// =====================
-// 結果表示
-// =====================
-
-function showResult(
-    x,
-    y,
-    width,
-    height
-){
-
-    xOutput.textContent =
-    x;
-
-    yOutput.textContent =
-    y;
-
-    widthOutput.textContent =
-    width;
-
-    heightOutput.textContent =
-    height;
-
-
-    codeOutput.textContent =
-
-`x: ${x},
-y: ${y},
-width: ${width},
-height: ${height}`;
-
-}
-
-
-
-// =====================
-// 消去
-// =====================
-
-function clearSelection(){
-
-    selection.style.display =
-    "none";
-
-
-    xOutput.textContent =
-    "---";
-
-    yOutput.textContent =
-    "---";
-
-    widthOutput.textContent =
-    "---";
-
-    heightOutput.textContent =
-    "---";
-
-
-    codeOutput.textContent =
-
-`x: ---,
-y: ---,
-width: ---,
-height: ---`;
-
-}
-
-
-
-// =====================
-// 画像読み込み
-// =====================
-
-map.addEventListener(
-    "load",
-    function(){
-
-        clearSelection();
-
-    }
-);
-
-
-
-// =====================
-// コピー
-// =====================
-
-copyButton.addEventListener(
-    "click",
-    async function(){
-
-        const x =
-        xOutput.textContent;
-
-        const y =
-        yOutput.textContent;
-
-        const width =
-        widthOutput.textContent;
-
-        const height =
-        heightOutput.textContent;
-
-
-        if(
-            x === "---" ||
-            y === "---" ||
-            width === "---" ||
-            height === "---"
-        ){
-
-            return;
-
-        }
-
-
-        const text =
-
-`x: ${x},
-y: ${y},
-width: ${width},
-height: ${height}`;
-
-
-        try{
-
-            await navigator.clipboard.writeText(
-                text
+            destination.appendChild(
+                option
             );
 
+        });
 
-            copyButton.textContent =
-            "コピーしました！";
-
-
-            setTimeout(
-                function(){
-
-                    copyButton.textContent =
-                    "コピー";
-
-                },
-                1500
-            );
-
-        }
-        catch(error){
-
-            alert(
-                "コピーできませんでした。"
-            );
-
-        }
-
-    }
-);
+}
 
 
 
-// =====================
-// ウィンドウサイズ変更
-// =====================
+// ============================================================
+// 目的地表示
+// ============================================================
 
-window.addEventListener(
-    "resize",
-    function(){
+function showDestination() {
 
-        // 選択範囲がある場合、
-        // 位置だけ再計算する
-
-        const x =
-        xOutput.textContent;
-
-        const y =
-        yOutput.textContent;
-
-        const width =
-        widthOutput.textContent;
-
-        const height =
-        heightOutput.textContent;
+    const key =
+        destination.value;
 
 
-        if(
-            x === "---" ||
-            y === "---" ||
-            width === "---" ||
-            height === "---"
-        ){
+    if (!key) {
 
-            return;
+        currentPlace = null;
 
-        }
-
-
-        redrawSelection(
-            Number(x),
-            Number(y),
-            Number(width),
-            Number(height)
-        );
-
-    }
-);
-
-
-
-// =====================
-// 選択範囲を再描画
-// =====================
-
-function redrawSelection(
-    x,
-    y,
-    width,
-    height
-){
-
-    const info =
-    getImageDisplayInfo();
-
-
-    if(!info){
+        clearMarker();
 
         return;
 
     }
 
 
+    currentPlace =
+        destinations[key];
+
+
+    if (!currentPlace) {
+
+        return;
+
+    }
+
+
+    building.value =
+        currentPlace.building;
+
+
+    // 建物変更処理
+
+    building.dispatchEvent(
+        new Event("change")
+    );
+
+
+    floor.value =
+        currentPlace.floor;
+
+
+    // 階変更処理
+
+    floor.dispatchEvent(
+        new Event("change")
+    );
+
+}
+
+
+
+// ============================================================
+// 画像読み込み完了
+// ============================================================
+
+map.addEventListener(
+    "load",
+    function () {
+
+        clearMarker();
+
+        clearClassroomAreas();
+
+
+        // 文化祭範囲作成
+
+        createClassroomAreas();
+
+
+        if (!currentPlace) {
+
+            return;
+
+        }
+
+
+        const currentFile =
+            map.src
+                .split("/")
+                .pop();
+
+
+        const targetFile =
+            getMapFile(
+                currentPlace.building,
+                currentPlace.floor
+            );
+
+
+        if (
+            currentFile === targetFile
+        ) {
+
+            showMarker(
+                currentPlace
+            );
+
+        }
+
+    }
+);
+
+
+
+// ============================================================
+// 地図ファイル名取得
+// ============================================================
+
+function getMapFile(
+    buildingName,
+    floorName
+) {
+
+    if (
+        buildingName === "S" &&
+        floorName === "1.5"
+    ) {
+
+        return "S11F.png";
+
+    }
+
+
+    return (
+        buildingName +
+        floorName +
+        "F.png"
+    );
+
+}
+
+
+
+// ============================================================
+// マーカー表示
+// ============================================================
+
+function showMarker(place) {
+
+    if (!map.naturalWidth) {
+
+        return;
+
+    }
+
+
+    const info =
+        getImageInfo();
+
+
+    const mapRect =
+        map.getBoundingClientRect();
+
+
+    const parentRect =
+        map.parentElement
+            .getBoundingClientRect();
+
+
     const left =
-    info.offsetX +
-    x * info.scale;
+        mapRect.left -
+        parentRect.left +
+        info.offsetX +
+        place.x *
+        info.scaleX;
 
 
     const top =
-    info.offsetY +
-    y * info.scale;
+        mapRect.top -
+        parentRect.top +
+        info.offsetY +
+        place.y *
+        info.scaleY;
 
 
-    const displayWidth =
-    width * info.scale;
+    marker.style.left =
+        left + "px";
 
 
-    const displayHeight =
-    height * info.scale;
+    marker.style.top =
+        top + "px";
 
 
-    selection.style.display =
-    "block";
+    marker.classList.remove(
+        "redMarker"
+    );
 
 
-    selection.style.left =
-    left + "px";
+    const file =
+        map.src
+            .split("/")
+            .pop();
 
 
-    selection.style.top =
-    top + "px";
+    // 特定の地図では赤マーカー
+
+    if (
+
+        file === "S1F.png" ||
+
+        file === "AB1F.png" ||
+
+        file === "AB6F.png"
+
+    ) {
+
+        marker.classList.add(
+            "redMarker"
+        );
+
+    }
 
 
-    selection.style.width =
-    displayWidth + "px";
-
-
-    selection.style.height =
-    displayHeight + "px";
+    marker.style.display =
+        "block";
 
 }
+
+
+
+// ============================================================
+// 文化祭クリック範囲を作る
+// ============================================================
+
+function createClassroomAreas() {
+
+    clearClassroomAreas();
+
+
+    if (!map.naturalWidth) {
+
+        return;
+
+    }
+
+
+    const b =
+        building.value;
+
+
+    const f =
+        floor.value;
+
+
+    if (!b || !f) {
+
+        return;
+
+    }
+
+
+    const info =
+        getImageInfo();
+
+
+    Object.keys(classroomAreas)
+        .forEach(key => {
+
+            const room =
+                classroomAreas[key];
+
+
+            // 現在の建物・階だけ
+
+            if (
+                room.building !== b ||
+                room.floor !== f
+            ) {
+
+                return;
+
+            }
+
+
+            // 文化祭情報がなければ
+            // クリック範囲を作らない
+
+            if (
+                !festivalInfo[key]
+            ) {
+
+                return;
+
+            }
+
+
+            const area =
+                document.createElement(
+                    "div"
+                );
+
+
+            area.className =
+                "classroom-area";
+
+
+            area.dataset.room =
+                key;
+
+
+            area.style.left =
+                (
+                    info.offsetX +
+                    room.x *
+                    info.scaleX
+                ) + "px";
+
+
+            area.style.top =
+                (
+                    info.offsetY +
+                    room.y *
+                    info.scaleY
+                ) + "px";
+
+
+            area.style.width =
+                (
+                    room.width *
+                    info.scaleX
+                ) + "px";
+
+
+            area.style.height =
+                (
+                    room.height *
+                    info.scaleY
+                ) + "px";
+
+
+            area.addEventListener(
+                "click",
+                function (event) {
+
+                    event.stopPropagation();
+
+                    openFestivalModal(
+                        key
+                    );
+
+                }
+            );
+
+
+            classroomLayer.appendChild(
+                area
+            );
+
+        });
+
+}
+
+
+
+// ============================================================
+// 文化祭ポップアップ
+// ============================================================
+
+function openFestivalModal(key) {
+
+    const info =
+        festivalInfo[key];
+
+
+    if (!info) {
+
+        return;
+
+    }
+
+
+    const modal =
+        document.getElementById(
+            "festival-modal"
+        );
+
+
+    const title =
+        document.getElementById(
+            "festival-title"
+        );
+
+
+    const image =
+        document.getElementById(
+            "festival-image"
+        );
+
+
+    const imageContainer =
+        document.getElementById(
+            "festival-image-container"
+        );
+
+
+    const description =
+        document.getElementById(
+            "festival-description"
+        );
+
+
+    title.textContent =
+        info.title || key;
+
+
+    description.textContent =
+        info.description || "";
+
+
+    // 画像あり
+
+    if (info.image) {
+
+        image.src =
+            info.image;
+
+
+        image.alt =
+            info.title ||
+            "文化祭企画";
+
+
+        imageContainer.style.display =
+            "block";
+
+    }
+
+    // 画像なし
+
+    else {
+
+        image.src = "";
+
+        imageContainer.style.display =
+            "none";
+
+    }
+
+
+    modal.classList.add(
+        "show"
+    );
+
+}
+
+
+
+// ============================================================
+// 文化祭ポップアップを閉じる
+// ============================================================
+
+function closeFestivalModal() {
+
+    const modal =
+        document.getElementById(
+            "festival-modal"
+        );
+
+
+    modal.classList.remove(
+        "show"
+    );
+
+}
+
+
+
+// ============================================================
+// モーダル外側クリックで閉じる
+// ============================================================
+
+document
+    .getElementById("festival-modal")
+    .addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                event.target === this
+            ) {
+
+                closeFestivalModal();
+
+            }
+
+        }
+    );
+
+
+
+// ============================================================
+// ESCキーで閉じる
+// ============================================================
+
+document.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeFestivalModal();
+
+        }
+
+    }
+);
+
+
+
+// ============================================================
+// 画面サイズ変更
+// ============================================================
+
+window.addEventListener(
+    "resize",
+    function () {
+
+        if (!map.complete) {
+
+            return;
+
+        }
+
+
+        createClassroomAreas();
+
+
+        if (currentPlace) {
+
+            const currentFile =
+                map.src
+                    .split("/")
+                    .pop();
+
+
+            const targetFile =
+                getMapFile(
+                    currentPlace.building,
+                    currentPlace.floor
+                );
+
+
+            if (
+                currentFile === targetFile
+            ) {
+
+                showMarker(
+                    currentPlace
+                );
+
+            }
+
+        }
+
+    }
+);
+
+
+
+// ============================================================
+// 初期化
+// ============================================================
+
+createDestinationOptions();
