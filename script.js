@@ -1336,25 +1336,10 @@ let mapChangeId = 0;
 
 function getImageInfo() {
 
-    const containerRect =
-        map.parentElement.getBoundingClientRect();
-
-    const containerWidth =
-        containerRect.width;
-
-    const containerHeight =
-        containerRect.height;
-
-    const naturalWidth =
-        map.naturalWidth;
-
-    const naturalHeight =
-        map.naturalHeight;
-
-
     if (
-        !naturalWidth ||
-        !naturalHeight
+        !map.complete ||
+        !map.naturalWidth ||
+        !map.naturalHeight
     ) {
 
         return {
@@ -1367,37 +1352,44 @@ function getImageInfo() {
     }
 
 
-    // ============================================
-    // object-fit: contain と同じ計算
-    // ============================================
+    // ========================================================
+    // 実際に画面へ表示されている画像のサイズを取得
+    // ========================================================
 
-    const scale =
-        Math.min(
-            containerWidth / naturalWidth,
-            containerHeight / naturalHeight
-        );
+    const mapRect =
+        map.getBoundingClientRect();
 
-
-    const renderedWidth =
-        naturalWidth * scale;
-
-    const renderedHeight =
-        naturalHeight * scale;
+    const containerRect =
+        map.parentElement.getBoundingClientRect();
 
 
-    // containによって生じる余白
+    // 元画像 → 表示画像の倍率
+
+    const scaleX =
+        mapRect.width /
+        map.naturalWidth;
+
+    const scaleY =
+        mapRect.height /
+        map.naturalHeight;
+
+
+    // コンテナ左上から見た画像の位置
+
     const offsetX =
-        (containerWidth - renderedWidth) / 2;
+        mapRect.left -
+        containerRect.left;
 
     const offsetY =
-        (containerHeight - renderedHeight) / 2;
+        mapRect.top -
+        containerRect.top;
 
 
     return {
 
-        scaleX: scale,
+        scaleX: scaleX,
 
-        scaleY: scale,
+        scaleY: scaleY,
 
         offsetX: offsetX,
 
@@ -1527,35 +1519,40 @@ function createFloorOptions(
 // 建物変更
 // ============================================================
 
-building.addEventListener(
-    "change",
+map.addEventListener(
+    "load",
     function () {
 
-        const selectedBuilding =
-            building.value;
+        const thisChangeId =
+            mapChangeId;
 
 
-        clearMarker();
+        // 画像のレイアウト確定を待つ
+        requestAnimationFrame(
+            function () {
 
-        clearClassroomAreas();
+                requestAnimationFrame(
+                    function () {
+
+                        if (
+                            thisChangeId !==
+                            mapChangeId
+                        ) {
+
+                            return;
+
+                        }
 
 
-        createFloorOptions(
-            selectedBuilding
+                        setupCurrentMap(
+                            thisChangeId
+                        );
+
+                    }
+                );
+
+            }
         );
-
-
-        // 建物が未選択
-
-        if (
-            !selectedBuilding
-        ) {
-
-            map.src = "";
-
-            return;
-
-        }
 
     }
 );
