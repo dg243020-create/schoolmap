@@ -1334,27 +1334,16 @@ let mapChangeId = 0;
 // 地図画像の表示情報を取得
 // ============================================================
 
+// ============================================================
+// 地図画像の表示情報を取得
+// ============================================================
+
 function getImageInfo() {
 
-    const containerRect =
-        map.parentElement.getBoundingClientRect();
-
-    const containerWidth =
-        containerRect.width;
-
-    const containerHeight =
-        containerRect.height;
-
-    const naturalWidth =
-        map.naturalWidth;
-
-    const naturalHeight =
-        map.naturalHeight;
-
-
     if (
-        !naturalWidth ||
-        !naturalHeight
+        !map.complete ||
+        !map.naturalWidth ||
+        !map.naturalHeight
     ) {
 
         return {
@@ -1367,33 +1356,105 @@ function getImageInfo() {
     }
 
 
-    // ========================================================
-    // object-fit: contain と完全に同じ縮尺を計算
-    // ========================================================
+    const container =
+        map.parentElement;
 
-    const scale =
-        Math.min(
-            containerWidth / naturalWidth,
-            containerHeight / naturalHeight
+
+    const containerWidth =
+        container.clientWidth;
+
+
+    /*
+        元画像のサイズ
+    */
+
+    const naturalWidth =
+        map.naturalWidth;
+
+    const naturalHeight =
+        map.naturalHeight;
+
+
+    /*
+        横幅を基準にした場合の高さ
+    */
+
+    const widthScale =
+        containerWidth /
+        naturalWidth;
+
+
+    const widthBasedHeight =
+        naturalHeight *
+        widthScale;
+
+
+    /*
+        画面の高さを基準にして
+        あまりにも縦長にならないようにする
+    */
+
+    const maxHeight =
+        Math.max(
+            window.innerHeight * 0.8,
+            500
         );
 
 
+    let scale;
+
+
+    /*
+        横幅いっぱいで表示して
+        高すぎる場合は縮小
+    */
+
+    if (
+        widthBasedHeight > maxHeight
+    ) {
+
+        scale =
+            maxHeight /
+            naturalHeight;
+
+    }
+
+    else {
+
+        scale =
+            widthScale;
+
+    }
+
+
     const renderedWidth =
-        naturalWidth * scale;
+        naturalWidth *
+        scale;
+
 
     const renderedHeight =
-        naturalHeight * scale;
+        naturalHeight *
+        scale;
 
 
-    // ========================================================
-    // 画像が中央配置されることによって生じる余白
-    // ========================================================
+    /*
+        コンテナの高さを
+        実際の画像サイズにする
+    */
 
-    const offsetX =
-        (containerWidth - renderedWidth) / 2;
+    container.style.height =
+        renderedHeight + "px";
 
-    const offsetY =
-        (containerHeight - renderedHeight) / 2;
+
+    /*
+        画像サイズを明示的に指定
+    */
+
+    map.style.width =
+        renderedWidth + "px";
+
+    map.style.height =
+        renderedHeight + "px";
 
 
     return {
@@ -1402,57 +1463,9 @@ function getImageInfo() {
 
         scaleY: scale,
 
-        offsetX: offsetX,
+        offsetX: 0,
 
-        offsetY: offsetY
-
-    };
-
-}
-
-
-    // ========================================================
-    // 実際に画面へ表示されている画像のサイズを取得
-    // ========================================================
-
-    const mapRect =
-        map.getBoundingClientRect();
-
-    const containerRect =
-        map.parentElement.getBoundingClientRect();
-
-
-    // 元画像 → 表示画像の倍率
-
-    const scaleX =
-        mapRect.width /
-        map.naturalWidth;
-
-    const scaleY =
-        mapRect.height /
-        map.naturalHeight;
-
-
-    // コンテナ左上から見た画像の位置
-
-    const offsetX =
-        mapRect.left -
-        containerRect.left;
-
-    const offsetY =
-        mapRect.top -
-        containerRect.top;
-
-
-    return {
-
-        scaleX: scaleX,
-
-        scaleY: scaleY,
-
-        offsetX: offsetX,
-
-        offsetY: offsetY
+        offsetY: 0
 
     };
 
@@ -1823,13 +1836,24 @@ function setupCurrentMap(
     }
 
 
-    // 文化祭クリック範囲
+    /*
+        先に画像の表示サイズを確定
+    */
+
+    getImageInfo();
+
+
+    /*
+        そのあと文化祭クリック範囲を作る
+    */
 
     createClassroomAreas();
 
 
-    // 現在の目的地が
-    // この階にある場合だけマーカー表示
+    /*
+        現在の目的地が
+        この階にある場合だけマーカー表示
+    */
 
     if (
         currentPlace
@@ -2513,12 +2537,11 @@ window.addEventListener(
         }
 
 
-        // 文化祭クリック範囲を再計算
+        getImageInfo();
+
 
         createClassroomAreas();
 
-
-        // マーカーを再計算
 
         if (
             currentPlace
