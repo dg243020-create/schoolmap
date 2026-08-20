@@ -31,6 +31,7 @@ body {
 
 header {
     width: 100%;
+
     padding: 18px 20px;
 
     background: #ffffff;
@@ -55,17 +56,14 @@ header h1 {
 .destination {
     width: min(1200px, 94%);
 
-    margin: 20px auto 10px;
+    margin: 20px auto 12px;
 
     display: flex;
 
-    gap: 10px;
-
     align-items: center;
 
-    flex-wrap: wrap;
+    gap: 10px;
 }
-
 
 .destination select {
     min-width: 220px;
@@ -78,11 +76,10 @@ header h1 {
 
     border-radius: 8px;
 
-    background: #fff;
+    background: #ffffff;
 
     cursor: pointer;
 }
-
 
 .destination button {
     padding: 10px 18px;
@@ -95,33 +92,29 @@ header h1 {
 
     background: #333;
 
-    color: #fff;
+    color: #ffffff;
 
     cursor: pointer;
 }
 
-
 .destination button:hover {
-    opacity: 0.85;
+    background: #555;
 }
 
 
 /* =========================================
-   建物・階選択
+   建物・階
 ========================================= */
 
 .floor-select {
     width: min(1200px, 94%);
 
-    margin: 0 auto 20px;
+    margin: 0 auto 18px;
 
     display: flex;
 
     gap: 10px;
-
-    flex-wrap: wrap;
 }
-
 
 .floor-select select {
     min-width: 150px;
@@ -134,17 +127,9 @@ header h1 {
 
     border-radius: 8px;
 
-    background: #fff;
+    background: #ffffff;
 
     cursor: pointer;
-}
-
-
-.destination select:focus,
-.floor-select select:focus {
-    outline: 2px solid #4aa3ff;
-
-    outline-offset: 1px;
 }
 
 
@@ -160,12 +145,9 @@ header h1 {
     margin: 0 auto 30px;
 
     /*
-        画像そのものの高さに合わせる。
-        これによって object-fit: contain による
-        上下の大きな余白を作らない。
+        画像の縦横比を壊さないため、
+        コンテナの高さを固定しない。
     */
-
-    overflow: hidden;
 
     background: #e9edf2;
 
@@ -173,6 +155,8 @@ header h1 {
 
     box-shadow:
         0 4px 15px rgba(0, 0, 0, 0.08);
+
+    overflow: hidden;
 
     line-height: 0;
 }
@@ -183,14 +167,14 @@ header h1 {
 ========================================= */
 
 #map {
-    position: relative;
-
-    left: auto;
-    top: auto;
-
     display: block;
 
+    /*
+        元画像の縦横比を完全に維持
+    */
+
     width: 100%;
+
     height: auto;
 
     max-width: 100%;
@@ -200,55 +184,6 @@ header h1 {
     user-select: none;
 
     -webkit-user-drag: none;
-}
-
-
-/*
-    地図画像の上に重ねる要素は
-    map-containerを基準にする
-*/
-
-
-/* =========================================
-   文化祭クリックレイヤー
-========================================= */
-
-#classroom-layer {
-    position: absolute;
-
-    left: 0;
-    top: 0;
-
-    width: 100%;
-    height: 100%;
-
-    z-index: 10;
-
-    pointer-events: none;
-}
-
-
-.classroom-area {
-    position: absolute;
-
-    pointer-events: auto;
-
-    cursor: pointer;
-
-    background: rgba(0, 140, 255, 0);
-
-    border: 2px solid rgba(0, 140, 255, 0);
-
-    transition:
-        background 0.15s ease,
-        border-color 0.15s ease;
-}
-
-
-.classroom-area:hover {
-    background: rgba(0, 140, 255, 0.15);
-
-    border-color: rgba(0, 140, 255, 0.45);
 }
 
 
@@ -319,10 +254,53 @@ header h1 {
 
 
 /* =========================================
-   文化祭ポップアップ
+   文化祭クリックレイヤー
 ========================================= */
 
-#festival-modal {
+#classroom-layer {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 10;
+
+    pointer-events: none;
+}
+
+
+.classroom-area {
+    position: absolute;
+
+    pointer-events: auto;
+
+    cursor: pointer;
+
+    background: rgba(0, 140, 255, 0);
+
+    border: 2px solid rgba(0, 140, 255, 0);
+
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease;
+}
+
+
+.classroom-area:hover {
+    background: rgba(0, 140, 255, 0.15);
+
+    border-color: rgba(0, 140, 255, 0.45);
+}
+
+
+/* =========================================
+   モーダル
+========================================= */
+
+.modal {
     position: fixed;
 
     inset: 0;
@@ -332,7 +310,6 @@ header h1 {
     display: none;
 
     align-items: center;
-
     justify-content: center;
 
     padding: 20px;
@@ -341,16 +318,16 @@ header h1 {
 }
 
 
-#festival-modal.show {
+.modal.show {
     display: flex;
 }
 
 
 /* =========================================
-   ポップアップ本体
+   モーダル本体
 ========================================= */
 
-#festival-content {
+.modal-content {
     position: relative;
 
     width: min(700px, 100%);
@@ -361,18 +338,18 @@ header h1 {
 
     padding: 28px;
 
-    background: #fff;
+    background: #ffffff;
 
     border-radius: 16px;
 
     box-shadow:
         0 10px 40px rgba(0, 0, 0, 0.3);
 
-    line-height: 1.6;
+    line-height: normal;
 }
 
 
-#festival-title {
+.modal-content h2 {
     margin: 0 45px 20px 0;
 
     font-size: 24px;
@@ -385,7 +362,7 @@ header h1 {
    閉じるボタン
 ========================================= */
 
-#festival-close {
+.modal-close {
     position: absolute;
 
     top: 12px;
@@ -408,7 +385,7 @@ header h1 {
 }
 
 
-#festival-close:hover {
+.modal-close:hover {
     background: #ddd;
 }
 
@@ -417,7 +394,7 @@ header h1 {
    文化祭画像
 ========================================= */
 
-#festival-image-container {
+.festival-image-container {
     width: 100%;
 
     margin-bottom: 20px;
@@ -426,7 +403,7 @@ header h1 {
 }
 
 
-#festival-image-container img {
+.festival-image-container img {
     display: block;
 
     width: 100%;
@@ -440,7 +417,7 @@ header h1 {
 
 
 /* =========================================
-   紹介文
+   文化祭紹介文
 ========================================= */
 
 #festival-description {
@@ -465,28 +442,27 @@ header h1 {
 
     margin: 30px auto;
 
-    padding: 25px;
-
-    background: #fff;
-
-    border-radius: 12px;
+    padding: 30px 20px;
 
     text-align: center;
+
+    background: #ffffff;
+
+    border-radius: 12px;
 
     box-shadow:
         0 4px 15px rgba(0, 0, 0, 0.06);
 }
 
-
 .survey h2 {
-    margin-top: 0;
-}
+    margin: 0 0 15px;
 
+    font-size: 22px;
+}
 
 .survey p {
     line-height: 1.8;
 }
-
 
 .survey button {
     padding: 12px 20px;
@@ -497,16 +473,15 @@ header h1 {
 
     background: #333;
 
-    color: #fff;
+    color: #ffffff;
 
     font-size: 15px;
 
     cursor: pointer;
 }
 
-
 .survey button:hover {
-    opacity: 0.85;
+    background: #555;
 }
 
 
@@ -515,8 +490,6 @@ header h1 {
 ========================================= */
 
 footer {
-    width: 100%;
-
     padding: 20px;
 
     text-align: center;
@@ -537,7 +510,6 @@ footer {
         padding: 14px 12px;
     }
 
-
     header h1 {
         font-size: 20px;
     }
@@ -546,29 +518,27 @@ footer {
     .destination {
         width: 94%;
 
-        display: grid;
+        display: flex;
 
-        grid-template-columns: 1fr auto;
+        flex-direction: column;
+
+        align-items: stretch;
 
         gap: 8px;
     }
 
 
     .destination select {
-        min-width: 0;
-
         width: 100%;
+
+        min-width: 0;
 
         font-size: 14px;
     }
 
 
     .destination button {
-        white-space: nowrap;
-
-        padding: 10px 14px;
-
-        font-size: 14px;
+        width: 100%;
     }
 
 
@@ -601,19 +571,19 @@ footer {
     }
 
 
-    #festival-modal {
+    .modal {
         padding: 10px;
     }
 
 
-    #festival-content {
+    .modal-content {
         padding: 22px 18px;
 
         border-radius: 14px;
     }
 
 
-    #festival-title {
+    .modal-content h2 {
         font-size: 20px;
     }
 
@@ -627,8 +597,6 @@ footer {
 
     .survey {
         width: 94%;
-
-        padding: 20px;
     }
 
 }
@@ -639,16 +607,6 @@ footer {
 ========================================= */
 
 @media (max-width: 400px) {
-
-    .destination {
-        grid-template-columns: 1fr;
-    }
-
-
-    .destination button {
-        width: 100%;
-    }
-
 
     .floor-select {
         grid-template-columns: 1fr;
