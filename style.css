@@ -10,6 +10,7 @@ html,
 body {
     margin: 0;
     padding: 0;
+    min-height: 100%;
 }
 
 body {
@@ -31,7 +32,6 @@ body {
 
 header {
     width: 100%;
-
     padding: 18px 20px;
 
     background: #ffffff;
@@ -55,19 +55,15 @@ header h1 {
 
 .destination {
     width: min(1200px, 94%);
-
     margin: 20px auto 10px;
 
     display: flex;
-
     gap: 10px;
-
     align-items: center;
 }
 
 .destination select {
     flex: 1;
-
     min-width: 0;
 
     padding: 11px 12px;
@@ -75,7 +71,6 @@ header h1 {
     font-size: 15px;
 
     border: 1px solid #bbb;
-
     border-radius: 8px;
 
     background: #fff;
@@ -89,11 +84,9 @@ header h1 {
     font-size: 15px;
 
     border: none;
-
     border-radius: 8px;
 
     background: #333;
-
     color: #fff;
 
     cursor: pointer;
@@ -110,11 +103,9 @@ header h1 {
 
 .floor-select {
     width: min(1200px, 94%);
-
     margin: 0 auto 20px;
 
     display: flex;
-
     gap: 10px;
 }
 
@@ -124,7 +115,6 @@ header h1 {
     font-size: 15px;
 
     border: 1px solid #bbb;
-
     border-radius: 8px;
 
     background: #fff;
@@ -135,25 +125,27 @@ header h1 {
 .floor-select select:focus,
 .destination select:focus {
     outline: 2px solid #4aa3ff;
-
     outline-offset: 1px;
 }
 
 
 /* =========================================
-   地図
+   地図全体
 ========================================= */
 
 #map-wrapper {
     width: 100%;
 
     display: flex;
-
     justify-content: center;
 
     padding: 0 10px 30px;
 }
 
+
+/* =========================================
+   地図コンテナ
+========================================= */
 
 #map-container {
     position: relative;
@@ -161,24 +153,29 @@ header h1 {
     width: min(1200px, 100%);
 
     /*
-        高さを固定しない。
+        高さは画像に合わせて自動。
 
-        画像自身の縦横比で
-        全体を表示する。
+        新館のような縦長画像でも、
+        画像を切り取らない。
     */
-
     height: auto;
 
-    min-height: 0;
-
-    overflow: visible;
+    margin: 0 auto;
 
     background: #e9edf2;
 
     border-radius: 12px;
 
+    overflow: hidden;
+
     box-shadow:
         0 4px 15px rgba(0, 0, 0, 0.08);
+
+    /*
+        子要素の基準位置を
+        このコンテナに固定する。
+    */
+    isolation: isolate;
 }
 
 
@@ -189,20 +186,21 @@ header h1 {
 #map {
     position: relative;
 
-    left: auto;
-    top: auto;
-
     display: block;
 
+    /*
+        必ず元画像の縦横比を維持。
+        幅に合わせて高さを自動計算する。
+    */
     width: 100%;
     height: auto;
 
-    /*
-        縦横比を完全に維持。
-        画像全体を表示する。
-    */
+    max-width: 100%;
 
     object-fit: contain;
+
+    margin: 0;
+    padding: 0;
 
     user-select: none;
 
@@ -323,31 +321,44 @@ header h1 {
    文化祭ポップアップ
 ========================================= */
 
+/*
+    ここは特に重要。
+
+    画面全体を覆うレイヤーとして固定する。
+*/
+
+#festival-modal,
 .festival-modal {
-    position: fixed;
+    position: fixed !important;
 
-    inset: 0;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
 
-    z-index: 1000;
+    width: 100vw !important;
+    height: 100vh !important;
 
-    display: none;
+    z-index: 99999 !important;
 
-    align-items: center;
+    display: none !important;
 
-    justify-content: center;
+    align-items: center !important;
+    justify-content: center !important;
 
-    padding: 20px;
+    padding: 20px !important;
 
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.65) !important;
 }
 
 
-/*
-    JSで class="show" が付いたときだけ表示
-*/
+/* =========================================
+   ポップアップ表示
+========================================= */
 
+#festival-modal.show,
 .festival-modal.show {
-    display: flex;
+    display: flex !important;
 }
 
 
@@ -355,23 +366,29 @@ header h1 {
    ポップアップ本体
 ========================================= */
 
+#festival-content,
 .festival-content {
-    position: relative;
+    position: relative !important;
 
-    width: min(700px, 100%);
+    width: min(700px, 100%) !important;
 
-    max-height: 90vh;
+    max-width: 700px !important;
+    max-height: 90vh !important;
 
-    overflow-y: auto;
+    overflow-y: auto !important;
 
-    padding: 28px;
+    margin: 0 !important;
 
-    background: #fff;
+    padding: 28px !important;
 
-    border-radius: 16px;
+    background: #ffffff !important;
+
+    border-radius: 16px !important;
 
     box-shadow:
-        0 10px 40px rgba(0, 0, 0, 0.3);
+        0 10px 40px rgba(0, 0, 0, 0.35) !important;
+
+    z-index: 100000 !important;
 }
 
 
@@ -383,8 +400,9 @@ header h1 {
     margin: 0 45px 20px 0;
 
     font-size: 24px;
-
     line-height: 1.5;
+
+    color: #222;
 }
 
 
@@ -392,31 +410,39 @@ header h1 {
    閉じるボタン
 ========================================= */
 
+#festival-close,
 .festival-close {
-    position: absolute;
+    position: absolute !important;
 
-    top: 12px;
-    right: 12px;
+    top: 12px !important;
+    right: 12px !important;
 
-    width: 40px;
-    height: 40px;
+    width: 40px !important;
+    height: 40px !important;
 
-    border: none;
+    padding: 0 !important;
+    margin: 0 !important;
 
-    border-radius: 50%;
+    border: none !important;
+    border-radius: 50% !important;
 
-    background: #eee;
+    background: #eeeeee !important;
 
-    font-size: 28px;
+    color: #222 !important;
 
-    line-height: 1;
+    font-size: 28px !important;
 
-    cursor: pointer;
+    line-height: 40px !important;
+    text-align: center !important;
+
+    cursor: pointer !important;
+
+    z-index: 100001 !important;
 }
 
-
+#festival-close:hover,
 .festival-close:hover {
-    background: #ddd;
+    background: #dddddd !important;
 }
 
 
@@ -424,21 +450,26 @@ header h1 {
    文化祭画像
 ========================================= */
 
+#festival-image-container,
 .festival-image-container {
     width: 100%;
 
-    margin-bottom: 20px;
+    margin: 0 0 20px;
 
     text-align: center;
 }
 
 
+#festival-image,
 .festival-image-container img {
     display: block;
 
     width: 100%;
+    max-width: 100%;
 
     max-height: 400px;
+
+    margin: 0 auto;
 
     object-fit: contain;
 
@@ -456,6 +487,8 @@ header h1 {
     font-size: 16px;
 
     line-height: 1.9;
+
+    color: #222;
 
     white-space: pre-wrap;
 
@@ -508,7 +541,6 @@ header h1 {
     padding: 11px 20px;
 
     border: none;
-
     border-radius: 8px;
 
     background: #333;
@@ -516,7 +548,6 @@ header h1 {
     color: #fff;
 
     font-size: 14px;
-
     font-weight: 600;
 
     cursor: pointer;
@@ -613,21 +644,42 @@ footer {
     }
 
 
-    .festival-modal {
-        padding: 10px;
+    /*
+        スマホでも画像全体を表示
+    */
+
+    #map {
+        width: 100%;
+        height: auto;
     }
 
 
+    /* -------------------------
+       ポップアップ
+    ------------------------- */
+
+    #festival-modal,
+    .festival-modal {
+        padding: 10px !important;
+    }
+
+
+    #festival-content,
     .festival-content {
-        padding: 22px 18px;
+        width: 100% !important;
+        max-width: 100% !important;
 
-        border-radius: 14px;
+        max-height: 92vh !important;
 
-        max-height: 92vh;
+        padding: 22px 18px !important;
+
+        border-radius: 14px !important;
     }
 
 
     #festival-title {
+        margin-right: 40px;
+
         font-size: 20px;
     }
 
@@ -636,6 +688,11 @@ footer {
         font-size: 15px;
 
         line-height: 1.8;
+    }
+
+
+    #festival-image {
+        max-height: 300px;
     }
 
 
