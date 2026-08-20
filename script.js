@@ -1259,7 +1259,7 @@ const festivalInfo = {
 
     "38": {
         title: "3-8 パフォーマンス 櫻井Family",
-        image: "festival/1-1.jpg",
+        image: "AB1F.png",
         description: "ここに1-2の文化祭企画の説明を書きます。"
     },
 
@@ -1336,10 +1336,25 @@ let mapChangeId = 0;
 
 function getImageInfo() {
 
+    const containerRect =
+        map.parentElement.getBoundingClientRect();
+
+    const containerWidth =
+        containerRect.width;
+
+    const containerHeight =
+        containerRect.height;
+
+    const naturalWidth =
+        map.naturalWidth;
+
+    const naturalHeight =
+        map.naturalHeight;
+
+
     if (
-        !map.complete ||
-        !map.naturalWidth ||
-        !map.naturalHeight
+        !naturalWidth ||
+        !naturalHeight
     ) {
 
         return {
@@ -1350,6 +1365,50 @@ function getImageInfo() {
         };
 
     }
+
+
+    // ========================================================
+    // object-fit: contain と完全に同じ縮尺を計算
+    // ========================================================
+
+    const scale =
+        Math.min(
+            containerWidth / naturalWidth,
+            containerHeight / naturalHeight
+        );
+
+
+    const renderedWidth =
+        naturalWidth * scale;
+
+    const renderedHeight =
+        naturalHeight * scale;
+
+
+    // ========================================================
+    // 画像が中央配置されることによって生じる余白
+    // ========================================================
+
+    const offsetX =
+        (containerWidth - renderedWidth) / 2;
+
+    const offsetY =
+        (containerHeight - renderedHeight) / 2;
+
+
+    return {
+
+        scaleX: scale,
+
+        scaleY: scale,
+
+        offsetX: offsetX,
+
+        offsetY: offsetY
+
+    };
+
+}
 
 
     // ========================================================
