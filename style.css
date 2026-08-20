@@ -442,3 +442,58 @@ header h1 {
     }
 
 }
+
+
+/* =========================================
+   アンケートセクション
+========================================= */
+
+.survey {
+    width: min(700px, 94%);
+    margin: 40px auto;
+
+    padding: 30px 25px;
+
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.08);
+
+    text-align: center;
+}
+
+.survey h2 {
+    margin: 0 0 15px;
+
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.survey p {
+    margin: 0 0 20px;
+
+    font-size: 15px;
+    line-height: 1.7;
+
+    color: #444;
+}
+
+.survey button {
+    padding: 12px 24px;
+
+    font-size: 15px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #333;
+    color: #fff;
+
+    cursor: pointer;
+}
+
+.survey button:hover {
+    opacity: 0.85;
+}
