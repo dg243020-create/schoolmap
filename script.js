@@ -76,20 +76,475 @@ const classroomLayer =
 
 const destinations = {
 
-    Library: {
+    Library:{
+    building:"AB",
+    floor:"6",
+    x:150,
+    y:1000
+},
 
-        name: "図書室",
+Ignitionbase:{
+    building:"AB",
+    floor:"6",
+    x:965,
+    y:925
+},
 
-        building: "AB",
+Studyroom:{
+    building:"AB",
+    floor:"6",
+    x:968,
+    y:461
+},
 
-        floor: "6",
+Millenniumhall:{
+    building:"AB",
+    floor:"6",
+    x:2420,
+    y:1030
+},
 
-        // ★ 座標
-        x: 150,
+Artroom:{
+    building:"AB",
+    floor:"6",
+    x:1750,
+    y:910
+},
 
-        y: 1000
+Exerciseroom:{
+    building:"AB",
+    floor:"6",
+    x:3200,
+    y:928
+},
 
-    }
+Scienceroom:{
+    building:"AB",
+    floor:"5",
+    x:971,
+    y:792
+},
+
+Kateikaroom:{
+    building:"AB",
+    floor:"4",
+    x:971,
+    y:792
+},
+
+Shodouroom:{
+    building:"AB",
+    floor:"3",
+    x:971,
+    y:792
+},
+
+Shokuinroom:{
+    building:"AB",
+    floor:"2",
+    x:450,
+    y:930
+},
+
+Shokudou:{
+    building:"AB",
+    floor:"1",
+    x:595,
+    y:1132
+},
+
+Jimuroom:{
+    building:"AB",
+    floor:"1",
+    x:2020,
+    y:1200
+},
+
+Hokenroom:{
+    building:"AB",
+    floor:"1",
+    x:3139,
+    y:1194
+},
+
+Koudoutaiikukan:{
+    building:"G",
+    floor:"2",
+    x:1178,
+    y:1134
+},
+
+Sinkanshokuinroom:{
+    building:"S",
+    floor:"1",
+    x:866,
+    y:440
+},
+
+Musicroom:{
+    building:"S",
+    floor:"1",
+    x:369,
+    y:1122
+},
+
+Danceroom:{
+    building:"S",
+    floor:"1",
+    x:900,
+    y:1600
+},
+
+Gomishori:{
+    building:"S",
+    floor:"1",
+    x:869,
+    y:177
+},
+
+Informationroom:{
+    building:"S",
+    floor:"2",
+    x:380,
+    y:1283
+},
+
+Sinkantaiikukan:{
+    building:"S",
+    floor:"4",
+    x:618,
+    y:741
+},
+
+Juudouroom:{
+    building:"G",
+    floor:"1",
+    x:420,
+    y:1024
+},
+
+Kendouroom:{
+    building:"G",
+    floor:"1",
+    x:1126,
+    y:1466
+},
+
+TakkyuuRoom:{
+    building:"G",
+    floor:"1",
+    x:416,
+    y:1619
+},
+
+S301:{
+    building:"S",
+    floor:"3",
+    x:1000,
+    y:1700
+},
+
+S206:{
+    building:"S",
+    floor:"2",
+    x:429,
+    y:600
+},
+    
+11:{
+    building:"S",
+    floor:"2",
+    x:1000,
+    y:956
+},
+
+12:{
+    building:"S",
+    floor:"3",
+    x:1000,
+    y:1326
+},
+
+13:{
+    building:"S",
+    floor:"3",
+    x:1000,
+    y:972
+},
+    
+14:{
+    building:"S",
+    floor:"3",
+    x:1000,
+    y:579
+},
+
+15:{
+    building:"S",
+    floor:"3",
+    x:1000,
+    y:259
+},
+
+16:{
+    building:"AB",
+    floor:"5",
+    x:3263,
+    y:906
+},
+
+17:{
+    building:"AB",
+    floor:"5",
+    x:2880,
+    y:906
+},
+
+18:{
+    building:"AB",
+    floor:"5",
+    x:2488,
+    y:906
+},
+
+19:{
+    building:"AB",
+    floor:"5",
+    x:2088,
+    y:906
+},
+
+110:{
+    building:"AB",
+    floor:"5",
+    x:1693,
+    y:906
+},
+
+111:{
+    building:"AB",
+    floor:"5",
+    x:156,
+    y:1465
+},
+
+112:{
+    building:"AB",
+    floor:"5",
+    x:156,
+    y:1085
+},
+
+113:{
+    building:"AB",
+    floor:"5",
+    x:156,
+    y:673
+},
+
+114:{
+    building:"AB",
+    floor:"5",
+    x:156,
+    y:290
+},
+
+115:{
+    building:"AB",
+    floor:"5",
+    x:950,
+    y:261
+},
+
+116:{
+    building:"AB",
+    floor:"4",
+    x:950,
+    y:261
+},
+
+21:{
+    building:"S",
+    floor:"2",
+    x:983,
+    y:1326
+},
+
+22:{
+    building:"S",
+    floor:"3",
+    x:429,
+    y:1326
+},
+
+23:{
+    building:"S",
+    floor:"3",
+    x:429,
+    y:963
+},
+
+24:{
+    building:"S",
+    floor:"3",
+    x:429,
+    y:605
+},
+
+25:{
+    building:"AB",
+    floor:"4",
+    x:3263,
+    y:906
+},
+
+26:{
+    building:"AB",
+    floor:"3",
+    x:950,
+    y:261
+},
+    
+27:{
+    building:"AB",
+    floor:"4",
+    x:2880,
+    y:906
+},
+
+28:{
+    building:"AB",
+    floor:"4",
+    x:2488,
+    y:906
+},
+
+29:{
+    building:"AB",
+    floor:"4",
+    x:2088,
+    y:906
+},
+
+210:{
+    building:"AB",
+    floor:"4",
+    x:1693,
+    y:906
+},
+
+211:{
+    building:"AB",
+    floor:"4",
+    x:156,
+    y:1465
+},
+
+212:{
+    building:"AB",
+    floor:"4",
+    x:156,
+    y:1085
+},
+
+213:{
+    building:"AB",
+    floor:"4",
+    x:156,
+    y:673
+},
+
+214:{
+    building:"AB",
+    floor:"4",
+    x:156,
+    y:290
+},
+
+31:{
+    building:"S",
+    floor:"2",
+    x:1000,
+    y:1700
+},
+    
+32:{
+    building:"S",
+    floor:"2",
+    x:1000,
+    y:579
+},
+
+33:{
+    building:"S",
+    floor:"2",
+    x:1000,
+    y:259
+},
+    
+34:{
+    building:"AB",
+    floor:"3",
+    x:3263,
+    y:906
+},
+
+35:{
+    building:"AB",
+    floor:"3",
+    x:156,
+    y:290
+},
+    
+36:{
+    building:"AB",
+    floor:"3",
+    x:2880,
+    y:906
+},
+
+37:{
+    building:"AB",
+    floor:"3",
+    x:2488,
+    y:906
+},
+
+38:{
+    building:"AB",
+    floor:"3",
+    x:2088,
+    y:906
+},
+
+39:{
+    building:"AB",
+    floor:"3",
+    x:1693,
+    y:906
+},
+
+310:{
+    building:"AB",
+    floor:"3",
+    x:156,
+    y:1465
+},
+
+311:{
+    building:"AB",
+    floor:"3",
+    x:156,
+    y:1085
+},
+
+312:{
+    building:"AB",
+    floor:"3",
+    x:156,
+    y:673
+},
+
 
     // 例
     //
