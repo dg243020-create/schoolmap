@@ -130,22 +130,19 @@ header h1 {
 
 
 /* =========================================
-   地図全体
+   地図
 ========================================= */
 
 #map-wrapper {
     width: 100%;
 
     display: flex;
+
     justify-content: center;
 
     padding: 0 10px 30px;
 }
 
-
-/* =========================================
-   地図コンテナ
-========================================= */
 
 #map-container {
     position: relative;
@@ -153,29 +150,22 @@ header h1 {
     width: min(1200px, 100%);
 
     /*
-        高さは画像に合わせて自動。
-
+        地図表示領域の高さを確保する。
         新館のような縦長画像でも、
-        画像を切り取らない。
+        画像全体をこの中に収める。
     */
-    height: auto;
+    height: min(800px, 75vh);
 
-    margin: 0 auto;
+    min-height: 400px;
+
+    overflow: hidden;
 
     background: #e9edf2;
 
     border-radius: 12px;
 
-    overflow: hidden;
-
     box-shadow:
         0 4px 15px rgba(0, 0, 0, 0.08);
-
-    /*
-        子要素の基準位置を
-        このコンテナに固定する。
-    */
-    isolation: isolate;
 }
 
 
@@ -184,23 +174,23 @@ header h1 {
 ========================================= */
 
 #map {
-    position: relative;
+    position: absolute;
 
-    display: block;
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
 
     /*
-        必ず元画像の縦横比を維持。
-        幅に合わせて高さを自動計算する。
+        横長・縦長どちらでも
+        必ず画像全体を表示する。
     */
-    width: 100%;
-    height: auto;
-
-    max-width: 100%;
-
     object-fit: contain;
 
-    margin: 0;
-    padding: 0;
+    object-position: center center;
+
+    display: block;
 
     user-select: none;
 
@@ -281,450 +271,4 @@ header h1 {
     pointer-events: none;
 
     animation: markerPulse 1.4s infinite;
-}
-
-
-/* =========================================
-   赤マーカー
-========================================= */
-
-#marker.redMarker {
-    background: #ff3030;
-
-    box-shadow:
-        0 0 0 2px #b50000,
-        0 0 15px rgba(255, 50, 50, 0.8);
-}
-
-
-@keyframes markerPulse {
-
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-
-    50% {
-        transform: scale(1.25);
-        opacity: 0.75;
-    }
-
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-
-}
-
-
-/* =========================================
-   文化祭ポップアップ
-========================================= */
-
-/*
-    ここは特に重要。
-
-    画面全体を覆うレイヤーとして固定する。
-*/
-
-#festival-modal,
-.festival-modal {
-    position: fixed !important;
-
-    top: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    left: 0 !important;
-
-    width: 100vw !important;
-    height: 100vh !important;
-
-    z-index: 99999 !important;
-
-    display: none !important;
-
-    align-items: center !important;
-    justify-content: center !important;
-
-    padding: 20px !important;
-
-    background: rgba(0, 0, 0, 0.65) !important;
-}
-
-
-/* =========================================
-   ポップアップ表示
-========================================= */
-
-#festival-modal.show,
-.festival-modal.show {
-    display: flex !important;
-}
-
-
-/* =========================================
-   ポップアップ本体
-========================================= */
-
-#festival-content,
-.festival-content {
-    position: relative !important;
-
-    width: min(700px, 100%) !important;
-
-    max-width: 700px !important;
-    max-height: 90vh !important;
-
-    overflow-y: auto !important;
-
-    margin: 0 !important;
-
-    padding: 28px !important;
-
-    background: #ffffff !important;
-
-    border-radius: 16px !important;
-
-    box-shadow:
-        0 10px 40px rgba(0, 0, 0, 0.35) !important;
-
-    z-index: 100000 !important;
-}
-
-
-/* =========================================
-   ポップアップタイトル
-========================================= */
-
-#festival-title {
-    margin: 0 45px 20px 0;
-
-    font-size: 24px;
-    line-height: 1.5;
-
-    color: #222;
-}
-
-
-/* =========================================
-   閉じるボタン
-========================================= */
-
-#festival-close,
-.festival-close {
-    position: absolute !important;
-
-    top: 12px !important;
-    right: 12px !important;
-
-    width: 40px !important;
-    height: 40px !important;
-
-    padding: 0 !important;
-    margin: 0 !important;
-
-    border: none !important;
-    border-radius: 50% !important;
-
-    background: #eeeeee !important;
-
-    color: #222 !important;
-
-    font-size: 28px !important;
-
-    line-height: 40px !important;
-    text-align: center !important;
-
-    cursor: pointer !important;
-
-    z-index: 100001 !important;
-}
-
-#festival-close:hover,
-.festival-close:hover {
-    background: #dddddd !important;
-}
-
-
-/* =========================================
-   文化祭画像
-========================================= */
-
-#festival-image-container,
-.festival-image-container {
-    width: 100%;
-
-    margin: 0 0 20px;
-
-    text-align: center;
-}
-
-
-#festival-image,
-.festival-image-container img {
-    display: block;
-
-    width: 100%;
-    max-width: 100%;
-
-    max-height: 400px;
-
-    margin: 0 auto;
-
-    object-fit: contain;
-
-    border-radius: 10px;
-}
-
-
-/* =========================================
-   文化祭説明
-========================================= */
-
-#festival-description {
-    margin: 0;
-
-    font-size: 16px;
-
-    line-height: 1.9;
-
-    color: #222;
-
-    white-space: pre-wrap;
-
-    overflow-wrap: anywhere;
-}
-
-
-/* =========================================
-   アンケート
-========================================= */
-
-.survey {
-    width: min(1000px, 94%);
-
-    margin: 30px auto 50px;
-
-    padding: 30px;
-
-    background: #fff;
-
-    border-radius: 14px;
-
-    text-align: center;
-
-    box-shadow:
-        0 4px 15px rgba(0, 0, 0, 0.08);
-}
-
-
-.survey h2 {
-    margin: 0 0 14px;
-
-    font-size: 22px;
-}
-
-
-.survey p {
-    margin: 0 0 20px;
-
-    line-height: 1.8;
-}
-
-
-.survey a {
-    text-decoration: none;
-}
-
-
-.survey button {
-    padding: 11px 20px;
-
-    border: none;
-    border-radius: 8px;
-
-    background: #333;
-
-    color: #fff;
-
-    font-size: 14px;
-    font-weight: 600;
-
-    cursor: pointer;
-}
-
-
-.survey button:hover {
-    opacity: 0.85;
-}
-
-
-/* =========================================
-   フッター
-========================================= */
-
-footer {
-    width: 100%;
-
-    padding: 20px;
-
-    text-align: center;
-
-    color: #777;
-
-    font-size: 13px;
-}
-
-
-/* =========================================
-   スマホ
-========================================= */
-
-@media (max-width: 700px) {
-
-    header {
-        padding: 14px 12px;
-    }
-
-
-    header h1 {
-        font-size: 20px;
-    }
-
-
-    .destination {
-        width: 94%;
-
-        display: flex;
-
-        gap: 8px;
-    }
-
-
-    .destination select {
-        font-size: 14px;
-
-        padding: 10px;
-    }
-
-
-    .destination button {
-        padding: 10px 14px;
-
-        font-size: 14px;
-    }
-
-
-    .floor-select {
-        width: 94%;
-
-        gap: 8px;
-    }
-
-
-    .floor-select select {
-        flex: 1;
-
-        padding: 10px;
-
-        font-size: 14px;
-    }
-
-
-    #map-wrapper {
-        padding-left: 5px;
-        padding-right: 5px;
-    }
-
-
-    #map-container {
-        width: 100%;
-
-        border-radius: 8px;
-    }
-
-
-    /*
-        スマホでも画像全体を表示
-    */
-
-    #map {
-        width: 100%;
-        height: auto;
-    }
-
-
-    /* -------------------------
-       ポップアップ
-    ------------------------- */
-
-    #festival-modal,
-    .festival-modal {
-        padding: 10px !important;
-    }
-
-
-    #festival-content,
-    .festival-content {
-        width: 100% !important;
-        max-width: 100% !important;
-
-        max-height: 92vh !important;
-
-        padding: 22px 18px !important;
-
-        border-radius: 14px !important;
-    }
-
-
-    #festival-title {
-        margin-right: 40px;
-
-        font-size: 20px;
-    }
-
-
-    #festival-description {
-        font-size: 15px;
-
-        line-height: 1.8;
-    }
-
-
-    #festival-image {
-        max-height: 300px;
-    }
-
-
-    .survey {
-        padding: 24px 18px;
-
-        margin-top: 20px;
-    }
-
-}
-
-
-/* =========================================
-   小さいスマホ
-========================================= */
-
-@media (max-width: 400px) {
-
-    .destination {
-        flex-direction: column;
-
-        align-items: stretch;
-    }
-
-
-    .destination button {
-        width: 100%;
-    }
-
-
-    .floor-select {
-        flex-direction: column;
-    }
-
 }
