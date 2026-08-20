@@ -1339,23 +1339,22 @@ let currentPlace = null;
 // ============================================================
 
 const building =
-    document.getElementById("building");
+document.getElementById("building");
 
 const floor =
-    document.getElementById("floor");
+document.getElementById("floor");
 
 const destination =
-    document.getElementById("destination");
+document.getElementById("destination");
 
 const map =
-    document.getElementById("map");
+document.getElementById("map");
 
 const marker =
-    document.getElementById("marker");
+document.getElementById("marker");
 
 const classroomLayer =
-    document.getElementById("classroom-layer");
-
+document.getElementById("classroom-layer");
 
 // ============================================================
 // 現在の状態
@@ -2421,24 +2420,13 @@ window.addEventListener(
 
 createDestinationOptions();
 
-
-// ------------------------------------------------------------
-// ★ 初期表示
-// AB館 1階 → AB1F.png
-// ------------------------------------------------------------
-
-building.value =
-    "AB";
-
+building.value = "AB";
 
 building.dispatchEvent(
     new Event("change")
 );
 
-
-floor.value =
-    "1";
-
+floor.value = "1";
 
 changeMap(
     "AB",
