@@ -1339,8 +1339,11 @@ function getImageInfo() {
     const containerRect =
         map.parentElement.getBoundingClientRect();
 
-    const imageRect =
-        map.getBoundingClientRect();
+    const containerWidth =
+        containerRect.width;
+
+    const containerHeight =
+        containerRect.height;
 
     const naturalWidth =
         map.naturalWidth;
@@ -1364,23 +1367,41 @@ function getImageInfo() {
     }
 
 
+    // ============================================
+    // object-fit: contain と同じ計算
+    // ============================================
+
+    const scale =
+        Math.min(
+            containerWidth / naturalWidth,
+            containerHeight / naturalHeight
+        );
+
+
+    const renderedWidth =
+        naturalWidth * scale;
+
+    const renderedHeight =
+        naturalHeight * scale;
+
+
+    // containによって生じる余白
+    const offsetX =
+        (containerWidth - renderedWidth) / 2;
+
+    const offsetY =
+        (containerHeight - renderedHeight) / 2;
+
+
     return {
 
-        scaleX:
-            imageRect.width /
-            naturalWidth,
+        scaleX: scale,
 
-        scaleY:
-            imageRect.height /
-            naturalHeight,
+        scaleY: scale,
 
-        offsetX:
-            imageRect.left -
-            containerRect.left,
+        offsetX: offsetX,
 
-        offsetY:
-            imageRect.top -
-            containerRect.top
+        offsetY: offsetY
 
     };
 
