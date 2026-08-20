@@ -1330,14 +1330,60 @@ let currentPlace = null;
 
 
 // ============================================================
-// 画像情報
+// 地図システム本体
+// ============================================================
+
+
+// ============================================================
+// HTML要素
+// ============================================================
+
+const building =
+    document.getElementById("building");
+
+const floor =
+    document.getElementById("floor");
+
+const destination =
+    document.getElementById("destination");
+
+const map =
+    document.getElementById("map");
+
+const marker =
+    document.getElementById("marker");
+
+const classroomLayer =
+    document.getElementById("classroom-layer");
+
+
+// ============================================================
+// 現在の状態
+// ============================================================
+
+let currentPlace = null;
+
+
+// ============================================================
+// 地図変更中の処理を管理
+// ============================================================
+
+let mapChangeId = 0;
+
+
+// ============================================================
+// 画像が実際に表示されている領域を取得
+//
+// object-fit: contain によってできる余白も計算する
 // ============================================================
 
 function getImageInfo() {
 
-    const rect =
-        map.getBoundingClientRect();
+    const containerRect =
+        map.parentElement.getBoundingClientRect();
 
+    const imageRect =
+        map.getBoundingClientRect();
 
     const naturalWidth =
         map.naturalWidth;
@@ -1352,41 +1398,36 @@ function getImageInfo() {
     ) {
 
         return {
-
-            scaleX: 1,
-            scaleY: 1,
-
+            scale: 1,
             offsetX: 0,
             offsetY: 0
-
         };
 
     }
 
 
-    const scale =
-        Math.min(
+    const scaleX =
+        imageRect.width /
+        naturalWidth;
 
-            rect.width / naturalWidth,
-
-            rect.height / naturalHeight
-
-        );
+    const scaleY =
+        imageRect.height /
+        naturalHeight;
 
 
     return {
 
-        scaleX: scale,
+        scaleX: scaleX,
 
-        scaleY: scale,
+        scaleY: scaleY,
 
         offsetX:
-            (rect.width -
-                naturalWidth * scale) / 2,
+            imageRect.left -
+            containerRect.left,
 
         offsetY:
-            (rect.height -
-                naturalHeight * scale) / 2
+            imageRect.top -
+            containerRect.top
 
     };
 
@@ -1395,7 +1436,7 @@ function getImageInfo() {
 
 
 // ============================================================
-// マーカー消去
+// マーカーを消す
 // ============================================================
 
 function clearMarker() {
@@ -1411,7 +1452,7 @@ function clearMarker() {
 
 
 // ============================================================
-// 文化祭クリック範囲消去
+// 文化祭クリック範囲を消す
 // ============================================================
 
 function clearClassroomAreas() {
@@ -1423,12 +1464,25 @@ function clearClassroomAreas() {
 
 
 // ============================================================
-// 階の選択肢を作る
+// 建物を変更したとき
 // ============================================================
 
 building.addEventListener(
     "change",
     function () {
+
+        const selectedBuilding =
+            building.value;
+
+
+        // マーカーを消す
+
+        clearMarker();
+
+        clearClassroomAreas();
+
+
+        // 階選択をリセット
 
         floor.innerHTML = `
             <option value="">
@@ -1437,27 +1491,28 @@ building.addEventListener(
         `;
 
 
-        const b =
-            building.value;
+        // 建物未選択
 
-
-        clearMarker();
-
-        clearClassroomAreas();
-
-
-        if (!b) {
+        if (!selectedBuilding) {
 
             map.src = "";
+
+            currentPlace = null;
 
             return;
 
         }
 
 
+        // 階を作る
+
+        const floorCount =
+            floors[selectedBuilding];
+
+
         for (
             let i = 1;
-            i <= floors[b];
+            i <= floorCount;
             i++
         ) {
 
@@ -1467,7 +1522,9 @@ building.addEventListener(
                 );
 
 
-            option.value = i;
+            option.value =
+                String(i);
+
 
             option.textContent =
                 i + "階";
@@ -1480,9 +1537,11 @@ building.addEventListener(
         }
 
 
-        // Sだけ特殊階を追加
+        // 新館だけ特殊階
 
-        if (b === "S") {
+        if (
+            selectedBuilding === "S"
+        ) {
 
             const option =
                 document.createElement(
@@ -1508,17 +1567,17 @@ building.addEventListener(
 
 
 // ============================================================
-// 階変更
+// 階を変更したとき
 // ============================================================
 
 floor.addEventListener(
     "change",
     function () {
 
-        const b =
+        const selectedBuilding =
             building.value;
 
-        const f =
+        const selectedFloor =
             floor.value;
 
 
@@ -1527,7 +1586,10 @@ floor.addEventListener(
         clearClassroomAreas();
 
 
-        if (!b || !f) {
+        if (
+            !selectedBuilding ||
+            !selectedFloor
+        ) {
 
             map.src = "";
 
@@ -1536,30 +1598,10 @@ floor.addEventListener(
         }
 
 
-        let file;
-
-
-        if (
-            specialFloors[b] &&
-            specialFloors[b][f]
-        ) {
-
-            file =
-                specialFloors[b][f];
-
-        }
-
-        else {
-
-            file =
-                b +
-                f +
-                "F.png";
-
-        }
-
-
-        map.src = file;
+        changeMap(
+            selectedBuilding,
+            selectedFloor
+        );
 
     }
 );
@@ -1567,99 +1609,92 @@ floor.addEventListener(
 
 
 // ============================================================
-// 目的地プルダウン作成
+// 地図を変更
 // ============================================================
 
-function createDestinationOptions() {
+function changeMap(
+    selectedBuilding,
+    selectedFloor
+) {
 
-    destination.innerHTML = `
-        <option value="">
-            目的地を選択
-        </option>
-    `;
-
-
-    Object.keys(destinations)
-        .forEach(key => {
-
-            const place =
-                destinations[key];
+    const thisChangeId =
+        ++mapChangeId;
 
 
-            const option =
-                document.createElement(
-                    "option"
-                );
+    const fileName =
+        getMapFile(
+            selectedBuilding,
+            selectedFloor
+        );
 
 
-            option.value = key;
+    // 先にマーカーを消す
+
+    clearMarker();
+
+    clearClassroomAreas();
 
 
-            option.textContent =
-                place.name || key;
+    // 現在の画像と同じ場合
+
+    const currentFile =
+        map.src
+            ? map.src.split("/").pop()
+            : "";
 
 
-            destination.appendChild(
-                option
-            );
+    if (
+        currentFile === fileName &&
+        map.complete &&
+        map.naturalWidth > 0
+    ) {
 
-        });
+        setupCurrentMap(
+            thisChangeId
+        );
+
+        return;
+
+    }
+
+
+    // 画像変更
+
+    map.src = fileName;
 
 }
 
 
 
 // ============================================================
-// 目的地表示
+// 地図ファイル名
 // ============================================================
 
-function showDestination() {
+function getMapFile(
+    selectedBuilding,
+    selectedFloor
+) {
 
-    const key =
-        destination.value;
+    // 新館の特殊階
 
+    if (
+        specialFloors[selectedBuilding] &&
+        specialFloors[selectedBuilding][selectedFloor]
+    ) {
 
-    if (!key) {
-
-        currentPlace = null;
-
-        clearMarker();
-
-        return;
-
-    }
-
-
-    currentPlace =
-        destinations[key];
-
-
-    if (!currentPlace) {
-
-        return;
+        return specialFloors[
+            selectedBuilding
+        ][
+            selectedFloor
+        ];
 
     }
 
 
-    building.value =
-        currentPlace.building;
-
-
-    // 建物変更処理
-
-    building.dispatchEvent(
-        new Event("change")
-    );
-
-
-    floor.value =
-        currentPlace.floor;
-
-
-    // 階変更処理
-
-    floor.dispatchEvent(
-        new Event("change")
+    return (
+        selectedBuilding +
+        selectedFloor +
+        "F.png"
     );
 
 }
@@ -1667,29 +1702,83 @@ function showDestination() {
 
 
 // ============================================================
-// 画像読み込み完了
+// 地図画像読み込み完了
 // ============================================================
 
 map.addEventListener(
     "load",
     function () {
 
-        clearMarker();
-
-        clearClassroomAreas();
-
-
-        // 文化祭範囲作成
-
-        createClassroomAreas();
+        const thisChangeId =
+            mapChangeId;
 
 
-        if (!currentPlace) {
+        // 少し待ってから座標計算
+        // object-fitの描画を確実に反映させる
 
-            return;
+        requestAnimationFrame(
+            function () {
 
-        }
+                if (
+                    thisChangeId !==
+                    mapChangeId
+                ) {
 
+                    return;
+
+                }
+
+
+                setupCurrentMap(
+                    thisChangeId
+                );
+
+            }
+        );
+
+    }
+);
+
+
+
+// ============================================================
+// 現在の地図をセットアップ
+// ============================================================
+
+function setupCurrentMap(
+    thisChangeId
+) {
+
+    if (
+        thisChangeId !==
+        mapChangeId
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        !map.complete ||
+        !map.naturalWidth
+    ) {
+
+        return;
+
+    }
+
+
+    // 文化祭クリック範囲
+
+    createClassroomAreas();
+
+
+    // 現在目的地があればマーカー
+
+    if (
+        currentPlace
+    ) {
 
         const currentFile =
             map.src
@@ -1705,7 +1794,8 @@ map.addEventListener(
 
 
         if (
-            currentFile === targetFile
+            currentFile ===
+            targetFile
         ) {
 
             showMarker(
@@ -1715,33 +1805,155 @@ map.addEventListener(
         }
 
     }
-);
+
+}
 
 
 
 // ============================================================
-// 地図ファイル名取得
+// 目的地一覧を作る
 // ============================================================
 
-function getMapFile(
-    buildingName,
-    floorName
-) {
+function createDestinationOptions() {
 
-    if (
-        buildingName === "S" &&
-        floorName === "1.5"
-    ) {
+    destination.innerHTML = `
+        <option value="">
+            目的地を選択
+        </option>
+    `;
 
-        return "S11F.png";
+
+    Object.keys(
+        destinations
+    ).forEach(
+        function (key) {
+
+            const place =
+                destinations[key];
+
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                key;
+
+
+            // nameがなければキーを表示
+
+            option.textContent =
+                place.name ||
+                key;
+
+
+            destination.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+
+// ============================================================
+// 目的地を選択
+// ============================================================
+
+function showDestination() {
+
+    const key =
+        destination.value;
+
+
+    // 「目的地を選択」に戻した
+
+    if (!key) {
+
+        currentPlace = null;
+
+        clearMarker();
+
+        return;
 
     }
 
 
-    return (
-        buildingName +
-        floorName +
-        "F.png"
+    const place =
+        destinations[key];
+
+
+    if (!place) {
+
+        clearMarker();
+
+        return;
+
+    }
+
+
+    // 現在の目的地を保存
+
+    currentPlace =
+        place;
+
+
+    // 座標がちゃんと入っているか確認
+
+    if (
+        typeof place.x !== "number" ||
+        typeof place.y !== "number"
+    ) {
+
+        clearMarker();
+
+        console.warn(
+            "目的地の座標が正しくありません:",
+            key,
+            place
+        );
+
+        return;
+
+    }
+
+
+    // 建物を変更
+
+    if (
+        building.value !==
+        String(place.building)
+    ) {
+
+        building.value =
+            String(place.building);
+
+
+        building.dispatchEvent(
+            new Event("change")
+        );
+
+    }
+
+
+    // 階を変更
+
+    const targetFloor =
+        String(place.floor);
+
+
+    floor.value =
+        targetFloor;
+
+
+    // 階変更イベント
+
+    floor.dispatchEvent(
+        new Event("change")
     );
 
 }
@@ -1754,7 +1966,22 @@ function getMapFile(
 
 function showMarker(place) {
 
-    if (!map.naturalWidth) {
+    if (
+        !place
+    ) {
+
+        clearMarker();
+
+        return;
+
+    }
+
+
+    if (
+        !map.complete ||
+        !map.naturalWidth ||
+        !map.naturalHeight
+    ) {
 
         return;
 
@@ -1765,26 +1992,15 @@ function showMarker(place) {
         getImageInfo();
 
 
-    const mapRect =
-        map.getBoundingClientRect();
-
-
-    const parentRect =
-        map.parentElement
-            .getBoundingClientRect();
-
+    // 元画像座標 → 現在の表示座標
 
     const left =
-        mapRect.left -
-        parentRect.left +
         info.offsetX +
         place.x *
         info.scaleX;
 
 
     const top =
-        mapRect.top -
-        parentRect.top +
         info.offsetY +
         place.y *
         info.scaleY;
@@ -1798,26 +2014,33 @@ function showMarker(place) {
         top + "px";
 
 
-    marker.classList.remove(
-        "redMarker"
-    );
+    // 赤マーカー対象
 
-
-    const file =
+    const currentFile =
         map.src
             .split("/")
             .pop();
 
 
-    // 特定の地図では赤マーカー
+    marker.classList.remove(
+        "redMarker"
+    );
+
 
     if (
 
-        file === "S1F.png" ||
+        currentFile ===
+        "S1F.png"
 
-        file === "AB1F.png" ||
+        ||
 
-        file === "AB6F.png"
+        currentFile ===
+        "AB1F.png"
+
+        ||
+
+        currentFile ===
+        "AB6F.png"
 
     ) {
 
@@ -1836,7 +2059,7 @@ function showMarker(place) {
 
 
 // ============================================================
-// 文化祭クリック範囲を作る
+// 文化祭クリック範囲作成
 // ============================================================
 
 function createClassroomAreas() {
@@ -1844,22 +2067,28 @@ function createClassroomAreas() {
     clearClassroomAreas();
 
 
-    if (!map.naturalWidth) {
+    if (
+        !map.complete ||
+        !map.naturalWidth
+    ) {
 
         return;
 
     }
 
 
-    const b =
+    const selectedBuilding =
         building.value;
 
 
-    const f =
+    const selectedFloor =
         floor.value;
 
 
-    if (!b || !f) {
+    if (
+        !selectedBuilding ||
+        !selectedFloor
+    ) {
 
         return;
 
@@ -1870,18 +2099,20 @@ function createClassroomAreas() {
         getImageInfo();
 
 
-    Object.keys(classroomAreas)
-        .forEach(key => {
+    Object.keys(
+        classroomAreas
+    ).forEach(
+        function (key) {
 
             const room =
                 classroomAreas[key];
 
 
-            // 現在の建物・階だけ
+            // 建物が違う
 
             if (
-                room.building !== b ||
-                room.floor !== f
+                String(room.building) !==
+                String(selectedBuilding)
             ) {
 
                 return;
@@ -1889,8 +2120,19 @@ function createClassroomAreas() {
             }
 
 
-            // 文化祭情報がなければ
-            // クリック範囲を作らない
+            // 階が違う
+
+            if (
+                String(room.floor) !==
+                String(selectedFloor)
+            ) {
+
+                return;
+
+            }
+
+
+            // 企画情報が存在しない場合
 
             if (
                 !festivalInfo[key]
@@ -1963,14 +2205,15 @@ function createClassroomAreas() {
                 area
             );
 
-        });
+        }
+    );
 
 }
 
 
 
 // ============================================================
-// 文化祭ポップアップ
+// 文化祭ポップアップを開く
 // ============================================================
 
 function openFestivalModal(key) {
@@ -2017,16 +2260,18 @@ function openFestivalModal(key) {
 
 
     title.textContent =
-        info.title || key;
+        info.title ||
+        key;
 
 
     description.textContent =
-        info.description || "";
+        info.description ||
+        "";
 
 
-    // 画像あり
-
-    if (info.image) {
+    if (
+        info.image
+    ) {
 
         image.src =
             info.image;
@@ -2041,8 +2286,6 @@ function openFestivalModal(key) {
             "block";
 
     }
-
-    // 画像なし
 
     else {
 
@@ -2083,17 +2326,20 @@ function closeFestivalModal() {
 
 
 // ============================================================
-// モーダル外側クリックで閉じる
+// ポップアップ外側クリック
 // ============================================================
 
 document
-    .getElementById("festival-modal")
+    .getElementById(
+        "festival-modal"
+    )
     .addEventListener(
         "click",
         function (event) {
 
             if (
-                event.target === this
+                event.target ===
+                this
             ) {
 
                 closeFestivalModal();
@@ -2106,7 +2352,7 @@ document
 
 
 // ============================================================
-// ESCキーで閉じる
+// ESCで閉じる
 // ============================================================
 
 document.addEventListener(
@@ -2114,7 +2360,8 @@ document.addEventListener(
     function (event) {
 
         if (
-            event.key === "Escape"
+            event.key ===
+            "Escape"
         ) {
 
             closeFestivalModal();
@@ -2134,40 +2381,30 @@ window.addEventListener(
     "resize",
     function () {
 
-        if (!map.complete) {
+        if (
+            !map.complete ||
+            !map.naturalWidth
+        ) {
 
             return;
 
         }
 
 
+        // クリック範囲を再計算
+
         createClassroomAreas();
 
 
-        if (currentPlace) {
+        // マーカーを再計算
 
-            const currentFile =
-                map.src
-                    .split("/")
-                    .pop();
+        if (
+            currentPlace
+        ) {
 
-
-            const targetFile =
-                getMapFile(
-                    currentPlace.building,
-                    currentPlace.floor
-                );
-
-
-            if (
-                currentFile === targetFile
-            ) {
-
-                showMarker(
-                    currentPlace
-                );
-
-            }
+            showMarker(
+                currentPlace
+            );
 
         }
 
@@ -2180,4 +2417,30 @@ window.addEventListener(
 // 初期化
 // ============================================================
 
+// 目的地一覧
+
 createDestinationOptions();
+
+
+// ------------------------------------------------------------
+// ★ 初期表示
+// AB館 1階 → AB1F.png
+// ------------------------------------------------------------
+
+building.value =
+    "AB";
+
+
+building.dispatchEvent(
+    new Event("change")
+);
+
+
+floor.value =
+    "1";
+
+
+changeMap(
+    "AB",
+    "1"
+);
