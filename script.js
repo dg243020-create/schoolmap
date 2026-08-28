@@ -992,7 +992,7 @@ const festivalInfo = {
     "11": {
         title: "1-1 体験 怪力乱心！！ゴーストバスターズ",
         image: "festival/5体験-101.pdf",
-        description: "12人全員で全力で取り組みました。お化けの世界へようこそ！。"
+        description: "12人全員で全力で取り組みました。お化けの世界へようこそ！"
     },
 
     "12": {
@@ -1004,7 +1004,7 @@ const festivalInfo = {
     "13": {
         title: "1-3 体験 ちいかわたちの日常",
         image: "festival/5体験-103.jpg",
-        description: "自分の脚で自分の限界にチャレンジしよう！"
+        description: "友だちと一緒にちいかわの世界を楽しみながら最高の１枚を撮ろう！"
     },
 
     "14": {
@@ -1236,7 +1236,7 @@ const festivalInfo = {
     "35": {
         title: "3-1 3-5 校内装飾 カラフルパラソルワンダフル",
         image: "festival/3校内-301305.jpg",
-        description: "宿命が響き、輝く傘とジュース！暑い今日を、最高にまぶしい青春に！。"
+        description: "宿命が響き、輝く傘とジュース！暑い今日を、最高にまぶしい青春に！"
     },
 
     "36e": {
