@@ -1075,7 +1075,7 @@ const festivalInfo = {
 
    /* "114p": {
         title: "1-14 パフォーマンス ダンスパラダイス1-14",
-        image: "festival/1-1.jpg",
+        image: "festival2/1-1.jpg",
         description: "ここに1-2の文化祭企画の説明を書きます。"
     },
 */
@@ -1098,13 +1098,13 @@ const festivalInfo = {
 
     "21": {
         title: "2-1 展示 Save Our Blue ～私たちがつなぐ、未来の海～",
-        image: "festival/4展示-201.png",
+        image: "festival2/4展示-201.png",
         description: "海の生き物たちをテーマにした幻想的な空間で、ゴミのないきれいな海の中を散歩しているような体験が楽しめます。"
     },
 
     "22": {
         title: "2-2 パフォーマンス ARASHI",
-        image: "festival/2パ-202.png",
+        image: "festival2/2パ-202.png",
         description: "個性溢れる2組の魅力を 10 分間でお伝えします。みんな見てね"
     },
 
@@ -1140,13 +1140,13 @@ const festivalInfo = {
 
     "28": {
         title: "2-8 パフォーマンス 川口と愉快な仲間たち",
-        image: "festival/2パ-208.png",
+        image: "festival2/2パ-208.png",
         description: "全力パフォーマンスで最高の舞台を届けます！"
     },
 
     "29": {
         title: "2-9 パフォーマンス 9組と夏フェス",
-        image: "festival/2パ-209.jpg",
+        image: "festival2/2パ-209.jpg",
         description: "この夏1番熱いステージ！元気と勢いで会場を沸かせます！"
     },
 
@@ -1164,13 +1164,13 @@ const festivalInfo = {
 
     "212": {
         title: '2-12 パフォーマンス "D"スデ～皆にんきもの～',
-        image: "festival/2パ-212.jpg",
+        image: "festival2/2パ-212.jpg",
         description: "人気曲が続々登場！普段と違う姿にもご注目ください！"
     },
 
     "213": {
         title: "2-13 パフォーマンス urabemax",
-        image: "festival/2パ-213.jpg",
+        image: "festival2/2パ-213.jpg",
         description: "2年13組38人の個性全開で頑張ります！"
     },
 
@@ -1211,19 +1211,19 @@ const festivalInfo = {
 
     "33p": {
         title: "3-3 パフォーマンス 若原の野望 Vol.2",
-        image: "festival/7模擬店-303.jpg",
+        image: "festival2/2パ-303.jpg",
         description: "今年　“も“ 特進なめんなよ。"
     },
 
     "33s": {
         title: "3-3 模擬店 油に飛び込め！3-3！！",
-        image: "festival/2パ-303.jpg",
+        image: "festival/7模擬店-303.jpg",
         description: "私たち 3-3はチーズ棒などの揚げ物を絶対絶対美味しく作るので、ぜひ食べに来てください！ アツアツの揚げ物を食べて、3-3と一緒に最高の夏を楽しみましょう__"
     },
 
     "34t": {
         title: "3-4 展示 おもちゃばこ",
-        image: "festival/4展示-304.png",
+        image: "festival2/4展示-304.png",
         description: "トイストーリーの世界に迷い込んだかのような没入感をぜひ体験せよ！"
     },
 
@@ -1235,13 +1235,13 @@ const festivalInfo = {
 
     "35": {
         title: "3-1 3-5 校内装飾 カラフルパラソルワンダフル",
-        image: "festival/3校内-301305.jpg",
+        image: "festival2/3校内-301305.jpg",
         description: "宿命が響き、輝く傘とジュース！暑い今日を、最高にまぶしい青春に！"
     },
 
     "36e": {
         title: "3-6 演劇 3-6STORY",
-        image: "festival/1演-306.png",
+        image: "festival2/1演-306.png",
         description: "3年6組37名が全力でおもちゃを演じます。ぜひ見に来てください。"
     },
     
@@ -1253,7 +1253,7 @@ const festivalInfo = {
 
     "37p": {
         title: "3-7 パフォーマンス ３－７ LiveLive",
-        image: "festival/2パ-307.jpg",
+        image: "festival2/2パ-307.jpg",
         description: "ユニットに分かれて全て違う系統のステージを届けます！ぜひ楽しんで見てくださいね^_^"
     },
 
@@ -1265,7 +1265,7 @@ const festivalInfo = {
 
     "38": {
         title: "3-8 パフォーマンス 櫻井Family",
-        image: "7模擬店-308.jpg",
+        image: "festival/7模擬店-308.jpg",
         description: "みんなの心に残る最高のダンスをします。観に来てください。"
     },
 
@@ -1277,19 +1277,19 @@ const festivalInfo = {
 
     "39p": {
         title: "3-9 パフォーマンス タピオカ帝国",
-        image: "festival/7模擬店-309.png",
+        image: "festival2/2パ-309.png",
         description: "あのタピオカ帝国が帰ってくる。坊主（タピオカ）とミルクティー（女子）の調和をご覧あれ！！"
     },
 
     "39s": {
         title: "3-9 模擬店 坊主　せんべい＝たません",
-        image: "festival/2パ-309.png",
+        image: "festival/7模擬店-309.png",
         description: "えびせん × 玉子 × ソース × マヨ ＝ 勝利 シンプルにして至高。説明不要の最強B級グルメ「たません」降臨！"
     },
 
     "310p": {
         title: "3-10 パフォーマンス 3年10組のたこ焼き",
-        image: "festival/2パ-310.png",
+        image: "festival2/2パ-310.png",
         description: "魂込めて踊ります。"
     },
 
@@ -1301,7 +1301,7 @@ const festivalInfo = {
 
     "311p": {
         title: "3-11 パフォーマンス まさオンズとゆかいな仲間たち",
-        image: "festival/2パ-311.png",
+        image: "festival2/2パ-311.png",
         description: "まさオンズとゆかいな仲間たちのおもろいダンスをご覧あれ！！"
     },
 
@@ -1313,7 +1313,7 @@ const festivalInfo = {
 
     "312p": {
         title: "3-12 パフォーマンス Final Stage～商業科の軌跡～",
-        image: "festival2/パ-312.png",
+        image: "festival2/2パ-312.png",
         description: "3年間のダンスの集大成__焼き鳥も買ってね！"
     },
 
