@@ -1051,7 +1051,7 @@ const festivalInfo = {
 
     "111": {
         title: "1-11 体験 急げ！恐怖の部屋から緊急脱出！",
-        image: "festival/5体験-111.png",
+        image: "festival3/5体験-111.png",
         description: "カギを見つけて、この恐怖の部屋から脱出せよ！早く出られたあなたには景品が...!!."
     },
 
@@ -1069,7 +1069,7 @@ const festivalInfo = {
 
     "114e": {
         title: "1-14 体験 今日好きになりました。文化祭編",
-        image: "festival/5体験-114.jpg",
+        image: "festival2/5体験-114.jpg",
         description: "恋愛リアリティーショーをイメージした映えスポットです。ぜひ来てください。"
     },
 
@@ -1081,7 +1081,7 @@ const festivalInfo = {
 */
     "115": {
         title: "1-15 体験 学校の怪談",
-        image: "festival/5体験-115.png",
+        image: "festival2/5体験-115.png",
         description: "お化け屋敷×迷路であなたを学校の怪談の世界に誘います。"
     },
 
@@ -1104,7 +1104,7 @@ const festivalInfo = {
 
     "22": {
         title: "2-2 パフォーマンス ARASHI",
-        image: "festival2/2パ-202.png",
+        image: "festival3/2パ-202.png",
         description: "個性溢れる2組の魅力を 10 分間でお伝えします。みんな見てね"
     },
 
@@ -1122,7 +1122,7 @@ const festivalInfo = {
 
     "25": {
         title: "2-5 体験 MISSION！！縁日を楽しめ",
-        image: "festival/5体験-205.jpg",
+        image: "festival2/5体験-205.jpg",
         description: "射的、わなげ、千本くじなど、縁日気分味わおう！"
     },
 
@@ -1140,7 +1140,7 @@ const festivalInfo = {
 
     "28": {
         title: "2-8 パフォーマンス 川口と愉快な仲間たち",
-        image: "festival2/2パ-208.png",
+        image: "festival3/2パ-208.png",
         description: "全力パフォーマンスで最高の舞台を届けます！"
     },
 
@@ -1176,7 +1176,7 @@ const festivalInfo = {
 
     "214": {
         title: "2-14 体験 Daisho Disneyland 2-14",
-        image: "festival/5体験-214.png",
+        image: "festival3/5体験-214.png",
         description: "射的や輪投げをやっているので、遊びにきてください！"
     },
 
@@ -1187,25 +1187,25 @@ const festivalInfo = {
 
     "31e": {
         title: "3-1 体験 おりがみワークショップ&ラリー",
-        image: "festival/5体験-301.png",
+        image: "festival3/5体験-301.png",
         description: "折り紙を折りながらまったり、ラリー系に参加して楽しみませんか。"
     },
 
     "31e": {
         title: "3-1 3-5 模擬店 宿命の「夏色」ドリンク　〜青春と奇跡の味わい〜",
-        image: "festival/7模擬店-301305.png",
+        image: "festival6/7模擬店-301305.png",
         description: "文化祭は、まだまだ暑さの残る季節。みなさんの喉を潤すため、ドリンクを販売します。"
     },   
 
     "32e": {
         title: "3-2 体験 文系が作った単純なフォトスポット",
-        image: "festival/5体験-302.jpg",
+        image: "festival3/5体験-302.jpg",
         description: "文系が夏をイメージして作りました。"
     },
 
     "32s": {
         title: "3-2 模擬店 理系が作る複雑な豚キムチ",
-        image: "festival/7模擬店-302.jpg",
+        image: "festival3/7模擬店-302.jpg",
         description: "美味しいよ__※小麦粉、卵、エビ、牛肉、豚肉、鶏肉、大豆、りんご、ごまを含む"
     },
 
@@ -1217,7 +1217,7 @@ const festivalInfo = {
 
     "33s": {
         title: "3-3 模擬店 油に飛び込め！3-3！！",
-        image: "festival/7模擬店-303.jpg",
+        image: "festival3/7模擬店-303.jpg",
         description: "私たち 3-3はチーズ棒などの揚げ物を絶対絶対美味しく作るので、ぜひ食べに来てください！ アツアツの揚げ物を食べて、3-3と一緒に最高の夏を楽しみましょう__"
     },
 
@@ -1229,25 +1229,25 @@ const festivalInfo = {
 
     "34s": {
         title: "3-4 模擬店 いのちのからあげ",
-        image: "7模擬店-304.jpg",
+        image: "festival3/7模擬店-304.jpg",
         description: "店主:いのちによる多彩な味付けを楽しめる唐揚げ屋　是非ご賞味ください__"
     },
 
     "35": {
         title: "3-1 3-5 校内装飾 カラフルパラソルワンダフル",
-        image: "festival2/3校内-301305.jpg",
+        image: "festival3/3校内-301305.jpg",
         description: "宿命が響き、輝く傘とジュース！暑い今日を、最高にまぶしい青春に！"
     },
 
     "36e": {
         title: "3-6 演劇 3-6STORY",
-        image: "festival2/1演-306.png",
+        image: "festival3/1演-306.png",
         description: "3年6組37名が全力でおもちゃを演じます。ぜひ見に来てください。"
     },
     
     "36t": {
         title: "3-6 模擬店 クルンジ",
-        image: "festival/1-1.jpg",
+        image: "festival3/1-1.jpg",
         description: "クロワッサンをカリカリに焼き上げた、韓国発祥のスイーツです"
     },  
 
@@ -1259,7 +1259,7 @@ const festivalInfo = {
 
     "37s": {
         title: "3-7 模擬店 Cheese!Cheese!",
-        image: "festival/7模擬店-307.jpg",
+        image: "festival3/7模擬店-307.jpg",
         description: "いろんな味の『もちもちチーズボール』食べてください__"
     },
 
@@ -1271,7 +1271,7 @@ const festivalInfo = {
 
     "38s": {
         title: "3-8 模擬店 ハッピーポテト",
-        image: "festival/2パ-308.jpg",
+        image: "festival3/2パ-308.jpg",
         description: "みんなを幸せにするハッピーポテトを販売します。食べに来てください。"
     },
 
@@ -1283,7 +1283,7 @@ const festivalInfo = {
 
     "39s": {
         title: "3-9 模擬店 坊主　せんべい＝たません",
-        image: "festival/7模擬店-309.png",
+        image: "festival2/7模擬店-309.png",
         description: "えびせん × 玉子 × ソース × マヨ ＝ 勝利 シンプルにして至高。説明不要の最強B級グルメ「たません」降臨！"
     },
 
@@ -1295,7 +1295,7 @@ const festivalInfo = {
 
     "310s": {
         title: "3-10 模擬店 3年10組のたこ焼き",
-        image: "festival/7模擬店-310.png",
+        image: "festival3/7模擬店-310.png",
         description: "魂込めて焼きます。"
     },
 
@@ -1319,7 +1319,7 @@ const festivalInfo = {
 
     "312s": {
         title: "3-12 模擬店 とりま焼き鳥",
-        image: "festival/7模擬店-312.png",
+        image: "festival2/7模擬店-312.png",
         description: "とりま焼き鳥__一本食べたら止まらない"
     }
 
