@@ -863,7 +863,7 @@ const classroomAreas = {
     // 3年
     // --------------------------------------------------------
 
-    "31": {
+    "31e": {
         building: "S",
         floor: "2",
         x: 720,
@@ -872,7 +872,7 @@ const classroomAreas = {
         height: 435
     },
 
-    "32": {
+    "32e": {
         building: "S",
         floor: "2",
         x: 723,
@@ -881,7 +881,7 @@ const classroomAreas = {
         height: 364
     },
 
-    "33": {
+    "33p": {
         building: "S",
         floor: "2",
         x: 726,
@@ -890,7 +890,7 @@ const classroomAreas = {
         height: 364
     },
 
-    "34": {
+    "34t": {
         building: "AB",
         floor: "3",
         x: 3060,
@@ -908,7 +908,7 @@ const classroomAreas = {
         height: 400
     },
 
-    "36": {
+    "36e": {
         building: "AB",
         floor: "3",
         x: 2667,
@@ -917,7 +917,7 @@ const classroomAreas = {
         height: 355
     },
 
-    "37": {
+    "37p": {
         building: "AB",
         floor: "3",
         x: 2267,
@@ -926,7 +926,7 @@ const classroomAreas = {
         height: 355
     },
 
-    "38": {
+    "38p": {
         building: "AB",
         floor: "3",
         x: 1870,
@@ -935,7 +935,7 @@ const classroomAreas = {
         height: 355
     },
 
-    "39": {
+    "39p": {
         building: "AB",
         floor: "3",
         x: 1477,
@@ -944,7 +944,7 @@ const classroomAreas = {
         height: 355
     },
 
-    "310": {
+    "310p": {
         building: "AB",
         floor: "3",
         x: 1,
@@ -953,7 +953,7 @@ const classroomAreas = {
         height: 400
     },
 
-    "311": {
+    "311p": {
         building: "AB",
         floor: "3",
         x: 1,
@@ -962,7 +962,7 @@ const classroomAreas = {
         height: 400
     },
 
-    "312": {
+    "312p": {
         building: "AB",
         floor: "3",
         x: 1,
@@ -991,61 +991,61 @@ const festivalInfo = {
 
     "11": {
         title: "1-1 体験 怪力乱心！！ゴーストバスターズ",
-        image: "festival/5体験-101.pdf",
+        image: "festival6/5体験-101.pdf",
         description: "12人全員で全力で取り組みました。お化けの世界へようこそ！"
     },
 
     "12": {
         title: "1-2 体験 はなひらり、ちょうひらり",
-        image: "festival/5体験-102.png",
+        image: "festival4/5体験-102.png",
         description: "咲き誇る色とりどりの花々と、可憐に舞う蝶たち——。 一歩踏み入れれば、そこはまるで絵本の中に迷い込んだような幻想的な世界。 今日という日を彩る、あなただけの“とっておきの1枚”を残しにきませんか？"
     },
 
     "13": {
         title: "1-3 体験 ちいかわたちの日常",
-        image: "festival/5体験-103.jpg",
+        image: "festival4/5体験-103.jpg",
         description: "友だちと一緒にちいかわの世界を楽しみながら最高の１枚を撮ろう！"
     },
 
     "14": {
         title: "1-4 体験 人力マリオカート",
-        image: "festival/5体験-104.jpg",
+        image: "festival4/5体験-104.jpg",
         description: "自分の脚で自分の限界にチャレンジしよう！"
     },
 
     "15": {
         title: "1-5 体験 縁日",
-        image: "festival/5体験-105.png",
+        image: "festival4/5体験-105.png",
         description: "1年5組がお届けする、夏祭り気分満点の縁日です。"
     },
 
     "16": {
         title: "1-6 体験 Diglet Casino",
-        image: "festival/5体験-106.png",
+        image: "festival4/5体験-106.png",
         description: "ざわ・・・ざわ・・・ざわ・・・情報クラスが本気でCreateした最高のentertainment！！"
     },
 
     "17": {
         title: "1-7 体験 トイストーリーお化け屋敷",
-        image: "festival/5体験-107.png",
+        image: "festival4/5体験-107.png",
         description: "「逃げ場なし。あなたは、この暗闇から生きて出られるか——？」1年7組が贈る、本気の本格お化け屋敷。足を踏み入れた瞬間、日常は崩壊する。絶叫の準備をしてお越しください。"
     },
 
     "18": {
         title: "1-8 体験 1年8組の恐怖地帯",
-        image: "festival/5体験-108.png",
+        image: "festival4/5体験-108.png",
         description: "「本物の恐怖」を味わいたい人はぜひ来てください！"
     },
 
     "19": {
         title: "1-9 体験 お化け屋敷",
-        image: "festival/5体験-109.jpg",
+        image: "festiva4/5体験-109.jpg",
         description: "暗闇に包まれた教室を、入口から出口まで進みながら脱出を目指す体験型お化け屋敷です。道中では、お化け役の生徒たちがさまざまな演出で皆さんをお迎えします。最後まで無事にゴールできるか、ぜひ挑戦してください！"
     },
 
     "110": {
         title: "1-10 体験 スタンプラリー",
-        image: "festival/5体験-110.png",
+        image: "festival4/5体験-110.png",
         description: "謎解き等をしながら学校中を探索し、スタンプを集める。完成すれば！"
     },
 
@@ -1057,7 +1057,7 @@ const festivalInfo = {
 
     "112": {
         title: "1-12 体験 縁日",
-        image: "festival/5体験-112.pdf",
+        image: "festival6/5体験-112.pdf",
         description: "子供から大人まで楽しめる縁日コーナー！！ぜひお越しください！！"
     },
 
@@ -1081,13 +1081,13 @@ const festivalInfo = {
 */
     "115": {
         title: "1-15 体験 学校の怪談",
-        image: "festival2/5体験-115.png",
+        image: "festival/5体験-115.png",
         description: "お化け屋敷×迷路であなたを学校の怪談の世界に誘います。"
     },
 
     "116": {
         title: "1-16 モンキー縁日",
-        image: "festival/5体験-116.jpg",
+        image: "festival2/5体験-116.jpg",
         description: "他と比べて、楽しい縁日にするのでみんな来てください！"
     },
 
@@ -1098,7 +1098,7 @@ const festivalInfo = {
 
     "21": {
         title: "2-1 展示 Save Our Blue ～私たちがつなぐ、未来の海～",
-        image: "festival2/4展示-201.png",
+        image: "festival3/4展示-201.png",
         description: "海の生き物たちをテーマにした幻想的な空間で、ゴミのないきれいな海の中を散歩しているような体験が楽しめます。"
     },
 
@@ -1110,7 +1110,7 @@ const festivalInfo = {
 
     "23": {
         title: "2-3 体験 トモニ、全集中！",
-        image: "festival/5体験-203.pdf",
+        image: "festival6/5体験-203.pdf",
         description: "見えない相手に全集中！トモニ笑って楽しめる、最高の思い出を作ろう！"
     },
 
@@ -1152,7 +1152,7 @@ const festivalInfo = {
 
     "210": {
         title: "2-10 体験 「カラダ探し」",
-        image: "festival/5体験-210.pdf",
+        image: "festival6/5体験-210.pdf",
         description: "この恐怖。見るだけじゃ終われない。「カラダ探し」で待っています。"
     },
 
@@ -1191,7 +1191,7 @@ const festivalInfo = {
         description: "折り紙を折りながらまったり、ラリー系に参加して楽しみませんか。"
     },
 
-    "31e": {
+    "31s": {
         title: "3-1 3-5 模擬店 宿命の「夏色」ドリンク　〜青春と奇跡の味わい〜",
         image: "festival6/7模擬店-301305.png",
         description: "文化祭は、まだまだ暑さの残る季節。みなさんの喉を潤すため、ドリンクを販売します。"
@@ -1263,7 +1263,7 @@ const festivalInfo = {
         description: "いろんな味の『もちもちチーズボール』食べてください__"
     },
 
-    "38": {
+    "38p": {
         title: "3-8 パフォーマンス 櫻井Family",
         image: "festival/7模擬店-308.jpg",
         description: "みんなの心に残る最高のダンスをします。観に来てください。"
