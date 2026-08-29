@@ -1,313 +1,598 @@
-/* =========================================
-   全体
-========================================= */
+// ============================================================
+// 文化祭クリック範囲 座標取得ツール
+// ============================================================
 
-* {
-    box-sizing: border-box;
-}
+const building =
+    document.getElementById("building");
 
-html,
-body {
-    margin: 0;
-    padding: 0;
-}
+const floor =
+    document.getElementById("floor");
 
-body {
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        "Noto Sans JP",
-        sans-serif;
+const imageFile =
+    document.getElementById("imageFile");
 
-    background: #f5f7fa;
-    color: #222;
-}
+const roomName =
+    document.getElementById("roomName");
 
+const loadButton =
+    document.getElementById("loadButton");
 
-/* =========================================
-   ヘッダー
-========================================= */
+const map =
+    document.getElementById("map");
 
-header {
-    padding: 18px 20px;
+const mapContainer =
+    document.getElementById("map-container");
 
-    background: #fff;
+const selection =
+    document.getElementById("selection");
 
-    border-bottom: 1px solid #ddd;
+const coordX =
+    document.getElementById("coordX");
 
-    text-align: center;
-}
+const coordY =
+    document.getElementById("coordY");
 
-header h1 {
-    margin: 0;
+const coordWidth =
+    document.getElementById("coordWidth");
 
-    font-size: 23px;
-}
+const coordHeight =
+    document.getElementById("coordHeight");
 
+const codeOutput =
+    document.getElementById("codeOutput");
 
-/* =========================================
-   操作パネル
-========================================= */
-
-.controls {
-    width: min(1200px, 94%);
-
-    margin: 20px auto;
-
-    padding: 18px;
-
-    background: #fff;
-
-    border-radius: 12px;
-
-    box-shadow:
-        0 3px 12px rgba(0, 0, 0, 0.08);
-}
+const copyButton =
+    document.getElementById("copyButton");
 
 
-.control-row {
-    display: flex;
+let dragging = false;
 
-    align-items: center;
+let startX = 0;
+let startY = 0;
 
-    gap: 10px;
+let currentSelection = null;
 
-    margin-bottom: 12px;
-}
 
-.control-row:last-child {
-    margin-bottom: 0;
+// ============================================================
+// 整数化
+// ============================================================
+
+function round(value) {
+
+    return Math.round(value);
+
 }
 
 
-.control-row label {
-    min-width: 90px;
+// ============================================================
+// 画像上の元画像座標を取得
+// ============================================================
 
-    font-weight: 600;
+function getImagePosition(event) {
+
+    const rect =
+        map.getBoundingClientRect();
+
+
+    let x =
+        event.clientX -
+        rect.left;
+
+    let y =
+        event.clientY -
+        rect.top;
+
+
+    // 表示画像の範囲内に収める
+
+    x =
+        Math.max(
+            0,
+            Math.min(
+                rect.width,
+                x
+            )
+        );
+
+    y =
+        Math.max(
+            0,
+            Math.min(
+                rect.height,
+                y
+            )
+        );
+
+
+    // 表示サイズ → 元画像サイズ
+
+    const scaleX =
+        map.naturalWidth /
+        rect.width;
+
+    const scaleY =
+        map.naturalHeight /
+        rect.height;
+
+
+    return {
+
+        x: x * scaleX,
+
+        y: y * scaleY
+
+    };
+
 }
 
 
-select,
-input,
-button {
-    padding: 10px 12px;
+// ============================================================
+// 選択範囲更新
+// ============================================================
 
-    font-size: 15px;
+function updateSelection(
+    currentX,
+    currentY
+) {
 
-    border-radius: 8px;
+    const x =
+        Math.min(
+            startX,
+            currentX
+        );
+
+    const y =
+        Math.min(
+            startY,
+            currentY
+        );
+
+    const width =
+        Math.abs(
+            currentX -
+            startX
+        );
+
+    const height =
+        Math.abs(
+            currentY -
+            startY
+        );
+
+
+    currentSelection = {
+
+        x: round(x),
+
+        y: round(y),
+
+        width: round(width),
+
+        height: round(height)
+
+    };
+
+
+    // ========================================================
+    // 画面上の位置へ変換
+    // ========================================================
+
+    const rect =
+        map.getBoundingClientRect();
+
+    const containerRect =
+        mapContainer.getBoundingClientRect();
+
+
+    const scaleX =
+        rect.width /
+        map.naturalWidth;
+
+    const scaleY =
+        rect.height /
+        map.naturalHeight;
+
+
+    const left =
+        x * scaleX;
+
+    const top =
+        y * scaleY;
+
+    const displayWidth =
+        width * scaleX;
+
+    const displayHeight =
+        height * scaleY;
+
+
+    selection.style.left =
+        (
+            rect.left -
+            containerRect.left +
+            left
+        ) + "px";
+
+
+    selection.style.top =
+        (
+            rect.top -
+            containerRect.top +
+            top
+        ) + "px";
+
+
+    selection.style.width =
+        displayWidth + "px";
+
+
+    selection.style.height =
+        displayHeight + "px";
+
+
+    selection.style.display =
+        "block";
+
+
+    // ========================================================
+    // 数値表示
+    // ========================================================
+
+    coordX.textContent =
+        currentSelection.x;
+
+    coordY.textContent =
+        currentSelection.y;
+
+    coordWidth.textContent =
+        currentSelection.width;
+
+    coordHeight.textContent =
+        currentSelection.height;
+
+
+    updateCode();
+
 }
 
 
-select,
-input {
-    border: 1px solid #bbb;
+// ============================================================
+// コード生成
+// ============================================================
 
-    background: #fff;
-}
+function updateCode() {
 
+    if (
+        !currentSelection
+    ) {
 
-input[type="text"] {
-    flex: 1;
+        codeOutput.value =
+            "";
 
-    min-width: 150px;
-}
+        return;
 
-
-button {
-    border: none;
-
-    background: #333;
-
-    color: #fff;
-
-    cursor: pointer;
-}
-
-
-button:hover {
-    opacity: 0.85;
-}
-
-
-/* =========================================
-   座標パネル
-========================================= */
-
-.coordinate-panel {
-    width: min(1200px, 94%);
-
-    margin: 0 auto 20px;
-
-    padding: 18px;
-
-    background: #fff;
-
-    border-radius: 12px;
-
-    box-shadow:
-        0 3px 12px rgba(0, 0, 0, 0.08);
-}
-
-
-.coordinate-panel h2,
-.coordinate-panel h3 {
-    margin-top: 0;
-}
-
-
-.coordinate-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(4, 1fr);
-
-    gap: 10px;
-
-    margin-bottom: 18px;
-}
-
-
-.coordinate-grid div {
-    padding: 12px;
-
-    background: #f1f3f5;
-
-    border-radius: 8px;
-
-    text-align: center;
-}
-
-
-.coordinate-grid span {
-    display: block;
-
-    margin-bottom: 5px;
-
-    font-size: 12px;
-
-    color: #666;
-}
-
-
-.coordinate-grid strong {
-    font-size: 20px;
-}
-
-
-textarea {
-    width: 100%;
-
-    min-height: 130px;
-
-    padding: 12px;
-
-    resize: vertical;
-
-    border: 1px solid #bbb;
-
-    border-radius: 8px;
-
-    font-family:
-        Consolas,
-        "Courier New",
-        monospace;
-
-    font-size: 14px;
-}
-
-
-.copy-button {
-    margin-top: 10px;
-}
-
-
-/* =========================================
-   地図
-========================================= */
-
-#map-wrapper {
-    width: 100%;
-
-    display: flex;
-
-    justify-content: center;
-
-    padding: 0 10px 40px;
-}
-
-
-#map-container {
-    position: relative;
-
-    width: min(1200px, 100%);
-
-    overflow: hidden;
-
-    background: #ddd;
-
-    border-radius: 12px;
-
-    box-shadow:
-        0 4px 15px rgba(0, 0, 0, 0.1);
-
-    touch-action: none;
-}
-
-
-#map {
-    display: block;
-
-    width: 100%;
-
-    height: auto;
-
-    user-select: none;
-
-    -webkit-user-drag: none;
-}
-
-
-/* =========================================
-   選択範囲
-========================================= */
-
-#selection {
-    position: absolute;
-
-    display: none;
-
-    pointer-events: none;
-
-    border: 2px solid #008cff;
-
-    background: rgba(0, 140, 255, 0.18);
-
-    z-index: 10;
-}
-
-
-/* =========================================
-   スマホ
-========================================= */
-
-@media (max-width: 600px) {
-
-    .control-row {
-        flex-wrap: wrap;
     }
 
-    .control-row label {
-        width: 100%;
+
+    const key =
+        roomName.value.trim();
+
+
+    if (!key) {
+
+        codeOutput.value =
+`// クラス番号を入力してください
+
+x: ${currentSelection.x},
+y: ${currentSelection.y},
+width: ${currentSelection.width},
+height: ${currentSelection.height}`;
+
+        return;
+
     }
 
-    .coordinate-grid {
-        grid-template-columns:
-            repeat(2, 1fr);
-    }
 
-    header h1 {
-        font-size: 19px;
-    }
+    codeOutput.value =
+`"${key}": {
+    building: "${building.value}",
+    floor: "${floor.value}",
+    x: ${currentSelection.x},
+    y: ${currentSelection.y},
+    width: ${currentSelection.width},
+    height: ${currentSelection.height}
+},`;
 
 }
+
+
+// ============================================================
+// Pointer開始
+// ============================================================
+
+map.addEventListener(
+    "pointerdown",
+    function (event) {
+
+        event.preventDefault();
+
+
+        // 左クリック以外は無視
+
+        if (
+            event.pointerType === "mouse" &&
+            event.button !== 0
+        ) {
+
+            return;
+
+        }
+
+
+        // 画像を掴んでいる間もイベントを受け取る
+
+        map.setPointerCapture(
+            event.pointerId
+        );
+
+
+        const pos =
+            getImagePosition(event);
+
+
+        startX =
+            pos.x;
+
+        startY =
+            pos.y;
+
+
+        dragging =
+            true;
+
+
+        updateSelection(
+            startX,
+            startY
+        );
+
+    }
+);
+
+
+// ============================================================
+// Pointer移動
+// ============================================================
+
+map.addEventListener(
+    "pointermove",
+    function (event) {
+
+        if (
+            !dragging
+        ) {
+
+            return;
+
+        }
+
+
+        event.preventDefault();
+
+
+        const pos =
+            getImagePosition(event);
+
+
+        updateSelection(
+            pos.x,
+            pos.y
+        );
+
+    }
+);
+
+
+// ============================================================
+// Pointer終了
+// ============================================================
+
+map.addEventListener(
+    "pointerup",
+    function (event) {
+
+        if (
+            !dragging
+        ) {
+
+            return;
+
+        }
+
+
+        const pos =
+            getImagePosition(event);
+
+
+        updateSelection(
+            pos.x,
+            pos.y
+        );
+
+
+        dragging =
+            false;
+
+
+        try {
+
+            map.releasePointerCapture(
+                event.pointerId
+            );
+
+        }
+
+        catch (error) {
+
+            // 無視
+
+        }
+
+    }
+);
+
+
+// ============================================================
+// Pointerキャンセル
+// ============================================================
+
+map.addEventListener(
+    "pointercancel",
+    function () {
+
+        dragging =
+            false;
+
+    }
+);
+
+
+// ============================================================
+// 地図読み込み
+// ============================================================
+
+loadButton.addEventListener(
+    "click",
+    function () {
+
+        const file =
+            imageFile.value.trim();
+
+
+        if (!file) {
+
+            alert(
+                "画像ファイル名を入力してください。"
+            );
+
+            return;
+
+        }
+
+
+        currentSelection =
+            null;
+
+
+        selection.style.display =
+            "none";
+
+
+        coordX.textContent =
+            "---";
+
+        coordY.textContent =
+            "---";
+
+        coordWidth.textContent =
+            "---";
+
+        coordHeight.textContent =
+            "---";
+
+        codeOutput.value =
+            "";
+
+
+        map.src =
+            file;
+
+    }
+);
+
+
+// ============================================================
+// クラス番号変更
+// ============================================================
+
+roomName.addEventListener(
+    "input",
+    updateCode
+);
+
+
+// ============================================================
+// 建物・階変更
+// ============================================================
+
+building.addEventListener(
+    "change",
+    updateCode
+);
+
+floor.addEventListener(
+    "change",
+    updateCode
+);
+
+
+// ============================================================
+// コピー
+// ============================================================
+
+copyButton.addEventListener(
+    "click",
+    async function () {
+
+        if (
+            !codeOutput.value
+        ) {
+
+            return;
+
+        }
+
+
+        try {
+
+            await navigator.clipboard.writeText(
+                codeOutput.value
+            );
+
+
+            copyButton.textContent =
+                "コピーしました！";
+
+
+            setTimeout(
+                function () {
+
+                    copyButton.textContent =
+                        "コードをコピー";
+
+                },
+                1500
+            );
+
+        }
+
+        catch (error) {
+
+            codeOutput.select();
+
+            document.execCommand(
+                "copy"
+            );
+
+        }
+
+    }
+);
+
+
+// ============================================================
+// 初期画像
+// ============================================================
+
+map.src =
+    imageFile.value;
