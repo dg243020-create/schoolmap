@@ -1855,6 +1855,15 @@ function setupCurrentMap(
 
     createClassroomAreas();
 
+const currentFile =
+        map.src.split("/").pop();
+
+    if (currentFile === "AB1F.png") {
+
+        openStallModal();
+
+    }
+    
 
     /*
         現在の目的地が
@@ -2376,7 +2385,52 @@ function openFestivalModal(key) {
             "festival-description"
         );
 
+// ============================================================
+// 模擬店マップポップアップ
+// ============================================================
 
+function openStallModal() {
+
+    const modal =
+        document.getElementById("stall-modal");
+
+    if (!modal) return;
+
+    modal.classList.add("show");
+
+}
+
+
+function closeStallModal() {
+
+    const modal =
+        document.getElementById("stall-modal");
+
+    if (!modal) return;
+
+    modal.classList.remove("show");
+
+}
+
+
+function goToStallMap() {
+
+    closeStallModal();
+
+    // 建物・階の仕組みとは別枠の画像なので
+    // マーカーと教室クリック範囲は消しておく
+
+    ++mapChangeId;
+
+    clearMarker();
+
+    clearClassroomAreas();
+
+    map.src = "test.png";
+
+}
+
+    
     // ========================================================
     // タイトル
     // ========================================================
