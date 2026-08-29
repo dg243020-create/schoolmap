@@ -439,7 +439,42 @@ content="width=device-width, initial-scale=1.0">
 
 </div>
 
+<!-- =====================
+     模擬店マップポップアップ
+===================== -->
 
+<div
+    id="stall-modal"
+    class="stall-modal"
+>
+
+    <div class="stall-modal-content">
+
+        <p>
+            模擬店マップに移動しますか？
+        </p>
+
+        <div class="stall-modal-buttons">
+
+            <button
+                id="stall-yes"
+                onclick="goToStallMap()"
+            >
+                はい
+            </button>
+
+            <button
+                id="stall-no"
+                onclick="closeStallModal()"
+            >
+                いいえ
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
 
 <!-- =====================
      アンケート
