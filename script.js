@@ -1052,7 +1052,7 @@ const festivalInfo = {
     "111": {
         title: "1-11 体験 急げ！恐怖の部屋から緊急脱出！",
         image: "festival3/5体験-111.png",
-        description: "カギを見つけて、この恐怖の部屋から脱出せよ！早く出られたあなたには景品が...!!."
+        description: "カギを見つけて、この恐怖の部屋から脱出せよ！早く出られたあなたには景品が...!!"
     },
 
     "112": {
@@ -1223,7 +1223,7 @@ const festivalInfo = {
 
     "34t": {
         title: "3-4 展示 おもちゃばこ",
-        image: "festival2/4展示-304.png",
+        image: "festival3/4展示-304.png",
         description: "トイストーリーの世界に迷い込んだかのような没入感をぜひ体験せよ！"
     },
 
