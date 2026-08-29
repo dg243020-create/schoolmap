@@ -238,6 +238,71 @@ header h1 {
 }
 
 /* =========================================
+   模擬店マップポップアップ
+========================================= */
+
+#stall-modal {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9998; /* festival-modalより低く */
+}
+
+#stall-modal.show {
+    display: flex;
+}
+
+.stall-modal-content {
+    width: min(360px, 90vw);
+    padding: 25px;
+    background: #ffffff;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.stall-modal-content p {
+    margin: 0 0 20px;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.stall-modal-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.stall-modal-buttons button {
+    padding: 10px 22px;
+    font-size: 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#stall-yes {
+    background: #333;
+    color: #fff;
+}
+
+#stall-no {
+    background: #eee;
+    color: #333;
+}
+
+#stall-yes:hover,
+#stall-no:hover {
+    opacity: 0.85;
+}
+
+/* =========================================
    目的地マーカー
 ========================================= */
 
