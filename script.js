@@ -1104,7 +1104,7 @@ const festivalInfo = {
 
     "22": {
         title: "2-2 パフォーマンス ARASHI",
-        image: "festival3/2パ-202.png",
+        image: "festival6/2パ-202.png",
         description: "個性溢れる2組の魅力を 10 分間でお伝えします。みんな見てね"
     },
 
@@ -1211,7 +1211,7 @@ const festivalInfo = {
 
     "33p": {
         title: "3-3 パフォーマンス 若原の野望 Vol.2",
-        image: "festival2/2パ-303.jpg",
+        image: "festival6/2パ-303.jpg",
         description: "今年　“も“ 特進なめんなよ。"
     },
 
@@ -1265,13 +1265,13 @@ const festivalInfo = {
 
     "38p": {
         title: "3-8 パフォーマンス 櫻井Family",
-        image: "festival/7模擬店-308.jpg",
+        image: "festival2/2パ-308.jpg",
         description: "みんなの心に残る最高のダンスをします。観に来てください。"
     },
 
     "38s": {
         title: "3-8 模擬店 ハッピーポテト",
-        image: "festival3/2パ-308.jpg",
+        image: "festival3/7模擬店-308.jpg",
         description: "みんなを幸せにするハッピーポテトを販売します。食べに来てください。"
     },
 
@@ -1289,7 +1289,7 @@ const festivalInfo = {
 
     "310p": {
         title: "3-10 パフォーマンス 3年10組のたこ焼き",
-        image: "festival2/2パ-310.png",
+        image: "festival2/2パ-310.jpg",
         description: "魂込めて踊ります。"
     },
 
@@ -1313,7 +1313,7 @@ const festivalInfo = {
 
     "312p": {
         title: "3-12 パフォーマンス Final Stage～商業科の軌跡～",
-        image: "festival2/2パ-312.png",
+        image: "festival6/2パ-312.png",
         description: "3年間のダンスの集大成__焼き鳥も買ってね！"
     },
 
