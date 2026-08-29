@@ -1104,7 +1104,7 @@ const festivalInfo = {
 
     "22": {
         title: "2-2 パフォーマンス ARASHI",
-        image: "festival6/2パ-202.png",
+        image: "festival3/2パ-202.png",
         description: "個性溢れる2組の魅力を 10 分間でお伝えします。みんな見てね"
     },
 
@@ -1211,19 +1211,15 @@ const festivalInfo = {
 
     "33p": {
         title: "3-3 パフォーマンス 若原の野望 Vol.2",
-        image: "festival6/2パ-303.jpg",
+        image: "festival2/2パ-303.jpg",
         description: "今年　“も“ 特進なめんなよ。"
     },
-
-/*
     
     "33s": {
         title: "3-3 模擬店 油に飛び込め！3-3！！",
         image: "festival3/7模擬店-303.jpg",
         description: "私たち 3-3はチーズ棒などの揚げ物を絶対絶対美味しく作るので、ぜひ食べに来てください！ アツアツの揚げ物を食べて、3-3と一緒に最高の夏を楽しみましょう__"
     },
-
-*/
 
     "34t": {
         title: "3-4 展示 おもちゃばこ",
@@ -1317,7 +1313,7 @@ const festivalInfo = {
 
     "312p": {
         title: "3-12 パフォーマンス Final Stage～商業科の軌跡～",
-        image: "festival6/2パ-312.png",
+        image: "festival2/2パ-312.png",
         description: "3年間のダンスの集大成__焼き鳥も買ってね！"
     },
 
