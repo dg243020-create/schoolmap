@@ -1452,15 +1452,24 @@ function getImageInfo() {
         renderedHeight + "px";
 
 
-    /*
-        画像サイズを明示的に指定
-    */
+ // ▼▼▼ ここを追加 ▼▼▼
+    // 画像が横幅いっぱいにならない場合、
+    // 余った分の半分だけ右にずらして中央寄せにする
+
+    const offsetX =
+        (containerWidth - renderedWidth) / 2;
+    // ▲▲▲ ここまで追加 ▲▲▲
+
 
     map.style.width =
         renderedWidth + "px";
 
     map.style.height =
         renderedHeight + "px";
+
+    // ▼ 追加：画像自体もoffsetX分だけ右にずらす
+    map.style.left =
+        offsetX + "px";
 
 
     return {
@@ -1469,10 +1478,9 @@ function getImageInfo() {
 
         scaleY: scale,
 
-        offsetX: 0,
+        offsetX: offsetX, // ← 0 から offsetX に変更
 
         offsetY: 0
-
     };
 
 }
