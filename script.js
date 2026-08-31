@@ -1062,7 +1062,7 @@ const classroomAreas = {
         y: 397,
         width: 348,
         height: 400
-    }
+    },
 
     "312s": {
         building: "S",
@@ -1175,7 +1175,7 @@ const classroomAreas = {
     "mbare": {
         building: "S",
         floor: "6",
-        x: 1227
+        x: 1227,
         y: 1,
         width: 141,
         height: 145
