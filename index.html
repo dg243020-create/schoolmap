@@ -2,204 +2,525 @@
 <html lang="ja">
 
 <head>
-    <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta charset="UTF-8">
 
-    <title>文化祭クリック範囲 座標取得ツール</title>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+<title>大商学園 校内マップ</title>
+
+<link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
+
+<!-- =====================
+     ヘッダー
+===================== -->
+
 <header>
-    <h1>文化祭クリック範囲 座標取得ツール</h1>
+
+    <h1>
+        大商学園 校内マップ
+    </h1>
+
 </header>
 
 
-<!-- =========================================
-     操作部分
-========================================= -->
 
-<section class="controls">
+<!-- =====================
+     目的地選択
+===================== -->
 
-    <div class="control-row">
+<div class="destination">
 
-        <label>
-            建物
-        </label>
+    <select id="destination">
 
-        <select id="building">
-
-            <option value="S">
-                新館
-            </option>
-
-            <option value="AB">
-                AB館
-            </option>
-
-            <option value="G">
-                グラウンド側
-            </option>
-
-        </select>
+        <option value="">
+            目的地を選択
+        </option>
 
 
-        <label>
-            階
-        </label>
+        <option value="Library">
+            図書室
+        </option>
 
-        <select id="floor">
+        <option value="Ignitionbase">
+            Ignition Base
+        </option>
 
-            <option value="1">
-                1階
-            </option>
+        <option value="Studyroom">
+            Study Room
+        </option>
 
-            <option value="2">
-                2階
-            </option>
+        <option value="Millenniumhall">
+            ミレニアムホール
+        </option>
 
-            <option value="3">
-                3階
-            </option>
+        <option value="Artroom">
+            美術室
+        </option>
 
-            <option value="4">
-                4階
-            </option>
+        <option value="Exerciseroom">
+            演習室
+        </option>
 
-            <option value="5">
-                5階
-            </option>
+        <option value="Scienceroom">
+            理科実験室
+        </option>
 
-            <option value="6">
-                6階
-            </option>
+        <option value="Kateikaroom">
+            家庭科室
+        </option>
 
-        </select>
+        <option value="Shodouroom">
+            書道教室
+        </option>
 
-    </div>
+        <option value="Hokenroom">
+            保健室
+        </option>
 
+        <option value="Jimuroom">
+            事務室
+        </option>
 
-    <div class="control-row">
+        <option value="Shokuinroom">
+            職員室
+        </option>
 
-        <label>
-            画像ファイル
-        </label>
+        <option value="Koudoutaiikukan">
+            講堂体育館
+        </option>
 
-        <input
-            type="text"
-            id="imageFile"
-            value="test.png"
-            placeholder="例：test.png"
-        >
+        <option value="Shokudou">
+            食堂
+        </option>
 
-        <button id="loadButton">
-            地図を読み込む
-        </button>
+        <option value="Sinkanshokuinroom">
+            新館職員室
+        </option>
 
-    </div>
+        <option value="Musicroom">
+            音楽室
+        </option>
 
+        <option value="Danceroom">
+            ダンス教室
+        </option>
 
-    <div class="control-row">
+        <option value="Gomishori">
+            ゴミ処理場
+        </option>
 
-        <label>
-            クラス番号
-        </label>
+        <option value="Informationroom">
+            新館情報処理室
+        </option>
 
-        <input
-            type="text"
-            id="roomName"
-            placeholder="例：11"
-        >
+        <option value="Sinkantaiikukan">
+            新館体育館
+        </option>
 
-    </div>
+        <option value="TakkyuuRoom">
+            卓球場
+        </option>
 
-</section>
+        <option value="Juudouroom">
+            柔道場
+        </option>
 
+        <option value="Kendouroom">
+            剣道場
+        </option>
 
-<!-- =========================================
-     座標表示
-========================================= -->
+        <option value="S301">
+            S301
+        </option>
 
-<section class="coordinate-panel">
-
-    <h2>
-        選択範囲
-    </h2>
-
-    <div class="coordinate-grid">
-
-        <div>
-            <span>X</span>
-            <strong id="coordX">---</strong>
-        </div>
-
-        <div>
-            <span>Y</span>
-            <strong id="coordY">---</strong>
-        </div>
-
-        <div>
-            <span>WIDTH</span>
-            <strong id="coordWidth">---</strong>
-        </div>
-
-        <div>
-            <span>HEIGHT</span>
-            <strong id="coordHeight">---</strong>
-        </div>
-
-    </div>
+        <option value="S206">
+            S206
+        </option>
 
 
-    <h3>
-        classroomAreas 用コード
-    </h3>
+        <option value="11">
+            1-1
+        </option>
 
-    <textarea
-        id="codeOutput"
-        readonly
-        placeholder="地図上をドラッグするとここにコードが表示されます。"
-    ></textarea>
+        <option value="12">
+            1-2
+        </option>
 
-    <button
-        id="copyButton"
-        class="copy-button"
-    >
-        コードをコピー
+        <option value="13">
+            1-3
+        </option>
+
+        <option value="14">
+            1-4
+        </option>
+
+        <option value="15">
+            1-5
+        </option>
+
+        <option value="16">
+            1-6
+        </option>
+
+        <option value="17">
+            1-7
+        </option>
+
+        <option value="18">
+            1-8
+        </option>
+
+        <option value="19">
+            1-9
+        </option>
+
+        <option value="110">
+            1-10
+        </option>
+
+        <option value="111">
+            1-11
+        </option>
+
+        <option value="112">
+            1-12
+        </option>
+
+        <option value="113">
+            1-13
+        </option>
+
+        <option value="114">
+            1-14
+        </option>
+
+        <option value="115">
+            1-15
+        </option>
+
+        <option value="116">
+            1-16
+        </option>
+
+
+        <option value="21">
+            2-1
+        </option>
+
+        <option value="22">
+            2-2
+        </option>
+
+        <option value="23">
+            2-3
+        </option>
+
+        <option value="24">
+            2-4
+        </option>
+
+        <option value="25">
+            2-5
+        </option>
+
+        <option value="26">
+            2-6
+        </option>
+
+        <option value="27">
+            2-7
+        </option>
+
+        <option value="28">
+            2-8
+        </option>
+
+        <option value="29">
+            2-9
+        </option>
+
+        <option value="210">
+            2-10
+        </option>
+
+        <option value="211">
+            2-11
+        </option>
+
+        <option value="212">
+            2-12
+        </option>
+
+        <option value="213">
+            2-13
+        </option>
+
+        <option value="214">
+            2-14
+        </option>
+
+
+        <option value="31">
+            3-1
+        </option>
+
+        <option value="32">
+            3-2
+        </option>
+
+        <option value="33">
+            3-3
+        </option>
+
+        <option value="34">
+            3-4
+        </option>
+
+        <option value="35">
+            3-5
+        </option>
+
+        <option value="36">
+            3-6
+        </option>
+
+        <option value="37">
+            3-7
+        </option>
+
+        <option value="38">
+            3-8
+        </option>
+
+        <option value="39">
+            3-9
+        </option>
+
+        <option value="310">
+            3-10
+        </option>
+
+        <option value="311">
+            3-11
+        </option>
+
+        <option value="312">
+            3-12
+        </option>
+
+    </select>
+
+
+    <button onclick="showDestination()">
+        表示
     </button>
 
-</section>
+</div>
 
 
-<!-- =========================================
+
+<!-- =====================
+     建物・階
+===================== -->
+
+<div class="floor-select">
+
+
+    <select id="building">
+
+        <option value="">
+            建物を選択
+        </option>
+
+        <option value="S">
+            新館
+        </option>
+
+        <option value="AB">
+            AB館
+        </option>
+
+        <option value="G">
+            グラウンド側
+        </option>
+
+    </select>
+
+
+
+    <select id="floor">
+
+        <option value="">
+            階を選択
+        </option>
+
+    </select>
+
+
+</div>
+
+
+
+<!-- =====================
      地図
-========================================= -->
+===================== -->
 
-<main id="map-wrapper">
+<div id="map-wrapper">
 
     <div id="map-container">
 
         <img
             id="map"
-            src="test.png"
-            draggable="false"
-            alt="校内地図"
+            src="AB1F.png"
+            alt="校内マップ"
         >
 
-        <div id="selection"></div>
+        <div id="classroom-layer"></div>
+
+        <div id="marker"></div>
 
     </div>
 
-</main>
+</div>
+
+
+
+<!-- =====================
+     文化祭ポップアップ
+===================== -->
+
+<div
+    id="festival-modal"
+    class="festival-modal"
+>
+
+<div
+    id="festival-content"
+    class="festival-modal-content"
+>
+
+        <button
+            id="festival-close"
+            class="festival-close"
+            onclick="closeFestivalModal()"
+        >
+            ×
+        </button>
+
+
+        <h2 id="festival-title"></h2>
+
+
+        <div
+            id="festival-image-container"
+            class="festival-image-container"
+        >
+
+            <img
+                id="festival-image"
+                src=""
+                alt="文化祭企画"
+            >
+
+        </div>
+
+
+        <p id="festival-description"></p>
+
+    </div>
+
+</div>
+
+<!-- =====================
+     模擬店マップポップアップ
+===================== -->
+
+<div
+    id="stall-modal"
+    class="stall-modal"
+>
+
+    <div class="stall-modal-content">
+
+        <p>
+            模擬店マップに移動しますか？
+        </p>
+
+        <div class="stall-modal-buttons">
+
+            <button
+                id="stall-yes"
+                onclick="goToStallMap()"
+            >
+                はい
+            </button>
+
+            <button
+                id="stall-no"
+                onclick="closeStallModal()"
+            >
+                いいえ
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =====================
+     アンケート
+===================== -->
+
+<section class="survey">
+
+    <h2>
+        ご協力お願いします
+    </h2>
+
+
+    <p>
+        より使いやすい校内マップにするため、<br>
+        アンケートへのご協力をお願いします。
+    </p>
+
+
+    <a
+        href="https://docs.google.com/forms/d/e/1FAIpQLScHAQ7Bb5pybXmkcQGz82Oxv5hUuDgrsDF0ePRvq0drNrjCxw/viewform"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+
+        <button>
+            アンケートに回答する
+        </button>
+
+    </a>
+
+</section>
+
+
+
+<!-- =====================
+     フッター
+===================== -->
+
+<footer>
+
+    <p>
+        © 2026 Information Creative Course Inc.
+    </p>
+
+</footer>
+
 
 
 <script src="script.js"></script>
