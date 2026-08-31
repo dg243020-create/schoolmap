@@ -991,7 +991,7 @@ const festivalInfo = {
 
     "11": {
         title: "1-1 体験 怪力乱心！！ゴーストバスターズ",
-        image: "festival6/5体験-101.pdf",
+        image: "festival6/5体験-101.png",
         description: "12人全員で全力で取り組みました。お化けの世界へようこそ！"
     },
 
@@ -1057,7 +1057,7 @@ const festivalInfo = {
 
     "112": {
         title: "1-12 体験 縁日",
-        image: "festival6/5体験-112.pdf",
+        image: "festival6/5体験-112.png",
         description: "子供から大人まで楽しめる縁日コーナー！！ぜひお越しください！！"
     },
 
@@ -1110,7 +1110,7 @@ const festivalInfo = {
 
     "23": {
         title: "2-3 体験 トモニ、全集中！",
-        image: "festival6/5体験-203.pdf",
+        image: "festival6/5体験-203.png",
         description: "見えない相手に全集中！トモニ笑って楽しめる、最高の思い出を作ろう！"
     },
 
@@ -1152,7 +1152,7 @@ const festivalInfo = {
 
     "210": {
         title: "2-10 体験 「カラダ探し」",
-        image: "festival6/5体験-210.pdf",
+        image: "festival6/5体験-210.png",
         description: "この恐怖。見るだけじゃ終われない。「カラダ探し」で待っています。"
     },
 
@@ -1307,7 +1307,7 @@ const festivalInfo = {
 
     "311s": {
         title: "3-11 模擬店 おいし～い焼きバナナ",
-        image: "festival/7模擬店-311.pdf",
+        image: "festival/7模擬店-311.png",
         description: "何じゃこれ！？新食感の焼きバナナをご賞味あれ！！"
     },
 
@@ -1321,8 +1321,170 @@ const festivalInfo = {
         title: "3-12 模擬店 とりま焼き鳥",
         image: "festival2/7模擬店-312.png",
         description: "とりま焼き鳥__一本食べたら止まらない"
-    }
+    },
 
+    "dance": {
+        title: "ダンス部 模擬店 CUTIE DANCERS",
+        image: "festival5/7模擬店-ダンス部.png",
+        description: "可愛いだけじゃだめなので、キンキンに冷えたジュース売ってます！！"
+    },
+
+    "bado": {
+        title: "バドミントン部 模擬店 バド部のかき氷",
+        image: "festival6/7模擬店-バドミントン部.png",
+        description: "今年もかき氷作ります！！"
+    },
+
+    "hand": {
+        title: "ハンドボール部 模擬店 HAN-DOG",
+        image: "festival5/7模擬店-ハンドボール部.png",
+        description: "ハンド部の本気。今日はホットドッグに込めました。"
+    },
+
+    "ragubi": {
+        title: "ラグビー部 模擬店 ジャッカルチキン",
+        image: "festival5/7模擬店-ラグビー部.jpg",
+        description: "「ラグビー部特製！アツアツジューシーな唐揚げを食べてください！」"
+    },    
+
+    "kendo": {
+        title: "剣道部 模擬店 イカ焼き",
+        image: "festival5/7模擬店-剣道部.jpg",
+        description: "剣道部が愛情込めて焼くイカ焼きはどの食べ物よりもおいしいです。食べて後悔はないのでぜひ食べに来てください！！"
+    },
+
+    "judo": {
+        title: "柔道部 模擬店 柔道串物語",
+        image: "festival6/7模擬店-柔道部.png",
+        description: "肉汁あふれる牛串です。香ばしい香りとやみつきになる味！一度食べて下さい。"
+    },
+
+    "wbasket": {
+        title: "女子バスケットボール部 模擬店 チュロス",
+        image: "festival5/7模擬店-女子バスケ部.jpg",
+        description: "甘くておいしいチュロスとキンキンのジュースをかわいい女バス達が売るのでぜひ来てね__"
+    },
+
+    "information": {
+        title: "情報処理研究部 模擬店 Cloud Cotton Candy",
+        image: "festival5/7模擬店-情報処理研究部.jpg",
+        description: "ふわふわで甘い！特製わたあめ！文化祭で待ってます！"
+    },
+
+    "suisougaku": {
+        title: "吹奏楽部 模擬店 ブラスバンドのスーパーボール",
+        image: "festival5/7模擬店-吹奏楽部.jpg",
+        description: "特殊なボールもあります、ぜひきてください!!"
+    },
+
+    "mtennis": {
+        title: "男子テニス部 模擬店 テニ貴族（大商本店）",
+        image: "festival5/7模擬店-男子テニス部.png",
+        description: "今年もやってきました！テニ貴族大商本店の出店です。　毎年売切れ御免の大人気焼き鳥！そして今年はあの大人気店長最後の出勤となります。みんなで店長の勇姿を見に来てください。"
+    },
+    
+    "mbasket": {
+        title: "男子バスケットボール部 模擬店 水餃子【panthers】",
+        image: "festival5/7模擬店-男子バスケットボール部.png",
+        description: "大商男バス名物水餃子！美味しいよ！！"
+    },
+
+    "mbare": {
+        title: "男子バレーボール部 模擬店 元祖 泉屋",
+        image: "festival5/7模擬店-男子バレーボール部.png",
+        description: "安くてうまい！最高の家庭の味を提供します！"
+    },
+
+    "boki": {
+        title: "簿記部 模擬店 コロッケとラムネ",
+        image: "festival6/7模擬店-簿記部.png",
+        description: "熱々コロッケに冷え冷えラムネは最高です"
+    },
+
+    "ryouri": {
+        title: "料理研究部 模擬店 大商マフィン",
+        image: "festival5/7模擬店-料理研究部.png",
+        description: "とっても美味な焼き立てマフィンを販売します(^^)"
+    },
+
+    "housou": {
+        title: "放送部　校内装飾 テーマソングメドレー",
+        image: "festival6/3校内-放送部.png",
+        description: "放送室から各クラスのテーマソングをメドレーにしてお届けします"
+    },
+
+    "ESS": {
+        title: "ESS部 展示 大商の先生を英語で紹介しよう！",
+        image: "festival7/4展示-ESS部.jpg",
+        description: "大商の先生を英語で紹介します。是非見に来てください。(^^)"
+    },
+
+    "kokusai": {
+        title: "国際教育推進委員会 展示 オーストラリア異文化体験",
+        image: "festival6/4展示-国際教育.jpg",
+        description: "オーストラリア　メルボルンにある姉妹校で体験した内容を発表します。"
+    },
+
+    "science": {
+        title: "科学研究部 展示 虹色の化石を発見！",
+        image: "festival6/4展示-科学研究部.png",
+        description: "毎年好評の「魔法の眼鏡」、今年はAB棟渡り廊下の3階ガラス面に出現！"
+    },
+
+     "photo": {
+        title: "写真部　展示　キョウメイ",
+        image: "festival7/4展示-写真部.png",
+        description: "ファインダーが見た世界と、僕らの心が「共鳴」した瞬間をお届け。"
+    },   
+
+    "shodou": {
+        title: "書道部　展示　書道部",
+        image: "festival7/4展示-書道部.jpg",
+        description: "全身を使った創作と半年間練習した臨書、気韻生動を感じてもらえたら幸いです。"
+    },
+
+    "shodou2": {
+        title: "書道　展示　書道授業作品",
+        image: "festival6/4展示-書道授業作品.jpg",
+        description: "書道選択者の授業作品を展示いたします。多彩な書表現をお楽しみください！"
+    },
+
+    "information2": {
+        title: "情報処理研究部　展示　ゲームとVR体験",
+        image: "festival7/4展示-情報処理研究部.png",
+        description: "部員が作ったゲームやVRゴーグルを使用した体験、制作した作品の展示を行なっています！ぜひ来てください。"
+    },
+
+    "tosho": {
+        title: "図書部　展示　図書部の日常",
+        image: "festival6/4展示-図書部.pdf",
+        description: "図書館の魅力を伝えるために活動している私たちの日常をご紹介します！"
+    },
+
+    "bijutu": {
+        title: "美術部　展示　美術部展",
+        image: "festival7/4展示-美術部.jpg",
+        description: "美術部員が制作した大作を展示します。"
+    },
+
+    "bijutu2": {
+        title: "美術 展示　美術授業作品展示",
+        image: "festival7/4展示-美術授業作品.jpg",
+        description: "美術の授業で制作された作品から、選ばれし秀作を展示します。"
+    },
+
+    "manken": {
+        title: "漫画研究部 展示 オタクールジャパン",
+        image: "festival7/4展示-漫画研究部.jpg",
+        description: "部員の頑張りと趣味趣向が出ていると思います！ぜひ見に来てください！"
+    },
+
+
+
+    
+
+
+    
 };
 
 
