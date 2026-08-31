@@ -1349,7 +1349,7 @@ const festivalInfo = {
 
     "kendo": {
         title: "剣道部 模擬店 イカ焼き",
-        image: "festival5/7模擬店-剣道部.jpg",
+        image: "festival5/剣道部.jpg",
         description: "剣道部が愛情込めて焼くイカ焼きはどの食べ物よりもおいしいです。食べて後悔はないのでぜひ食べに来てください！！"
     },
 
