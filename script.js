@@ -1051,7 +1051,7 @@ const festivalInfo = {
         description: "3年6組37名が全力でおもちゃを演じます。ぜひ見に来てください。"
     },
     
-    "36t": {
+    "36s": {
         title: "3-6 模擬店 クルンジ",
         image: "festival3/1-1.jpg",
         description: "クロワッサンをカリカリに焼き上げた、韓国発祥のスイーツです"
