@@ -50,54 +50,6 @@ header h1 {
 
 
 /* =========================================
-   目的地選択
-========================================= */
-
-.destination {
-    width: min(1200px, 94%);
-    margin: 20px auto 10px;
-
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
-.destination select {
-    flex: 1;
-    min-width: 0;
-
-    padding: 11px 12px;
-
-    font-size: 15px;
-
-    border: 1px solid #bbb;
-    border-radius: 8px;
-
-    background: #fff;
-
-    cursor: pointer;
-}
-
-.destination button {
-    padding: 11px 18px;
-
-    font-size: 15px;
-
-    border: none;
-    border-radius: 8px;
-
-    background: #333;
-    color: #fff;
-
-    cursor: pointer;
-}
-
-.destination button:hover {
-    opacity: 0.85;
-}
-
-
-/* =========================================
    建物・階
 ========================================= */
 
@@ -122,8 +74,7 @@ header h1 {
     cursor: pointer;
 }
 
-.floor-select select:focus,
-.destination select:focus {
+.floor-select select:focus {
     outline: 2px solid #4aa3ff;
     outline-offset: 1px;
 }
@@ -300,38 +251,6 @@ header h1 {
 #stall-yes:hover,
 #stall-no:hover {
     opacity: 0.85;
-}
-
-/* =========================================
-   目的地マーカー
-========================================= */
-
-#marker {
-    position: absolute;
-
-    width: 22px;
-    height: 22px;
-
-    margin-left: -11px;
-    margin-top: -11px;
-
-    border-radius: 50%;
-
-    background: #00e5ff;
-
-    border: 3px solid white;
-
-    box-shadow:
-        0 0 0 2px #00a9bd,
-        0 0 15px rgba(0, 229, 255, 0.8);
-
-    z-index: 20;
-
-    display: none;
-
-    pointer-events: none;
-
-    animation: markerPulse 1.4s infinite;
 }
 
 /* =========================================
