@@ -15,29 +15,9 @@
 
 const floors = {
 
-    S: 5,
-
-    AB: 6,
-
-    G: 4
+    AB: 6
 
 };
-
-
-// ============================================================
-// 特殊な階
-// ============================================================
-
-const specialFloors = {
-
-    S: {
-
-        "1.5": "S11F.png"
-
-    }
-
-};
-
 
 
 // ============================================================
@@ -50,519 +30,11 @@ const building =
 const floor =
     document.getElementById("floor");
 
-const destination =
-    document.getElementById("destination");
-
 const map =
     document.getElementById("map");
 
-const marker =
-    document.getElementById("marker");
-
 const classroomLayer =
     document.getElementById("classroom-layer");
-
-
-
-// ============================================================
-// ★ 目的地
-// ============================================================
-//
-// ここに目的地を追加してください。
-//
-// x / y は元画像の座標です。
-//
-// ============================================================
-
-const destinations = {
-
-    Library:{
-    building:"AB",
-    floor:"6",
-    x:150,
-    y:1000
-},
-
-Ignitionbase:{
-    building:"AB",
-    floor:"6",
-    x:965,
-    y:925
-},
-
-Studyroom:{
-    building:"AB",
-    floor:"6",
-    x:968,
-    y:461
-},
-
-Millenniumhall:{
-    building:"AB",
-    floor:"6",
-    x:2420,
-    y:1030
-},
-
-Artroom:{
-    building:"AB",
-    floor:"6",
-    x:1750,
-    y:910
-},
-
-Exerciseroom:{
-    building:"AB",
-    floor:"6",
-    x:3200,
-    y:928
-},
-
-Scienceroom:{
-    building:"AB",
-    floor:"5",
-    x:971,
-    y:792
-},
-
-Kateikaroom:{
-    building:"AB",
-    floor:"4",
-    x:971,
-    y:792
-},
-
-Shodouroom:{
-    building:"AB",
-    floor:"3",
-    x:971,
-    y:792
-},
-
-Shokuinroom:{
-    building:"AB",
-    floor:"2",
-    x:450,
-    y:930
-},
-
-Shokudou:{
-    building:"AB",
-    floor:"1",
-    x:595,
-    y:1132
-},
-
-Jimuroom:{
-    building:"AB",
-    floor:"1",
-    x:2020,
-    y:1200
-},
-
-Hokenroom:{
-    building:"AB",
-    floor:"1",
-    x:3139,
-    y:1194
-},
-
-Koudoutaiikukan:{
-    building:"G",
-    floor:"2",
-    x:1178,
-    y:1134
-},
-
-Sinkanshokuinroom:{
-    building:"S",
-    floor:"1",
-    x:866,
-    y:440
-},
-
-Musicroom:{
-    building:"S",
-    floor:"1",
-    x:369,
-    y:1122
-},
-
-Danceroom:{
-    building:"S",
-    floor:"1",
-    x:900,
-    y:1600
-},
-
-Gomishori:{
-    building:"S",
-    floor:"1",
-    x:869,
-    y:177
-},
-
-Informationroom:{
-    building:"S",
-    floor:"2",
-    x:380,
-    y:1283
-},
-
-Sinkantaiikukan:{
-    building:"S",
-    floor:"4",
-    x:618,
-    y:741
-},
-
-Juudouroom:{
-    building:"G",
-    floor:"1",
-    x:420,
-    y:1024
-},
-
-Kendouroom:{
-    building:"G",
-    floor:"1",
-    x:1126,
-    y:1466
-},
-
-TakkyuuRoom:{
-    building:"G",
-    floor:"1",
-    x:416,
-    y:1619
-},
-
-S301:{
-    building:"S",
-    floor:"3",
-    x:1000,
-    y:1700
-},
-
-S206:{
-    building:"S",
-    floor:"2",
-    x:429,
-    y:600
-},
-    
-11:{
-    building:"S",
-    floor:"2",
-    x:1000,
-    y:956
-},
-
-12:{
-    building:"S",
-    floor:"3",
-    x:1000,
-    y:1326
-},
-
-13:{
-    building:"S",
-    floor:"3",
-    x:1000,
-    y:972
-},
-    
-14:{
-    building:"S",
-    floor:"3",
-    x:1000,
-    y:579
-},
-
-15:{
-    building:"S",
-    floor:"3",
-    x:1000,
-    y:259
-},
-
-16:{
-    building:"AB",
-    floor:"5",
-    x:3263,
-    y:906
-},
-
-17:{
-    building:"AB",
-    floor:"5",
-    x:2880,
-    y:906
-},
-
-18:{
-    building:"AB",
-    floor:"5",
-    x:2488,
-    y:906
-},
-
-19:{
-    building:"AB",
-    floor:"5",
-    x:2088,
-    y:906
-},
-
-110:{
-    building:"AB",
-    floor:"5",
-    x:1693,
-    y:906
-},
-
-111:{
-    building:"AB",
-    floor:"5",
-    x:156,
-    y:1465
-},
-
-112:{
-    building:"AB",
-    floor:"5",
-    x:156,
-    y:1085
-},
-
-113:{
-    building:"AB",
-    floor:"5",
-    x:156,
-    y:673
-},
-
-114:{
-    building:"AB",
-    floor:"5",
-    x:156,
-    y:290
-},
-
-115:{
-    building:"AB",
-    floor:"5",
-    x:950,
-    y:261
-},
-
-116:{
-    building:"AB",
-    floor:"4",
-    x:950,
-    y:261
-},
-
-21:{
-    building:"S",
-    floor:"2",
-    x:983,
-    y:1326
-},
-
-22:{
-    building:"S",
-    floor:"3",
-    x:429,
-    y:1326
-},
-
-23:{
-    building:"S",
-    floor:"3",
-    x:429,
-    y:963
-},
-
-24:{
-    building:"S",
-    floor:"3",
-    x:429,
-    y:605
-},
-
-25:{
-    building:"AB",
-    floor:"4",
-    x:3263,
-    y:906
-},
-
-26:{
-    building:"AB",
-    floor:"3",
-    x:950,
-    y:261
-},
-    
-27:{
-    building:"AB",
-    floor:"4",
-    x:2880,
-    y:906
-},
-
-28:{
-    building:"AB",
-    floor:"4",
-    x:2488,
-    y:906
-},
-
-29:{
-    building:"AB",
-    floor:"4",
-    x:2088,
-    y:906
-},
-
-210:{
-    building:"AB",
-    floor:"4",
-    x:1693,
-    y:906
-},
-
-211:{
-    building:"AB",
-    floor:"4",
-    x:156,
-    y:1465
-},
-
-212:{
-    building:"AB",
-    floor:"4",
-    x:156,
-    y:1085
-},
-
-213:{
-    building:"AB",
-    floor:"4",
-    x:156,
-    y:673
-},
-
-214:{
-    building:"AB",
-    floor:"4",
-    x:156,
-    y:290
-},
-
-31:{
-    building:"S",
-    floor:"2",
-    x:1000,
-    y:1700
-},
-    
-32:{
-    building:"S",
-    floor:"2",
-    x:1000,
-    y:579
-},
-
-33:{
-    building:"S",
-    floor:"2",
-    x:1000,
-    y:259
-},
-    
-34:{
-    building:"AB",
-    floor:"3",
-    x:3263,
-    y:906
-},
-
-35:{
-    building:"AB",
-    floor:"3",
-    x:156,
-    y:290
-},
-    
-36:{
-    building:"AB",
-    floor:"3",
-    x:2880,
-    y:906
-},
-
-37:{
-    building:"AB",
-    floor:"3",
-    x:2488,
-    y:906
-},
-
-38:{
-    building:"AB",
-    floor:"3",
-    x:2088,
-    y:906
-},
-
-39:{
-    building:"AB",
-    floor:"3",
-    x:1693,
-    y:906
-},
-
-310:{
-    building:"AB",
-    floor:"3",
-    x:156,
-    y:1465
-},
-
-311:{
-    building:"AB",
-    floor:"3",
-    x:156,
-    y:1085
-},
-
-312:{
-    building:"AB",
-    floor:"3",
-    x:156,
-    y:673
-},
-
-
-    // 例
-    //
-    // Studyroom: {
-    //
-    //     name: "自習室",
-    //
-    //     building: "AB",
-    //
-    //     floor: "6",
-    //
-    //     x: 968,
-    //
-    //     y: 461
-    //
-    // }
-
-};
 
 
 
@@ -1835,8 +1307,6 @@ const festivalInfo = {
 // 現在の状態
 // ============================================================
 
-let currentPlace = null;
-
 let mapChangeId = 0;
 
 
@@ -1992,22 +1462,6 @@ function getImageInfo() {
 
 
 // ============================================================
-// マーカーを消す
-// ============================================================
-
-function clearMarker() {
-
-    marker.style.display = "none";
-
-    marker.classList.remove(
-        "redMarker"
-    );
-
-}
-
-
-
-// ============================================================
 // 文化祭クリック範囲を消す
 // ============================================================
 
@@ -2066,33 +1520,6 @@ function createFloorOptions(
 
         option.textContent =
             i + "階";
-
-
-        floor.appendChild(
-            option
-        );
-
-    }
-
-
-    // 新館の特殊階
-
-    if (
-        selectedBuilding === "S"
-    ) {
-
-        const option =
-            document.createElement(
-                "option"
-            );
-
-
-        option.value =
-            "1.5";
-
-
-        option.textContent =
-            "1階上";
 
 
         floor.appendChild(
@@ -2164,8 +1591,6 @@ floor.addEventListener(
             floor.value;
 
 
-        clearMarker();
-
         clearClassroomAreas();
 
 
@@ -2200,22 +1625,6 @@ function getMapFile(
     selectedFloor
 ) {
 
-    // 特殊階
-
-    if (
-        specialFloors[selectedBuilding] &&
-        specialFloors[selectedBuilding][selectedFloor]
-    ) {
-
-        return specialFloors[
-            selectedBuilding
-        ][
-            selectedFloor
-        ];
-
-    }
-
-
     return (
         selectedBuilding +
         selectedFloor +
@@ -2245,8 +1654,6 @@ function changeMap(
             selectedFloor
         );
 
-
-    clearMarker();
 
     clearClassroomAreas();
 
@@ -2375,308 +1782,6 @@ const currentFile =
         openStallModal();
 
     }
-    
-
-    /*
-        現在の目的地が
-        この階にある場合だけマーカー表示
-    */
-
-    if (
-        currentPlace
-    ) {
-
-        const currentFile =
-            map.src
-                .split("/")
-                .pop();
-
-
-        const targetFile =
-            getMapFile(
-                currentPlace.building,
-                currentPlace.floor
-            );
-
-
-        if (
-            currentFile ===
-            targetFile
-        ) {
-
-            showMarker(
-                currentPlace
-            );
-
-        }
-
-    }
-
-}
-
-
-
-// ============================================================
-// 目的地一覧を作成
-// ============================================================
-
-function createDestinationOptions() {
-
-    destination.innerHTML = `
-        <option value="">
-            目的地を選択
-        </option>
-    `;
-
-
-    Object.keys(
-        destinations
-    ).forEach(
-        function (key) {
-
-            const place =
-                destinations[key];
-
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-
-            option.value =
-                key;
-
-
-            option.textContent =
-                place.name ||
-                key;
-
-
-            destination.appendChild(
-                option
-            );
-
-        }
-    );
-
-}
-
-
-
-// ============================================================
-// 目的地選択イベント
-// ============================================================
-
-destination.addEventListener(
-    "change",
-    showDestination
-);
-
-
-
-// ============================================================
-// 目的地を選択
-// ============================================================
-
-function showDestination() {
-
-    const key =
-        destination.value;
-
-
-    // 選択解除
-
-    if (
-        !key
-    ) {
-
-        currentPlace = null;
-
-        clearMarker();
-
-        return;
-
-    }
-
-
-    const place =
-        destinations[key];
-
-
-    if (
-        !place
-    ) {
-
-        currentPlace = null;
-
-        clearMarker();
-
-        return;
-
-    }
-
-
-    // 座標チェック
-
-    if (
-        typeof place.x !== "number" ||
-        typeof place.y !== "number"
-    ) {
-
-        currentPlace = null;
-
-        clearMarker();
-
-        console.warn(
-            "目的地の座標が正しくありません:",
-            key,
-            place
-        );
-
-        return;
-
-    }
-
-
-    // ========================================================
-    // 重要
-    //
-    // 建物変更・階変更によって currentPlace が
-    // 消されないよう、最後に設定する
-    // ========================================================
-
-    const targetBuilding =
-        String(place.building);
-
-    const targetFloor =
-        String(place.floor);
-
-
-    // 建物が違う場合
-
-    if (
-        building.value !==
-        targetBuilding
-    ) {
-
-        building.value =
-            targetBuilding;
-
-
-        createFloorOptions(
-            targetBuilding
-        );
-
-    }
-
-
-    // 階を変更
-
-    floor.value =
-        targetFloor;
-
-
-    // 目的地を現在地として保存
-
-    currentPlace =
-        place;
-
-
-    // 地図を変更
-
-    changeMap(
-        targetBuilding,
-        targetFloor
-    );
-
-}
-
-// ============================================================
-// マーカー表示
-// ============================================================
-
-function showMarker(place) {
-
-    if (
-        !place
-    ) {
-
-        clearMarker();
-
-        return;
-
-    }
-
-
-    if (
-        !map.complete ||
-        !map.naturalWidth ||
-        !map.naturalHeight
-    ) {
-
-        return;
-
-    }
-
-
-    const info =
-        getImageInfo();
-
-
-    // 元画像の座標を
-    // 現在表示されている画像上の座標へ変換
-
-    const left =
-        info.offsetX +
-        place.x *
-        info.scaleX;
-
-
-    const top =
-        info.offsetY +
-        place.y *
-        info.scaleY;
-
-
-    marker.style.left =
-        left + "px";
-
-
-    marker.style.top =
-        top + "px";
-
-
-    // ========================================================
-    // 赤マーカー対象
-    // ========================================================
-
-    const currentFile =
-        map.src
-            .split("/")
-            .pop();
-
-
-    marker.classList.remove(
-        "redMarker"
-    );
-
-
-    if (
-        currentFile === "S1F.png" ||
-        currentFile === "AB1F.png" ||
-        currentFile === "AB6F.png"
-    ) {
-
-        marker.classList.add(
-            "redMarker"
-        );
-
-    }
-
-
-    marker.style.display =
-        "block";
 
 }
 
@@ -2701,12 +1806,34 @@ function createClassroomAreas() {
     }
 
 
-    const selectedBuilding =
+    const currentFile =
+        map.src
+            .split("/")
+            .pop();
+
+
+    let selectedBuilding =
         building.value;
 
 
-    const selectedFloor =
+    let selectedFloor =
         floor.value;
+
+
+    // ============================================================
+    // 模擬店マップ（test.png）は
+    // 新館6階の模擬店エリアをそのまま使う
+    // ============================================================
+
+    if (
+        currentFile === "test.png"
+    ) {
+
+        selectedBuilding = "S";
+
+        selectedFloor = "6";
+
+    }
 
 
     if (
@@ -2998,8 +2125,6 @@ function goToStallMap() {
 
     ++mapChangeId;
 
-    clearMarker();
-
     clearClassroomAreas();
 
     map.src = "test.png";
@@ -3113,17 +2238,6 @@ window.addEventListener(
 
 
         createClassroomAreas();
-
-
-        if (
-            currentPlace
-        ) {
-
-            showMarker(
-                currentPlace
-            );
-
-        }
 
     }
 );
