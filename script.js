@@ -1167,7 +1167,7 @@ const festivalInfo = {
 
     "wbasket": {
         title: "女子バスケットボール部 模擬店 チュロス",
-        image: "festival5/wbasket.png",
+        image: "festival5/wbasket.jpeg",
         description: "甘くておいしいチュロスとキンキンのジュースをかわいい女バス達が売るのでぜひ来てね__"
     },
 
