@@ -1071,7 +1071,7 @@ const festivalInfo = {
 
     "38p": {
         title: "国際教育推進委員会 展示 オーストラリア異文化体験",
-        image: "festival6/4展示-国際教育.jpg",
+        image: "festival7/4展示-国際教育.jpeg",
         description: "オーストラリア　メルボルンにある姉妹校で体験した内容を発表します。"
     },
 
