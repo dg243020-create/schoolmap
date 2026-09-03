@@ -557,7 +557,7 @@ const classroomAreas = {
     "bado": {
         building: "S",
         floor: "6",
-        x: 2501,
+        x: 2051,
         y: 1259,
         width: 141,
         height: 145
@@ -1167,7 +1167,7 @@ const festivalInfo = {
 
     "wbasket": {
         title: "女子バスケットボール部 模擬店 チュロス",
-        image: "festival5/mbare.png",
+        image: "festival5/wbasket.png",
         description: "甘くておいしいチュロスとキンキンのジュースをかわいい女バス達が売るのでぜひ来てね__"
     },
 
