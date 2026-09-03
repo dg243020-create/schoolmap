@@ -539,8 +539,8 @@ const classroomAreas = {
     "312s": {
         building: "S",
         floor: "6",
-        x: 642,
-        y: 884,
+        x: 1331,
+        y: 1835,
         width: 141,
         height: 145
     },
@@ -557,8 +557,8 @@ const classroomAreas = {
     "bado": {
         building: "S",
         floor: "6",
-        x: 992,
-        y: 602,
+        x: 2501,
+        y: 1259,
         width: 141,
         height: 145
     },
