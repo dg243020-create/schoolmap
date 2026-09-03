@@ -449,8 +449,8 @@ const classroomAreas = {
     "37s": {
         building: "S",
         floor: "6",
-        x: 192,
-        y: 658,
+        x: 395,
+        y: 1367,
         width: 141,
         height: 145
     },
