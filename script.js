@@ -1137,7 +1137,7 @@ const festivalInfo = {
 
     "bado": {
         title: "バドミントン部 模擬店 バド部のかき氷",
-        image: "festival6/bado.png",
+        image: "festival5/bado.png",
         description: "今年もかき氷作ります！！"
     },
 
