@@ -945,15 +945,15 @@ const festivalInfo = {
     },
 
     "28": {
-        title: "2-8 パフォーマンス 川口と愉快な仲間たち",
-        image: "festival3/2パ-208.png",
-        description: "全力パフォーマンスで最高の舞台を届けます！"
+        title: "2-3 体験 トモニ、全集中！",
+        image: "festival6/5体験-203.png",
+        description: "見えない相手に全集中！トモニ笑って楽しめる、最高の思い出を作ろう！"
     },
 
     "29": {
-        title: "2-9 パフォーマンス 9組と夏フェス",
-        image: "festival2/2パ-209.jpg",
-        description: "この夏1番熱いステージ！元気と勢いで会場を沸かせます！"
+        title: "1-5 体験 縁日",
+        image: "festival4/5体験-105.png",
+        description: "1年5組がお届けする、夏祭り気分満点の縁日です。"
     },
 
     "210": {
@@ -975,9 +975,9 @@ const festivalInfo = {
     },
 
     "213": {
-        title: "2-13 パフォーマンス urabemax",
-        image: "festival2/2パ-213.jpg",
-        description: "2年13組38人の個性全開で頑張ります！"
+        title: "2-1 展示 Save Our Blue ～私たちがつなぐ、未来の海～",
+        image: "festival3/4展示-201.png",
+        description: "海の生き物たちをテーマにした幻想的な空間で、ゴミのないきれいな海の中を散歩しているような体験が楽しめます。"
     },
 
     "214": {
@@ -1046,9 +1046,9 @@ const festivalInfo = {
     },
 
     "36e": {
-        title: "3-6 演劇 3-6STORY",
-        image: "festival3/1演-306.png",
-        description: "3年6組37名が全力でおもちゃを演じます。ぜひ見に来てください。"
+        title: "1-1 体験 怪力乱心！！ゴーストバスターズ",
+        image: "festival6/5体験-101.png",
+        description: "12人全員で全力で取り組みました。お化けの世界へようこそ！"
     },
     
     "36s": {
@@ -1058,9 +1058,9 @@ const festivalInfo = {
     },  
 
     "37p": {
-        title: "3-7 パフォーマンス ３－７ LiveLive",
-        image: "festival2/2パ-307.jpg",
-        description: "ユニットに分かれて全て違う系統のステージを届けます！ぜひ楽しんで見てくださいね^_^"
+        title: "1-2 体験 はなひらり、ちょうひらり",
+        image: "festival4/5体験-102.png",
+        description: "咲き誇る色とりどりの花々と、可憐に舞う蝶たち——。 一歩踏み入れれば、そこはまるで絵本の中に迷い込んだような幻想的な世界。 今日という日を彩る、あなただけの“とっておきの1枚”を残しにきませんか？"
     },
 
     "37s": {
@@ -1070,9 +1070,9 @@ const festivalInfo = {
     },
 
     "38p": {
-        title: "3-8 パフォーマンス 櫻井Family",
-        image: "festival2/2パ-308.jpg",
-        description: "みんなの心に残る最高のダンスをします。観に来てください。"
+        title: "国際教育推進委員会 展示 オーストラリア異文化体験",
+        image: "festival6/4展示-国際教育.jpg",
+        description: "オーストラリア　メルボルンにある姉妹校で体験した内容を発表します。"
     },
 
     "38s": {
@@ -1082,9 +1082,9 @@ const festivalInfo = {
     },
 
     "39p": {
-        title: "3-9 パフォーマンス タピオカ帝国",
-        image: "festival2/2パ-309.png",
-        description: "あのタピオカ帝国が帰ってくる。坊主（タピオカ）とミルクティー（女子）の調和をご覧あれ！！"
+        title: "1-3 体験 ちいかわたちの日常",
+        image: "festival4/5体験-103.jpg",
+        description: "友だちと一緒にちいかわの世界を楽しみながら最高の１枚を撮ろう！"
     },
 
     "39s": {
@@ -1094,9 +1094,9 @@ const festivalInfo = {
     },
 
     "310p": {
-        title: "3-10 パフォーマンス 3年10組のたこ焼き",
-        image: "festival2/2パ-310.jpg",
-        description: "魂込めて踊ります。"
+        title: "2-4 体験 Have a nice 縁日！！",
+        image: "festival/5体験-204.png",
+        description: "世界一、友達と楽しめる縁日です！子どもの頃の無邪気な自分を思い出そう！"
     },
 
     "310s": {
@@ -1106,9 +1106,9 @@ const festivalInfo = {
     },
 
     "311p": {
-        title: "3-11 パフォーマンス まさオンズとゆかいな仲間たち",
-        image: "festival2/2パ-311.png",
-        description: "まさオンズとゆかいな仲間たちのおもろいダンスをご覧あれ！！"
+        title: "1-4 体験 人力マリオカート",
+        image: "festival4/5体験-104.jpg",
+        description: "自分の脚で自分の限界にチャレンジしよう！"
     },
 
     "311s": {
@@ -1118,9 +1118,9 @@ const festivalInfo = {
     },
 
     "312p": {
-        title: "3-12 パフォーマンス Final Stage～商業科の軌跡～",
-        image: "festival2/2パ-312.png",
-        description: "3年間のダンスの集大成__焼き鳥も買ってね！"
+        title: "3-2 体験 文系が作った単純なフォトスポット",
+        image: "festival3/5体験-302.jpg",
+        description: "文系が夏をイメージして作りました。"
     },
 
     "312s": {
