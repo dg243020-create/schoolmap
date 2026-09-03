@@ -1131,25 +1131,25 @@ const festivalInfo = {
 
     "dance": {
         title: "ダンス部 模擬店 CUTIE DANCERS",
-        image: "festival5/7模擬店-ダンス部.png",
+        image: "festival5/dance.png",
         description: "可愛いだけじゃだめなので、キンキンに冷えたジュース売ってます！！"
     },
 
     "bado": {
         title: "バドミントン部 模擬店 バド部のかき氷",
-        image: "festival6/7模擬店-バドミントン.png",
+        image: "festival6/bado.png",
         description: "今年もかき氷作ります！！"
     },
 
     "hand": {
         title: "ハンドボール部 模擬店 HAN-DOG",
-        image: "festival5/7模擬店-ハンドボール部.png",
+        image: "festival5/hand.png",
         description: "ハンド部の本気。今日はホットドッグに込めました。"
     },
 
     "ragubi": {
         title: "ラグビー部 模擬店 ジャッカルチキン",
-        image: "festival5/7模擬店-ラグビー部.jpg",
+        image: "festival5/ragubi.jpeg",
         description: "「ラグビー部特製！アツアツジューシーな唐揚げを食べてください！」"
     },    
 
@@ -1167,7 +1167,7 @@ const festivalInfo = {
 
     "wbasket": {
         title: "女子バスケットボール部 模擬店 チュロス",
-        image: "festival5/7模擬店-女子バスケ部.jpg",
+        image: "festival5/mbare.png",
         description: "甘くておいしいチュロスとキンキンのジュースをかわいい女バス達が売るのでぜひ来てね__"
     },
 
@@ -1191,13 +1191,13 @@ const festivalInfo = {
     
     "mbasket": {
         title: "男子バスケットボール部 模擬店 水餃子【panthers】",
-        image: "festival5/7模擬店-男子バスケットボール部.png",
+        image: "festival5/mbasket.png",
         description: "大商男バス名物水餃子！美味しいよ！！"
     },
 
     "mbare": {
         title: "男子バレーボール部 模擬店 元祖 泉屋",
-        image: "festival5/7模擬店-男子バレーボール部.png",
+        image: "festival5/mbare.png",
         description: "安くてうまい！最高の家庭の味を提供します！"
     },
 
