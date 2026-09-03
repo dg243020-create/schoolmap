@@ -1053,7 +1053,7 @@ const festivalInfo = {
     
     "36s": {
         title: "3-6 模擬店 クルンジ",
-        image: "festival3/1-1.jpg",
+        image: "festival3/7模擬店-306.jpg",
         description: "クロワッサンをカリカリに焼き上げた、韓国発祥のスイーツです"
     },  
 
@@ -1131,7 +1131,7 @@ const festivalInfo = {
 
     "dance": {
         title: "ダンス部 模擬店 CUTIE DANCERS",
-        image: "festival6/7模擬店-ダンス部.png",
+        image: "festival5/7模擬店-ダンス部.png",
         description: "可愛いだけじゃだめなので、キンキンに冷えたジュース売ってます！！"
     },
 
@@ -1143,19 +1143,19 @@ const festivalInfo = {
 
     "hand": {
         title: "ハンドボール部 模擬店 HAN-DOG",
-        image: "festival6/7模擬店-ハンドボール部.png",
+        image: "festival5/7模擬店-ハンドボール部.png",
         description: "ハンド部の本気。今日はホットドッグに込めました。"
     },
 
     "ragubi": {
         title: "ラグビー部 模擬店 ジャッカルチキン",
-        image: "festival6/7模擬店-ラグビー部.jpg",
+        image: "festival5/7模擬店-ラグビー部.jpg",
         description: "「ラグビー部特製！アツアツジューシーな唐揚げを食べてください！」"
     },    
 
     "kendo": {
         title: "剣道部 模擬店 イカ焼き",
-        image: "festival6/剣道部.jpg",
+        image: "festival5/剣道部.jpg",
         description: "剣道部が愛情込めて焼くイカ焼きはどの食べ物よりもおいしいです。食べて後悔はないのでぜひ食べに来てください！！"
     },
 
@@ -1167,37 +1167,37 @@ const festivalInfo = {
 
     "wbasket": {
         title: "女子バスケットボール部 模擬店 チュロス",
-        image: "festival6/7模擬店-女子バスケ部.jpg",
+        image: "festival5/7模擬店-女子バスケ部.jpg",
         description: "甘くておいしいチュロスとキンキンのジュースをかわいい女バス達が売るのでぜひ来てね__"
     },
 
     "information": {
         title: "情報処理研究部 模擬店 Cloud Cotton Candy",
-        image: "festival6/7模擬店-情報処理研究部.jpg",
+        image: "festival5/7模擬店-情報処理研究部.jpg",
         description: "ふわふわで甘い！特製わたあめ！文化祭で待ってます！"
     },
 
     "suisougaku": {
         title: "吹奏楽部 模擬店 ブラスバンドのスーパーボール",
-        image: "festival6/7模擬店-吹奏楽部.jpg",
+        image: "festival5/7模擬店-吹奏楽部.jpg",
         description: "特殊なボールもあります、ぜひきてください!!"
     },
 
     "mtennis": {
         title: "男子テニス部 模擬店 テニ貴族（大商本店）",
-        image: "festival6/7模擬店-男子テニス部.png",
+        image: "festival5/7模擬店-男子テニス部.png",
         description: "今年もやってきました！テニ貴族大商本店の出店です。　毎年売切れ御免の大人気焼き鳥！そして今年はあの大人気店長最後の出勤となります。みんなで店長の勇姿を見に来てください。"
     },
     
     "mbasket": {
         title: "男子バスケットボール部 模擬店 水餃子【panthers】",
-        image: "festival6/7模擬店-男子バスケットボール部.png",
+        image: "festival5/7模擬店-男子バスケットボール部.png",
         description: "大商男バス名物水餃子！美味しいよ！！"
     },
 
     "mbare": {
         title: "男子バレーボール部 模擬店 元祖 泉屋",
-        image: "festival6/7模擬店-男子バレーボール部.png",
+        image: "festival5/7模擬店-男子バレーボール部.png",
         description: "安くてうまい！最高の家庭の味を提供します！"
     },
 
@@ -1209,7 +1209,7 @@ const festivalInfo = {
 
     "ryouri": {
         title: "料理研究部 模擬店 大商マフィン",
-        image: "festival6/7模擬店-料理研究部.png",
+        image: "festival5/7模擬店-料理研究部.png",
         description: "とっても美味な焼き立てマフィンを販売します(^^)"
     },
 
