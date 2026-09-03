@@ -15,7 +15,7 @@
 
 const floors = {
 
-    AB: 6
+    AB: 5
 
 };
 
@@ -1619,11 +1619,23 @@ floor.addEventListener(
 // ============================================================
 // 地図ファイル名を取得
 // ============================================================
-
 function getMapFile(
     selectedBuilding,
     selectedFloor
 ) {
+
+    const floorNum =
+        Number(selectedFloor);
+
+    // AB館の3・4・5階だけ FAB◯F.png を使う
+    if (
+        selectedBuilding === "AB" &&
+        (floorNum === 3 || floorNum === 4 || floorNum === 5)
+    ) {
+
+        return "FAB" + selectedFloor + "F.png";
+
+    }
 
     return (
         selectedBuilding +
@@ -1632,9 +1644,6 @@ function getMapFile(
     );
 
 }
-
-
-
 // ============================================================
 // 地図を変更
 // ============================================================
