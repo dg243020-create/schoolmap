@@ -302,7 +302,7 @@ const classroomAreas = {
         width: 348,
         height: 400
     },
-
+/*
     "212": {
         building: "AB",
         floor: "4",
@@ -311,7 +311,7 @@ const classroomAreas = {
         width: 348,
         height: 400
     },
-
+*/
     "213": {
         building: "AB",
         floor: "4",
