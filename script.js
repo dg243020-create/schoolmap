@@ -765,7 +765,7 @@ const classroomAreas = {
 
     "TCG": {
         building: "FAB",
-        floor: "3",
+        floor: "4",
         x: 433,
         y: 433,
         width: 288,
@@ -1242,9 +1242,6 @@ const festivalInfo = {
         image: "festival7/4展示-写真部.png",
         description: "ファインダーが見た世界と、僕らの心が「共鳴」した瞬間をお届け。"
     },   
-
-
-
 
     "shodou": {
         title: "書道部　展示　書道部",
