@@ -672,7 +672,7 @@ const classroomAreas = {
     },
 
     "ESS": {
-        building: "FAB",
+        building: "AB",
         floor: "3",
         x: 2233,
         y: 1156,
@@ -682,7 +682,7 @@ const classroomAreas = {
 
 
     "kokusai": {
-        building: "FAB",
+        building: "AB",
         floor: "3",
         x: 1873,
         y: 652,
@@ -692,7 +692,7 @@ const classroomAreas = {
 
 
     "science": {
-        building: "FAB",
+        building: "AB",
         floor: "3",
         x: 1081,
         y: 1006,
@@ -701,7 +701,7 @@ const classroomAreas = {
     },
 
     "photo": {
-        building: "FAB",
+        building: "AB",
         floor: "3",
         x: 2521,
         y: 1156,
@@ -710,7 +710,7 @@ const classroomAreas = {
  },
 
     "housou": {
-        building: "FAB",
+        building: "AB",
         floor: "3",
         x: 2727,
         y: 1156,
@@ -719,7 +719,7 @@ const classroomAreas = {
  },
 
     "shodou": {
-        building: "FAB",
+        building: "AB",
         floor: "3",
         x: 1804,
         y: 1156,
@@ -728,7 +728,7 @@ const classroomAreas = {
     },
 
     "information2": {
-        building: "FAB",
+        building: "AB",
         floor: "4",
         x: 4,
         y: 796,
@@ -737,7 +737,7 @@ const classroomAreas = {
     },
 
     "tosho": {
-        building: "FAB",
+        building: "AB",
         floor: "3",
         x: 433,
         y: 721,
@@ -746,7 +746,7 @@ const classroomAreas = {
     },
 
     "bijutu": {
-        building: "FAB",
+        building: "AB",
         floor: "3",
         x: 2015,
         y: 1156,
@@ -755,7 +755,7 @@ const classroomAreas = {
     },
 
     "manken": {
-        building: "FAB",
+        building: "AB",
         floor: "4",
         x: 10,
         y: 1015,
@@ -764,7 +764,7 @@ const classroomAreas = {
     },
 
     "TCG": {
-        building: "FAB",
+        building: "AB",
         floor: "4",
         x: 433,
         y: 433,
@@ -967,13 +967,13 @@ const festivalInfo = {
         image: "festival/5体験-211.png",
         description: "ディズニーハロウィンをテーマにしたフォトスポットです。他のフォトスポットとは違う内容をお楽しみください。"
     },
-
+/*
     "212": {
         title: '2-12 パフォーマンス "D"スデ～皆にんきもの～',
         image: "festival2/2パ-212.jpg",
         description: "人気曲が続々登場！普段と違う姿にもご注目ください！"
     },
-
+*/
     "213": {
         title: "2-1 展示 Save Our Blue ～私たちがつなぐ、未来の海～",
         image: "festival3/4展示-201.png",
