@@ -411,11 +411,11 @@ const classroomAreas = {
 
     "35": {
         building: "AB",
-        floor: "3",
-        x: 1,
-        y: 2,
-        width: 348,
-        height: 400
+        floor: "2",
+        x: 1154,
+        y: 646,
+        width: 293,
+        height: 500
     },
 
     "36e": {
