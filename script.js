@@ -693,7 +693,7 @@ const classroomAreas = {
 
     "science": {
         building: "AB",
-        floor: "3",
+        floor: "4",
         x: 1081,
         y: 1006,
         width: 432,
@@ -1215,7 +1215,7 @@ const festivalInfo = {
 
     "housou": {
         title: "放送部　校内装飾 テーマソングメドレー",
-        image: "festival6/3校内-放送部.png",
+        image: "festival7/housou.png",
         description: "放送室から各クラスのテーマソングをメドレーにしてお届けします"
     },
 
