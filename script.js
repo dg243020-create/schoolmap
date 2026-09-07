@@ -620,10 +620,10 @@ const classroomAreas = {
     "suisougaku": {
         building: "S",
         floor: "6",
-        x: 576,
-        y: 1692,
-        width: 108,
-        height: 288
+        x: 792,
+        y: 1872,
+        width: 288,
+        height: 144
     },
 
     "mtennis": {
