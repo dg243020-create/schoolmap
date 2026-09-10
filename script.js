@@ -674,10 +674,10 @@ const classroomAreas = {
     "ESS": {
         building: "AB",
         floor: "3",
-        x: 2233,
+        x: 2736,
         y: 1156,
-        width: 291,
-        height: 213
+        width: 216,
+        height: 68
     },
 
 
@@ -709,19 +709,28 @@ const classroomAreas = {
         height: 210   
  },
 
-    "housou": {
+"photo": {
+    building: "AB",
+    floor: "3",
+    x: 2664,
+    y: 1152,
+    width: 143,
+    height: 71
+},
+
+    "shodou2": {
         building: "AB",
         floor: "3",
-        x: 2727,
+        x: 1800,
         y: 1156,
-        width: 216,
-        height: 210   
- },
+        width: 252,
+        height: 210
+    },
 
     "shodou": {
         building: "AB",
         floor: "3",
-        x: 1804,
+        x: 2052,
         y: 1156,
         width: 216,
         height: 210
@@ -739,16 +748,25 @@ const classroomAreas = {
     "tosho": {
         building: "AB",
         floor: "3",
-        x: 433,
-        y: 721,
-        width: 288,
-        height: 288
+        x: 2736,
+        y: 1224,
+        width: 216,
+        height: 142
+    },
+
+    "bijutu2": {
+        building: "AB",
+        floor: "3",
+        x: 2268,
+        y: 1156,
+        width: 252,
+        height: 210
     },
 
     "bijutu": {
         building: "AB",
         floor: "3",
-        x: 2015,
+        x: 2520,
         y: 1156,
         width: 216,
         height: 210
