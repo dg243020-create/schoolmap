@@ -674,7 +674,7 @@ const classroomAreas = {
     "ESS": {
         building: "AB",
         floor: "3",
-        x: 2772,
+        x: 2808,
         y: 1156,
         width: 143,
         height: 68
