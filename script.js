@@ -676,7 +676,7 @@ const classroomAreas = {
         floor: "3",
         x: 2736,
         y: 1156,
-        width: 216,
+        width: 143,
         height: 68
     },
 
@@ -699,15 +699,6 @@ const classroomAreas = {
         width: 432,
         height: 147
     },
-
-    "photo": {
-        building: "AB",
-        floor: "3",
-        x: 2521,
-        y: 1156,
-        width: 216,
-        height: 210   
- },
 
 "photo": {
     building: "AB",
@@ -1269,7 +1260,7 @@ const festivalInfo = {
 
     "shodou2": {
         title: "書道　展示　書道授業作品",
-        image: "festival6/4展示-書道授業作品.jpg",
+        image: "festival7/4展示-書道授業作品.jpg",
         description: "書道選択者の授業作品を展示いたします。多彩な書表現をお楽しみください！"
     },
 
